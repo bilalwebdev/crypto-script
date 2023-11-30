@@ -1,0 +1,86 @@
+{
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.3|^8.0",
+        "bacon/bacon-qr-code": "^2.0",
+        "coinpaymentsnet/coinpayments-php": "^1.4",
+        "doocacommerce/paghiper-php-sdk": "^1.2",
+        "fruitcake/laravel-cors": "^2.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "intervention/image": "^2.7",
+        "jorenvanhocht/laravel-share": "^4.2",
+        "laravel/framework": "^8.75",
+        "laravel/sanctum": "^2.11",
+        "laravel/socialite": "^5.6",
+        "laravel/tinker": "^2.5",
+        "mercadopago/dx-php": "^2.5",
+        "mews/purifier": "^3.3",
+        "mollie/laravel-mollie": "^2.20",
+        "nexmo/client": "^2.4",
+        "nowpayments/nowpayments-api-php": "dev-main",
+        "paypal/rest-api-sdk-php": "^1.14",
+        "pragmarx/google2fa-laravel": "^2.1",
+        "sinergi/browser-detector": "^6.1",
+        "spatie/laravel-cookie-consent": "^2.12",
+        "spatie/laravel-permission": "^5.9",
+        "stevebauman/location": "^6.6",
+        "stripe/stripe-php": "^10.11",
+        "victorybiz/laravel-crypto-payment-gateway": "^1.2"
+    },
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "laravel/sail": "^1.0.1",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^5.10",
+        "phpunit/phpunit": "^9.5.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        },
+        "classmap": [
+            "app/Helpers/Helper.php",
+            "app/Utility/FormBuilder.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
