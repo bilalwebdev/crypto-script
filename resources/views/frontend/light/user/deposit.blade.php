@@ -15,8 +15,10 @@
                             <label for="">ACCOUNT NUMBER</label>
                             <select id="account_number" class="form-control">
                                 <option value="0"></option>
-                                @foreach($accounts as $item)
-                                    <option data-currency="{{$item->currency}}" data-login="{{$item->login}}" value="{{$item->id}}">{{$item->login}} {{$item->account_type=='4'?'(DEMO)':''}}</option>
+                                @foreach ($accounts as $item)
+                                    <option data-currency="{{ $item->currency }}" data-login="{{ $item->login }}"
+                                        value="{{ $item->id }}">{{ $item->login }}
+                                        {{ $item->account_type == '4' ? '(DEMO)' : '' }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -24,7 +26,9 @@
                         <div class="form-group mb-3">
                             <label for="">PAYMENT METHOD</label>
                             <select class="form-control">
-
+                                @foreach ($payment_methods as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -32,7 +36,8 @@
                             <label for="">AMOUNT</label>
                             <input type="text" class="form-control" required placeholder="Amount in USD">
                         </div>
-                        <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-dollar-sign" aria-hidden="true"></i>&nbsp;Deposit Funds</button>
+                        <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-dollar-sign"
+                                aria-hidden="true"></i>&nbsp;Deposit Funds</button>
                     </form>
                 </div>
             </div>
@@ -67,8 +72,8 @@
                         <label>Available fund</label>
                         <span class="account-item-pin green"> </span>
                         <span class="balance">0 </span> <span class="currency"></span>
-                        <span class="loading" style="display:none"><img src="{{ Config::getFile('icon','loading.gif', true) }}"
-                                width="27px"></span>
+                        <span class="loading" style="display:none"><img
+                                src="{{ Config::getFile('icon', 'loading.gif', true) }}" width="27px"></span>
                     </div>
 
 
@@ -76,8 +81,8 @@
                         <label>Total Profit</label>
                         <span class="account-item-pin yellow"> </span>
                         <span class="profit">0 </span> <span class="currency"></span>
-                        <span class="loading" style="display:none"><img src="{{ Config::getFile('icon','loading.gif', true) }}"
-                                width="27px"></span>
+                        <span class="loading" style="display:none"><img
+                                src="{{ Config::getFile('icon', 'loading.gif', true) }}" width="27px"></span>
                     </div>
 
 
@@ -85,8 +90,8 @@
                         <label>Floating P/L</label>
                         <span class="account-item-pin purple"> </span>
                         <span class="floating">0 </span> <span class="currency"></span>
-                        <span class="loading" style="display:none"><img src="{{ Config::getFile('icon','loading.gif', true) }}"
-                                width="27px"></span>
+                        <span class="loading" style="display:none"><img
+                                src="{{ Config::getFile('icon', 'loading.gif', true) }}" width="27px"></span>
                     </div>
 
 
@@ -95,8 +100,8 @@
                         <label>Free Margin</label>
                         <span class="account-item-pin yellow"> </span>
                         <span class="margin">0 </span> <span class="currency"></span>
-                        <span class="loading" style="display:none"><img src="{{ Config::getFile('icon','loading.gif', true) }}"
-                                width="27px"></span>
+                        <span class="loading" style="display:none"><img
+                                src="{{ Config::getFile('icon', 'loading.gif', true) }}" width="27px"></span>
                     </div>
 
 
@@ -104,8 +109,8 @@
                         <label>Equity</label>
                         <span class="account-item-pin red"> </span>
                         <span class="equity">0 </span> <span class="currency"></span>
-                        <span class="loading" style="display:none"><img src="{{ Config::getFile('icon','loading.gif', true) }}"
-                                width="27px"></span>
+                        <span class="loading" style="display:none"><img
+                                src="{{ Config::getFile('icon', 'loading.gif', true) }}" width="27px"></span>
                     </div>
                 </div>
             </div>
@@ -129,9 +134,9 @@
                 var selectedValue = $(this).val();
                 var selectedOption = $(this).find('option:selected');
                 var login = selectedOption.data('login');
-                
 
-               
+
+
                 $('#accountnoselected').hide();
                 $('.account-item-value').find('.balance').html(0);
                 $('.account-item-value').find('.profit').html(0);
@@ -139,7 +144,7 @@
                 $('.account-item-value').find('.margin').html(0);
                 $('.account-item-value').find('.equity').html(0);
 
-                if(selectedValue == 0){
+                if (selectedValue == 0) {
                     $('.account_default_text').show();
                     $('.account-item-value').find('.loading').hide();
                     return false;
@@ -160,11 +165,16 @@
                     },
                     success: function(response) {
                         $('.account-item-value').find('.loading').hide();
-                        $('.account-item-value').find('.balance').html(currency+' '+response.balance);
-                        $('.account-item-value').find('.profit').html(currency+' '+response.profit);
-                        $('.account-item-value').find('.floating').html(currency+' '+response.floating);
-                        $('.account-item-value').find('.margin').html(currency+' '+response.margin);
-                        $('.account-item-value').find('.equity').html(currency+' '+response.equity);
+                        $('.account-item-value').find('.balance').html(currency + ' ' + response
+                            .balance);
+                        $('.account-item-value').find('.profit').html(currency + ' ' + response
+                            .profit);
+                        $('.account-item-value').find('.floating').html(currency + ' ' +
+                            response.floating);
+                        $('.account-item-value').find('.margin').html(currency + ' ' + response
+                            .margin);
+                        $('.account-item-value').find('.equity').html(currency + ' ' + response
+                            .equity);
                     },
                     error: function(error) {
                         console.error(error);

@@ -13,7 +13,7 @@
                     <div class="col-xl-4 col-12">
                         <div class="d-card">
                             <div>
-                                <h5 style="white-space: nowrap">{{ __('Start trading with ---') }}</h5>
+                                <h5>{{ __('Start trading with ---') }}</h5>
                                 <div class="text-center">
                                     <a class="btn sp_theme_btn btn-sm text-uppercase mt-4 w-100"
                                         href="{{ route('user.open-account') }}">{{ __('Open Live Account!') }}</a>
@@ -24,7 +24,7 @@
                     <div class="col-xl-4 col-12">
                         <div class="d-card">
                             <div>
-                                <h5 style="white-space: nowrap">{{ __('Top up your trading accounts now') }}</h5>
+                                <h5>{{ __('Top up your trading accounts now') }}</h5>
                                 <div class="text-center">
                                     <a class="btn sp_theme_btn btn-sm text-uppercase mt-4 w-100"
                                         href="{{ route('user.deposit') }}">{{ __('Fund Your Account!') }}</a>
@@ -36,7 +36,7 @@
                         <div class="d-card">
                             <div>
                                 <h5>{{ __('Try us with our Demo Account!') }}</h5>
-                                
+
                                 <div class="text-center">
                                     <a class="btn sp_theme_btn btn-sm text-uppercase mt-4 btn-block w-100" href="{{ route('user.open-account') }}?acc=demoacc">{{ __('Open Demo Account!') }}</a>
                                 </div>
@@ -77,26 +77,27 @@
                                         @foreach ($liveAccounts as $item)
                                             <tr>
                                                 <td>
-                                                    <span class="tdStyle"><b>{{ $item->login }}</b></span>
+                                                    <span class="tdStyle"><b>{{ $item['login'] }}</b></span>
                                                 </td>
                                                 <td>
                                                     <span class="tdStyle">
-                                                        @if ($item->account_type == 1)
+                                                        @if ($item['account_type'] == 1)
                                                             Standard
-                                                        @elseif($item->account_type == 2)
+                                                        @elseif($item['account_type'] == 2)
                                                             Premium
-                                                        @elseif($item->account_type == 3)
+                                                        @elseif($item['account_type'] == 3)
                                                             VIP
                                                         @else
+                                                            Demo
                                                         @endif
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <span class="tdStyle text-uppercase">{{ $item->currency }}</span>
+                                                    <span class="tdStyle text-uppercase">{{ $item['currency'] }}</span>
                                                 </td>
                                                 <td>
-                                                    <span class="tdStyle border-0"><b>{{ $item->balance }} <span
-                                                                class="text-uppercase">{{ $item->currency }}</span></b></span>
+                                                    <span class="tdStyle border-0"><b>{{ $item['balance'] }} <span
+                                                                class="text-uppercase">{{ $item['currency'] }}</span></b></span>
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('user.deposit') }}"
@@ -115,7 +116,7 @@
             </div>
         @endif
 
-        @if ($demoAccounts)
+        {{-- @if ($demoAccounts)
             <div class="col-xxl-12 col-xl-12">
                 <div class="col-md-12 mt-2">
                     <div class="sp_site_card">
@@ -167,7 +168,7 @@
                     </div>
                 </div>
             </div>
-        @endif
+        @endif --}}
 
 
 

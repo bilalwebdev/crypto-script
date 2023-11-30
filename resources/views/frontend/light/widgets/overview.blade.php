@@ -13,12 +13,10 @@
         <div class="map-dot dot-9"></div>
         <div class="map-dot dot-10"></div>
     </div>
-
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <h2 class="sp_theme_top_title">
-                    <?= Config::colorText(optional($content)->title, optional($content)->color_text_for_title) ?></h2>
+                <h2 class="sp_theme_top_title"><?= Config::colorText(optional($content)->title, optional($content)->color_text_for_title) ?></h2>
                 <p class="mb-lg-5 mb-4 mt-3">{{ Config::trans($content->description) }}</p>
                 <div class="sp_overview_wrapper">
                     <div class="row gy-4">
@@ -33,7 +31,7 @@
                                             <h4 class="sp_overview_amount">
                                                 {{ preg_replace('/[^a-zA-Z]+/', '', $item->content->counter) }}</h4>
                                         </div>
-                                        <p class="sp_overview_caption">{{ Config::trans($item->content->title) }}</p>
+                                        <p class="sp_overview_caption">{{ Config::trans($item->content->title) }}</p> 
                                     </div>
                                 </div>
                             </div>
