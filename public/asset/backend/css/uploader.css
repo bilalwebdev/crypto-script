@@ -1,0 +1,55 @@
+.image-preview,
+#callback-preview {
+    width: 250px;
+    height: 280px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    background-color: #fafafa;
+    color: #ecf0f1;
+    box-shadow: 0 10px 25px rgba(0,0,0, 0.1);
+}
+
+.image-preview input,
+#callback-preview input {
+    line-height: 200px;
+    font-size: 200px;
+    position: absolute;
+    opacity: 0;
+    z-index: 10;
+}
+
+.image-preview label,
+#callback-preview label {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: #bdc3c7;
+    width: 150px;
+    height: 50px;
+    font-size: 12px;
+    line-height: 50px;
+    text-transform: uppercase;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+
+.image-preview {
+    background: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+}
+
+.image-preview label,
+#callback-preview label {
+    top: 200px;
+    opacity: 1;
+    background-color: var(--primary);
+    width: 100%;
+}

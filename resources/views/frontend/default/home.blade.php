@@ -2,6 +2,6 @@
 
 @section('content')
     @foreach ($page->widgets as $section)
-        <?= Section::render($section->sections) ?>
+       <?= Section::render($section->sections) ?>
     @endforeach
 @endsection

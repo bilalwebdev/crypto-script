@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper\Helper;
 use App\Http\Requests\UserProfile;
+use App\Models\Gateway;
 use App\Models\User;
 use App\Services\UserDashboardService;
 use App\Services\UserProfileService;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     protected $profile, $dashboard;
-   
+
 
 
     public function __construct(UserProfileService $profile, UserDashboardService $dashboard)
@@ -37,7 +38,7 @@ class UserController extends Controller
         $data['title'] = "Open Account";
 
         $data['isDemo'] = false;
-        if($request->acc=='demoacc'){
+        if ($request->acc == 'demoacc') {
             $data['isDemo'] = true;
         }
 
@@ -49,14 +50,16 @@ class UserController extends Controller
         $user = auth()->user();
         $data['accounts'] = $user->accounts;
         $data['title'] = "Deposit";
+        $data['payment_methods'] = Gateway::where('status', 1)->get();
 
         return view(Helper::theme() . 'user.deposit')->with($data);
     }
 
-    public function getAccount(Request $request){
-        
+    public function getAccount(Request $request)
+    {
 
-        if($request->login){
+
+        if ($request->login) {
             return $this->dashboard->getAccount($request->login);
         }
     }

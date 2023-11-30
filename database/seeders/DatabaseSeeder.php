@@ -14,11 +14,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            AdminSeeder::class,
-            ConfigurationSeeder::class,
-            GatewaySeeder::class,
-            WithdrawGatewaySeeder::class,
-            RolePermission::class,
+            // AdminSeeder::class,
+            // ConfigurationSeeder::class,
+            // GatewaySeeder::class,
+            // WithdrawGatewaySeeder::class,
+            // RolePermission::class,
             EmailTemplateSeeder::class
         ]);
     }
