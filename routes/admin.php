@@ -24,6 +24,7 @@ use App\Http\Controllers\Backend\{
     MarketController,
     PagesController,
     PaymentController,
+    PaymentMethodController,
     PlanController,
     ReferralController,
     RoleController,
@@ -88,7 +89,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('markets', MarketController::class);
             Route::post('markets/changeStatus/{id}', [MarketController::class, 'changeStatus'])->name('markets.changestatus');
 
-
+            
             Route::resource('frames', SignalTimeFrameController::class);
             Route::post('frames/changeStatus/{id}', [SignalTimeFrameController::class, 'changeStatus'])->name('frames.changestatus');
 
@@ -124,6 +125,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('login/user/{id}', [ManageUserController::class, 'loginAsUser'])->name('login');
         });
         // End User
+
+        //payment method
+
+        Route::middleware('permission:manage-payment-method,admin')->group(function () {
+
+            Route::resource('payment-methods', PaymentMethodController::class);
+            Route::post('payment-method/changeStatus/{id}', [PaymentMethodController::class, 'changeStatus'])->name('payment-method.changestatus');
+        });
+
+
 
 
         // General Settings
@@ -167,17 +178,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
 
-        Route::middleware('permission:manage-gateway,admin')->prefix('gateway')->name('payment.')->group(function () {
-            Route::get('online', [ManageGatewayController::class, 'online'])->name('index');
-            Route::get('offline', [ManageGatewayController::class, 'offline'])->name('offline');
-            Route::get('/{name}', [ManageGatewayController::class, 'loadView'])->name('gateway');
-            Route::post('status/{id}', [ManageGatewayController::class, 'status'])->name('status');
-            Route::post('update/online/{id}', [ManageGatewayController::class, 'updateOnlinePaymentGateway'])->name('update.online');
-            Route::post('gourl', [ManageGatewayController::class, 'gourlUpdate'])->name('update.gourl');
-            Route::get('offline-gateway/create', [ManageGatewayController::class, 'offlineCreate'])->name('offline.create');
-            Route::post('offline-gateway/create', [ManageGatewayController::class, 'offlineStore']);
-            Route::get('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineEdit'])->name('offline.edit');
-            Route::post('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineUpdate']);
+        Route::middleware('permission:manage-gateway,admin')->prefix('gateway')->name('payment-method.')->group(function () {
+            // Route::get('online', [ManageGatewayController::class, 'online'])->name('index');
+            // Route::get('offline', [ManageGatewayController::class, 'offline'])->name('offline');
+            // Route::get('/{name}', [ManageGatewayController::class, 'loadView'])->name('gateway');
+            // Route::post('status/{id}', [ManageGatewayController::class, 'status'])->name('status');
+            // Route::post('update/online/{id}', [ManageGatewayController::class, 'updateOnlinePaymentGateway'])->name('update.online');
+            // Route::post('gourl', [ManageGatewayController::class, 'gourlUpdate'])->name('update.gourl');
+            // Route::get('offline-gateway/create', [ManageGatewayController::class, 'offlineCreate'])->name('offline.create');
+            // Route::post('offline-gateway/create', [ManageGatewayController::class, 'offlineStore']);
+            // Route::get('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineEdit'])->name('offline.edit');
+            // Route::post('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineUpdate']);
+
         });
 
 

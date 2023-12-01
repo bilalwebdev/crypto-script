@@ -107,14 +107,14 @@
 
 
             @if (auth()->guard('admin')->user()->can('manage-gateway'))
-                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="tool"></i><span
-                            class="nav-text">{{ __('Payment Gateways') }}</span></a>
+                <li><a class="has-arrow" href="{{ route('admin.payment-method.index') }}" aria-expanded="false"><i data-feather="tool"></i><span
+                            class="nav-text">{{ __('Payment Methods') }}</span></a>
                     <ul aria-expanded="false">
 
-                        <li><a href="{{ route('admin.payment.index') }}">{{ __('Online Gateway') }}</a>
+                        {{-- <li><a href="{{ route('admin.payment.index') }}">{{ __('Online Gateway') }}</a>
                         </li>
                         <li><a href="{{ route('admin.payment.offline') }}">{{ __('Offline Gateway') }}</a>
-                        </li>
+                        </li> --}}
 
                     </ul>
                 </li>
