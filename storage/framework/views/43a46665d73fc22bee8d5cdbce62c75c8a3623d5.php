@@ -1,6 +1,4 @@
-@extends(Config::theme() . 'layout.auth')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-sm-12 col-lg-4">
 
@@ -11,16 +9,17 @@
                 <div class="card-body">
 
                     <form action="create/deposit" method="post">
-                        @csrf
+                        <?php echo csrf_field(); ?>
                         <div class="form-group mb-3">
                             <label for="">ACCOUNT NUMBER</label>
                             <select id="account_number" class="form-control" name="login">
                                 <option value=""></option>
-                                @foreach ($accounts as $item)
-                                    <option data-currency="{{ $item->currency }}" data-login="{{ $item->login }}"
-                                        value="{{ $item->id }}">{{ $item->login }}
-                                        {{ $item->account_type == '4' ? '(DEMO)' : '' }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $accounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option data-currency="<?php echo e($item->currency); ?>" data-login="<?php echo e($item->login); ?>"
+                                        value="<?php echo e($item->id); ?>"><?php echo e($item->login); ?>
+
+                                        <?php echo e($item->account_type == '4' ? '(DEMO)' : ''); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
 
                         </div>
@@ -29,9 +28,9 @@
                             <label for="">PAYMENT METHOD</label>
                             <select class="form-control" name="payment_method_id">
                                 <option value=""></option>
-                                @foreach ($payment_methods as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $payment_methods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($item->id); ?>"><?php echo e($item->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
 
                         </div>
@@ -83,7 +82,7 @@
                         <span class="account-item-pin green"> </span>
                         <span class="balance">0 </span> <span class="currency"></span>
                         <span class="loading" style="display:none"><img
-                                src="{{ Config::getFile('icon', 'loading.gif', true) }}" width="27px"></span>
+                                src="<?php echo e(Config::getFile('icon', 'loading.gif', true)); ?>" width="27px"></span>
                     </div>
 
 
@@ -92,7 +91,7 @@
                         <span class="account-item-pin yellow"> </span>
                         <span class="profit">0 </span> <span class="currency"></span>
                         <span class="loading" style="display:none"><img
-                                src="{{ Config::getFile('icon', 'loading.gif', true) }}" width="27px"></span>
+                                src="<?php echo e(Config::getFile('icon', 'loading.gif', true)); ?>" width="27px"></span>
                     </div>
 
 
@@ -101,7 +100,7 @@
                         <span class="account-item-pin purple"> </span>
                         <span class="floating">0 </span> <span class="currency"></span>
                         <span class="loading" style="display:none"><img
-                                src="{{ Config::getFile('icon', 'loading.gif', true) }}" width="27px"></span>
+                                src="<?php echo e(Config::getFile('icon', 'loading.gif', true)); ?>" width="27px"></span>
                     </div>
 
 
@@ -111,7 +110,7 @@
                         <span class="account-item-pin yellow"> </span>
                         <span class="margin">0 </span> <span class="currency"></span>
                         <span class="loading" style="display:none"><img
-                                src="{{ Config::getFile('icon', 'loading.gif', true) }}" width="27px"></span>
+                                src="<?php echo e(Config::getFile('icon', 'loading.gif', true)); ?>" width="27px"></span>
                     </div>
 
 
@@ -120,7 +119,7 @@
                         <span class="account-item-pin red"> </span>
                         <span class="equity">0 </span> <span class="currency"></span>
                         <span class="loading" style="display:none"><img
-                                src="{{ Config::getFile('icon', 'loading.gif', true) }}" width="27px"></span>
+                                src="<?php echo e(Config::getFile('icon', 'loading.gif', true)); ?>" width="27px"></span>
                     </div>
                 </div>
             </div>
@@ -128,14 +127,14 @@
         </div>
 
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@push('external-css')
-    <link rel="stylesheet" href="{{ Config::cssLib('frontend', 'lib/apex.min.css') }}">
-@endpush
+<?php $__env->startPush('external-css'); ?>
+    <link rel="stylesheet" href="<?php echo e(Config::cssLib('frontend', 'lib/apex.min.css')); ?>">
+<?php $__env->stopPush(); ?>
 
-@push('script')
+<?php $__env->startPush('script'); ?>
     <script>
         $(function() {
             'use strict'
@@ -167,10 +166,10 @@
                 $('.account-item-value').find('.loading').show();
                 var currency = selectedOption.data('currency').toUpperCase();
                 $.ajax({
-                    url: '{{ route('user.getAccount') }}',
+                    url: '<?php echo e(route('user.getAccount')); ?>',
                     type: 'POST',
                     data: {
-                        _token: "{{ csrf_token() }}",
+                        _token: "<?php echo e(csrf_token()); ?>",
                         login: login,
                     },
                     success: function(response) {
@@ -205,4 +204,6 @@
             })
         })
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make(Config::theme() . 'layout.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\personal\crypto-script\resources\views/frontend/light/user/deposit.blade.php ENDPATH**/ ?>

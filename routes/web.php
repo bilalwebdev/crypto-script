@@ -94,6 +94,7 @@ Route::name('user.')->group(function () {
             Route::get('open-account', [UserController::class, 'openAccount'])->name('open-account');
 
             Route::get('deposit', [UserController::class, 'deposit'])->name('deposit');
+            Route::post('create/deposit', [UserController::class, 'deposit']);
             Route::post('getAccount', [UserController::class, 'getAccount'])->name('getAccount');
 
             Route::get('withdraw', [UserController::class, 'withdraw'])->name('withdraw');
@@ -129,7 +130,7 @@ Route::name('user.')->group(function () {
 
 
 
-            
+
             Route::get('withdraw/all', [LogController::class, 'allWithdraw'])->name('withdraw.all');
             Route::get('withdraw/pending', [LogController::class, 'pendingWithdraw'])->name('withdraw.pending');
             Route::get('withdraw/complete', [LogController::class, 'completeWithdraw'])->name('withdraw.complete');
@@ -185,7 +186,7 @@ Route::name('user.')->group(function () {
             Route::get('interest/log', [UserController::class, 'interestLog'])->name('interest.log');
 
 
-           
+
 
             Route::get('deposit/log', [LogController::class, 'depositLog'])->name('deposit.log');
 

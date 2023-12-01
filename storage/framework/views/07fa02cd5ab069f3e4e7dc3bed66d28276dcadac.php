@@ -1,6 +1,4 @@
-@extends(Config::theme() . 'layout.auth')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-md-6">
             <div class="sp_site_card">
@@ -10,17 +8,17 @@
                 </div>
                 <div class="card-body">
                     <form action="" method="post">
-                        @csrf
+                        <?php echo csrf_field(); ?>
                         <div class="form-group mb-3">
                             <label for="">ACCOUNT TYPE</label>
                             <select class="form-control">
-                                @if (!$isDemo)
+                                <?php if(!$isDemo): ?>
                                     <option value="1">Standard Account</option>
                                     <option value="2">Premium Account</option>
                                     <option value="3">VIP Account</option>
-                                @else
+                                <?php else: ?>
                                     <option value="4">Demo Account</option>
-                                @endif
+                                <?php endif; ?>
 
                             </select>
                         </div>
@@ -38,7 +36,7 @@
                                 <option value="100">1:100</option>
                                 <option value="200">1:200</option>
                                 <option value="500">1:500</option>
-                                {{-- <option value="1000">1:1000</option> --}}
+                                
                             </select>
                         </div>
 
@@ -51,8 +49,10 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('external-css')
-    <link rel="stylesheet" href="{{ Config::cssLib('frontend', 'lib/apex.min.css') }}">
-@endpush
+<?php $__env->startPush('external-css'); ?>
+    <link rel="stylesheet" href="<?php echo e(Config::cssLib('frontend', 'lib/apex.min.css')); ?>">
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make(Config::theme() . 'layout.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\personal\crypto-script\resources\views/frontend/light/user/open_account.blade.php ENDPATH**/ ?>
