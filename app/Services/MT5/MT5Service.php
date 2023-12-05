@@ -46,6 +46,28 @@ class MT5Service
         return $token;
     }
 
+
+    public function openAccount($leverage, $inves_pass, $mas_pass)
+    {
+
+
+        $id = $this->getToken();
+
+        $response = Http::get("{$this->baseUrl}/AccountCreate", [
+            'id' => $id,
+            'investor_pass' => $inves_pass,
+            'master_pass' => $mas_pass,
+            'leverage' => $leverage,
+            'enabled' => true
+        ]);
+
+        dd($response->json());
+
+        if ($response->status() === 200) {
+            return $response->json();
+        }
+    }
+
     public function getAccount($login)
     {
         $id = $this->getToken();

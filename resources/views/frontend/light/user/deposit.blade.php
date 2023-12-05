@@ -18,7 +18,7 @@
                                 <option value=""></option>
                                 @foreach ($accounts as $item)
                                     <option data-currency="{{ $item->currency }}" data-login="{{ $item->login }}"
-                                        value="{{ $item->id }}">{{ $item->login }}
+                                        value="{{ $item->login }}">{{ $item->login }}
                                         {{ $item->account_type == '4' ? '(DEMO)' : '' }}</option>
                                 @endforeach
                             </select>
@@ -27,10 +27,14 @@
 
                         <div class="form-group mb-3">
                             <label for="">PAYMENT METHOD</label>
-                            <select class="form-control" name="payment_method_id">
+                            <select disabled class="form-control" name="payment_method_id" id="payment_method_id">
                                 <option value=""></option>
                                 @foreach ($payment_methods as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    <option data-amount="{{ $item['min_amount'] }}"
+                                        data-waddress="{{ $item['wallet_address'] }}" data-name ="{{ $item['min_amount'] }}"
+                                        value="{{ $item['id'] }}">
+                                        {{ $item['name'] }}
+                                    </option>
                                 @endforeach
                             </select>
 
@@ -59,12 +63,30 @@
                 <div class="card-body">
                     <div class="text-center account_default_text">Please select account number on your left</div>
                     <span id="accountnoselected" style="display:none;">&nbsp;Selected account:
-                        <span id="accounttab" class="text-details"></span>
+                        <span id="accounttab" class="acc-no"></span>
                     </span>
                     <br>
-                    <span id="amountentered" style="display:none;">&nbsp;Amount:
-                        <span id="amounttab" class="text-details"></span>
+                    <span id="amountentered" class="amt-txt" style="display:none;">&nbsp;Deposit amount(USD):
+                        <span id="amounttab" class=""></span>
                     </span>
+                    <br><br>
+
+                    <div class="mt-6" style="display: none" id="payment_info">
+
+                        <span id="">&nbsp;Deposit method:
+                            <span id="deposit_mathod" class="depo-info"></span>
+                        </span>
+                        <br>
+                        <span id="">&nbsp;Wallet:
+                            <span id="wallet_add" class="depo-info"></span>
+                        </span>
+                        <br>
+                        <span id="">&nbsp;Min deposit:
+                            <span id="min_deposit" class="depo-info"></span>
+                        </span>
+
+
+                    </div>
 
                 </div>
             </div>
@@ -141,6 +163,10 @@
             'use strict'
 
             $('#account_number').on('change', function() {
+
+                $('#payment_method_id').removeAttr('disabled');
+
+
                 var selectedValue = $(this).val();
                 var selectedOption = $(this).find('option:selected');
                 var login = selectedOption.data('login');
@@ -202,7 +228,21 @@
                 $('#amounttab').html(val);
 
 
-            })
+            });
+
+            $('#payment_method_id').on('change', function() {
+
+                $('#amountentered').show();
+                $('#payment_info').show();
+                var amt = $(this).find(':selected').data('amount');
+                var w_address = $(this).find(':selected').data('waddress');
+                var name = $(this).find(':selected').data('name');
+
+                $('#min_deposit').html(amt);
+                $('#wallet_add').html(w_address);
+                $('#deposit_mathod').html(name);
+
+            });
         })
     </script>
 @endpush

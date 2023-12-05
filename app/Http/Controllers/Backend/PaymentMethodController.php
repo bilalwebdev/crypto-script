@@ -13,11 +13,12 @@ class PaymentMethodController extends Controller
 
     public function index(Request $request)
     {
+
         $data['title'] = 'Manage Payment Methods';
-        $payment_methods = PaymentMethod::search($request->search)
+        $data['payment_methods'] = PaymentMethod::search($request->search)
             ->latest()->paginate(Helper::pagination());
 
-        return view('backend.payment-methods.index', compact('payment_methods'));
+        return view('backend.payment-methods.index')->with($data);
     }
 
 
@@ -25,7 +26,7 @@ class PaymentMethodController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|max:255|unique;payment_methods,name',
+            'name' => 'required|max:255|unique:payment_methods,name',
             'wallet_address' => 'required',
             'min_amount' => 'required',
             'status' => 'required|in:0,1'
@@ -42,7 +43,7 @@ class PaymentMethodController extends Controller
         $method = PaymentMethod::findOrFail($id);
 
         $data = $request->validate([
-            'name' => 'required|max:255|unique;payment_methods,name,' . $method->id,
+            'name' => 'required|max:255|unique:payment_methods,name,' . $method->id,
             'status' => 'required|in:0,1'
         ]);
 

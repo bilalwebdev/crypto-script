@@ -7,14 +7,16 @@
                     <div class="card-header-left">
                         <form action="" method="get">
                             <div class="input-group">
-                                <input type="text" name="search" class="form-control form-control-sm" placeholder="search pair">
+                                <input type="text" name="search" class="form-control form-control-sm"
+                                    placeholder="search ">
                                 <button class="btn btn-sm btn-primary"> <i class="fa fa-search"></i></button>
                             </div>
                         </form>
                     </div>
 
                     <div class="card-header-right">
-                        <button class="btn btn-sm btn-primary add"> <i class="fa fa-plus"></i> {{ __('Create Payment Method') }}</button>
+                        <button class="btn btn-sm btn-primary add"> <i class="fa fa-plus"></i>
+                            {{ __('Create Payment Method') }}</button>
                     </div>
                 </div>
                 <div class="card-body p-0">
@@ -48,9 +50,11 @@
                                         <td>
                                             <button class="btn btn-sm btn-outline-primary edit"
                                                 data-method="{{ $method }}"
-                                                data-url="{{ route('admin.payment-method.update', $method->id) }}"><i class="far fa-edit"></i></button>
+                                                data-url="{{ route('admin.payment-method.update', $method->id) }}"><i
+                                                    class="far fa-edit"></i></button>
                                             <button class="btn btn-sm btn-outline-danger delete"
-                                                data-url="{{ route('admin.payment-method.destroy', $method->id) }}"><i class="fas fa-trash-alt"></i></button>
+                                                data-url="{{ route('admin.payment-method.destroy', $method->id) }}"><i
+                                                    class="fas fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                 @empty
@@ -91,8 +95,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="">{{ __('Pair Name') }}</label>
+                            <label for="">{{ __('Pyament Method Name') }}</label>
                             <input type="text" name="name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">{{ __('Wallet Address') }}</label>
+                            <input type="text" name="wallet_address" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">{{ __('Min Amount') }}</label>
+                            <input type="text" name="min_amount" class="form-control">
                         </div>
 
                         <div class="form-group">
@@ -135,8 +147,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="">{{ __('Pair Name') }}</label>
+                            <label for="">{{ __('Pyament Method Name') }}</label>
                             <input type="text" name="name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">{{ __('Wallet Address') }}</label>
+                            <input type="text" name="wallet_address" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">{{ __('Min Amount') }}</label>
+                            <input type="text" name="min_amount" class="form-control">
                         </div>
 
                         <div class="form-group">
@@ -214,9 +234,11 @@
 
                 modal.find('form').attr('action', $(this).data('url'))
 
-                modal.find('input[name=name]').val($(this).data('pair').name)
+                modal.find('input[name=name]').val($(this).data('method').name)
+                modal.find('input[name=wallet_address]').val($(this).data('method').wallet_address)
+                modal.find('input[name=min_amount]').val($(this).data('method').min_amount)
 
-                modal.find('select[name=status]').val($(this).data('pair').status)
+                modal.find('select[name=status]').val($(this).data('method').status)
 
                 modal.modal('show')
             })

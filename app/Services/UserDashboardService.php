@@ -50,4 +50,8 @@ class UserDashboardService
     {
         return $this->mt5Service->getAccount($login);
     }
+    public function openAccount($lev, $inves_pass, $mas_pass)
+    {
+        return $this->mt5Service->openAccount($lev, $inves_pass, $mas_pass);
+    }
 }

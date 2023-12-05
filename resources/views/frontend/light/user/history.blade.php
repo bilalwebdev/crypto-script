@@ -46,8 +46,7 @@
                     <div class="table-responsive">
                         <div class="table-responsive">
                         </div>
-                        <table class="table sp_site_table" name="incidents"
-                            id="incidents">
+                        <table class="table sp_site_table mb-2" name="incidents" id="incidents">
                             <thead>
                                 <tr>
                                     <th class="default-cell">Account No<span uk-icon="triangle-down"
@@ -68,23 +67,39 @@
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    <td>575021002</td>
-                                    <td>Deposit</td>
-                                    <td>usdt-TRC20</td>
-                                    <td>100</td>
-                                    <td>Pending</td>
-                                    <td><a href="history?cancelid=1700819880&amp;type=dp"
-                                            style="font-style:italic;text-decoration:underline;font-size:11px;color:silver">Cancel</a>&nbsp;&nbsp;&nbsp;
-                                    </td>
-                                    <td>2023-11-24 10:58:49</td>
+                                @forelse ($deposit_requests as $dreq)
+                                    <tr>
+                                        <td>{{ $dreq->login }}</td>
+                                        <td>Deposit</td>
+                                        <td>{{ $dreq->payment?->name }}</td>
+                                        <td>{{ $dreq->amount }}</td>
+                                        @if ($dreq->status == 2)
+                                            <td>Pending</td>
+                                        @elseif($dreq->status == 1)
+                                            <td>Approved</td>
+                                        @else
+                                            <td>Rejected</td>
+                                        @endif
+                                        <td><a href="{{ route('user.history.delete', $dreq->id) }}"
+                                                style="font-style:italic;text-decoration:underline;font-size:11px;color:silver">Cancel</a>&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                        <td>{{ date($dreq->created_at) }}</td>
 
-                                </tr>
+                                    </tr>
+                                @empty
+                                    <span>No request found!</span>
+                                @endforelse
+
                             </tbody>
                         </table>
+
                         <table class="table align-items-center table-flush table-borderless" name="incidents"
                             id="incidents">
-
+                            @if ($deposit_requests->hasPages())
+                                <div class="col-md-12">
+                                    {{ $deposit_requests->links() }}
+                                </div>
+                            @endif
                         </table>
                     </div>
                 </div>

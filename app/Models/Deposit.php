@@ -10,9 +10,9 @@ class Deposit extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'payment_proof' => 'array'
-    ];
+    // protected $casts = [
+    //     'payment_proof' => 'array'
+    // ];
 
     protected $guarded = [];
 
@@ -20,6 +20,11 @@ class Deposit extends Model
     public function gateway()
     {
         return $this->belongsTo(Gateway::class);
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
     }
 
     public function user()

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper\Helper;
 use App\Http\Requests\UserProfile;
+use App\Models\Account;
 use App\Models\Deposit;
 use App\Models\Gateway;
+use App\Models\PaymentMethod;
 use App\Models\User;
 use App\Services\UserDashboardService;
 use App\Services\UserProfileService;
@@ -45,6 +47,17 @@ class UserController extends Controller
             $data['isDemo'] = true;
         }
 
+
+        if ($request->all()) {
+
+            $this->dashboard->openAccount($request->leverage, $request->investor_pass, $request->master_pass);
+
+            // Account::create([
+            //     ''
+            // ]);
+
+        }
+
         return view(Helper::theme() . 'user.open_account')->with($data);
     }
 
@@ -54,7 +67,7 @@ class UserController extends Controller
         $user = auth()->user();
         $data['accounts'] = $user->accounts;
         $data['title'] = "Deposit";
-        $data['payment_methods'] = Gateway::where('status', 1)->get();
+        $data['payment_methods'] = PaymentMethod::where('status', 1)->get()->toArray();
 
         if ($request->all()) {
 
@@ -74,7 +87,7 @@ class UserController extends Controller
 
             session()->flash('success', 'deposit resquest sent successfully!');
 
-            return redirect('/deposit');
+            return redirect('/history');
         }
 
 
@@ -109,6 +122,19 @@ class UserController extends Controller
     public function history()
     {
         $data['title'] = 'History';
+
+        $data['deposit_requests'] = Deposit::where('user_id', Auth::id())->with('payment')->paginate(10);
+
+        //  dd($data['deposit_requests']);
+
+        return view(Helper::theme() . 'user.history')->with($data);
+    }
+    public function historyDel($id)
+    {
+        $data['title'] = 'History';
+
+        Deposit::find($id)->delete();
+        //  dd($data['deposit_requests']);
 
         return view(Helper::theme() . 'user.history')->with($data);
     }

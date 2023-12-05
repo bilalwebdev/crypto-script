@@ -46,7 +46,7 @@
             @endif
 
 
-            
+
 
             @if (auth()->guard('admin')->user()->can('payments'))
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="list"></i><span
@@ -81,7 +81,7 @@
                         <li><a href="{{ route('admin.withdraw.index') }}">{{ __('Withdraw Methods') }}</a></li>
                         <li><a href="{{ route('admin.withdraw.filter') }}">{{ __('All Withdraw') }}</a></li>
                         <li><a href="{{ route('admin.withdraw.filter', 'pending') }}">{{ __('Pending Withdraw') }}
-                                <span class="noti-count">{{Config::sidebarData()['pendingWithdraw'] }}</span></a></li>
+                                <span class="noti-count">{{ Config::sidebarData()['pendingWithdraw'] }}</span></a></li>
                         <li><a
                                 href="{{ route('admin.withdraw.filter', 'accepted') }}">{{ __('Accepted Withdraw') }}</a>
                         </li>
@@ -105,8 +105,15 @@
                 <li class="nav-label">{{ __('Application Settings') }}</li>
             @endif
 
-
             @if (auth()->guard('admin')->user()->can('manage-gateway'))
+                <li><a href="{{ route('admin.payment-method.index') }}" aria-expanded="false"><i
+                            data-feather="payment"></i><span class="nav-text">{{ __('Payment Methods') }}</span></a>
+                </li>
+            @endif
+
+
+
+            {{-- @if (auth()->guard('admin')->user()->can('manage-gateway'))
                 <li><a class="has-arrow" href="{{ route('admin.payment-method.index') }}" aria-expanded="false"><i data-feather="tool"></i><span
                             class="nav-text">{{ __('Payment Methods') }}</span></a>
                     <ul aria-expanded="false">
@@ -114,11 +121,11 @@
                         {{-- <li><a href="{{ route('admin.payment.index') }}">{{ __('Online Gateway') }}</a>
                         </li>
                         <li><a href="{{ route('admin.payment.offline') }}">{{ __('Offline Gateway') }}</a>
-                        </li> --}}
+                        </li>
 
                     </ul>
                 </li>
-            @endif
+            @endif --}}
 
 
             @if (auth()->guard('admin')->user()->can('manage-setting'))
@@ -156,7 +163,7 @@
                             data-feather="book-open"></i><span class="nav-text">{{ __('Manage Pages') }}</span></a>
                 </li>
 
-                
+
 
                 <li><a href="{{ route('admin.frontend.section.manage', 'banner') }}" aria-expanded="false"><i
                             data-feather="layout"></i><span class="nav-text">{{ __('Manage Frontend') }}</span></a>
@@ -242,7 +249,7 @@
                         data-feather="feather"></i><span class="nav-text">{{ __('Clear Cache') }}</span></a>
             </li>
 
-            <li class="nav-label">{{__('Current Version') .' - '. Config::APP_VERSION }}</li>
+            <li class="nav-label">{{ __('Current Version') . ' - ' . Config::APP_VERSION }}</li>
         </ul>
     </div>
 </div>

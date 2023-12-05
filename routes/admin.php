@@ -71,7 +71,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
-        Route::get('language/ajax',[LanguageController::class ,'languageAjax'])->name('cms-builder');
+        Route::get('language/ajax', [LanguageController::class, 'languageAjax'])->name('cms-builder');
 
 
         // Plan
@@ -89,7 +89,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('markets', MarketController::class);
             Route::post('markets/changeStatus/{id}', [MarketController::class, 'changeStatus'])->name('markets.changestatus');
 
-            
+
             Route::resource('frames', SignalTimeFrameController::class);
             Route::post('frames/changeStatus/{id}', [SignalTimeFrameController::class, 'changeStatus'])->name('frames.changestatus');
 
@@ -128,9 +128,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         //payment method
 
-        Route::middleware('permission:manage-payment-method,admin')->group(function () {
+        Route::middleware('permission:manage-gateway,admin')->group(function () {
 
-            Route::resource('payment-methods', PaymentMethodController::class);
+            Route::resource('payment-method', PaymentMethodController::class);
             Route::post('payment-method/changeStatus/{id}', [PaymentMethodController::class, 'changeStatus'])->name('payment-method.changestatus');
         });
 
@@ -178,19 +178,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
 
-        Route::middleware('permission:manage-gateway,admin')->prefix('gateway')->name('payment-method.')->group(function () {
-            // Route::get('online', [ManageGatewayController::class, 'online'])->name('index');
-            // Route::get('offline', [ManageGatewayController::class, 'offline'])->name('offline');
-            // Route::get('/{name}', [ManageGatewayController::class, 'loadView'])->name('gateway');
-            // Route::post('status/{id}', [ManageGatewayController::class, 'status'])->name('status');
-            // Route::post('update/online/{id}', [ManageGatewayController::class, 'updateOnlinePaymentGateway'])->name('update.online');
-            // Route::post('gourl', [ManageGatewayController::class, 'gourlUpdate'])->name('update.gourl');
-            // Route::get('offline-gateway/create', [ManageGatewayController::class, 'offlineCreate'])->name('offline.create');
-            // Route::post('offline-gateway/create', [ManageGatewayController::class, 'offlineStore']);
-            // Route::get('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineEdit'])->name('offline.edit');
-            // Route::post('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineUpdate']);
-
-        });
+        // Route::middleware('permission:manage-gateway,admin')->prefix('gateway')->name('payment.')->group(function () {
+        //     Route::get('online', [ManageGatewayController::class, 'online'])->name('index');
+        //     Route::get('offline', [ManageGatewayController::class, 'offline'])->name('offline');
+        //     Route::get('/{name}', [ManageGatewayController::class, 'loadView'])->name('gateway');
+        //     Route::post('status/{id}', [ManageGatewayController::class, 'status'])->name('status');
+        //     Route::post('update/online/{id}', [ManageGatewayController::class, 'updateOnlinePaymentGateway'])->name('update.online');
+        //     Route::post('gourl', [ManageGatewayController::class, 'gourlUpdate'])->name('update.gourl');
+        //     Route::get('offline-gateway/create', [ManageGatewayController::class, 'offlineCreate'])->name('offline.create');
+        //     Route::post('offline-gateway/create', [ManageGatewayController::class, 'offlineStore']);
+        //     Route::get('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineEdit'])->name('offline.edit');
+        //     Route::post('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineUpdate']);
+        // });
 
 
         Route::middleware('permission:manage-language,admin')->prefix('language')->name('language.')->group(function () {
@@ -205,8 +204,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::post('translator/ajax/update/{lang}', [LanguageController::class, 'ajaxUpdate'])->name('ajax');
             Route::post('translator/delete/{lang}', [LanguageController::class, 'deleteKey'])->name('key.delete');
-
-
         });
 
 
@@ -257,11 +254,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('delete/{name}/element/{element}', [ManageSectionController::class, 'deleteElement'])->name('frontend.element.delete');
 
 
-            Route::get('frontend/translate/{name}/{element}', [ManageSectionController::class,'translate'])->name('frontend.translate');
-            Route::post('frontend/translate/{name}/{element}', [ManageSectionController::class,'translateUpdate']);
-
-
-            
+            Route::get('frontend/translate/{name}/{element}', [ManageSectionController::class, 'translate'])->name('frontend.translate');
+            Route::post('frontend/translate/{name}/{element}', [ManageSectionController::class, 'translateUpdate']);
         });
 
         Route::middleware('permission:manage-deposit,admin')->group(function () {

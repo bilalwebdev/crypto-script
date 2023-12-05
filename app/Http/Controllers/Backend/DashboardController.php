@@ -22,7 +22,8 @@ class DashboardController extends Controller
     public function dashboard(Request $request)
     {
 
-       
+
+
         $data['title'] = __('Admin Dashboard');
 
         $data['totalDeposit'] = Deposit::where('status', 1)->sum('amount');
@@ -35,7 +36,7 @@ class DashboardController extends Controller
         $data['totalUser'] = User::count();
         $data['pendingUser'] = User::where('status', 0)->count();
         $data['activeUser'] = User::where('status', 1)->count();
-        $data['emailUser'] = User::where('status', 1)->where('is_email_verified',1)->count();
+        $data['emailUser'] = User::where('status', 1)->where('is_email_verified', 1)->count();
 
         $data['totalTicket'] = Ticket::count();
         $data['pendingTicket'] = Ticket::whereStatus(2)->count();
@@ -45,7 +46,7 @@ class DashboardController extends Controller
         $data['totalWithdrawGateway'] = WithdrawGateway::where('status', 1)->count();
 
         $data['totalStaff'] = Admin::where('type', '!=', 'super')->count();
-        $data['users'] = User::search($request->search)->latest()->paginate(Helper::pagination(),['*'],'users');
+        $data['users'] = User::search($request->search)->latest()->paginate(Helper::pagination(), ['*'], 'users');
 
 
         $data['subscriptionAmount'] = Payment::where('status', 1)->sum('amount');
@@ -69,7 +70,7 @@ class DashboardController extends Controller
             ->get();
 
         $deposits = Deposit::where('status', 1)
-            ->select(DB::raw('SUM(total) as total'), DB::raw('MONTHNAME(created_at) as month'))
+            ->select(DB::raw('SUM(amount) as amount'), DB::raw('MONTHNAME(created_at) as month'))
             ->groupby('month')
             ->get();
 
@@ -95,7 +96,7 @@ class DashboardController extends Controller
 
 
         foreach ($withdraws as $withdraw) {
-            if (in_array($withdraw->month,$months)) {
+            if (in_array($withdraw->month, $months)) {
                 $index = array_search($withdraw->month, $months);
 
                 $withdrawTotalAmount[$index] = $withdraw->total;
@@ -104,37 +105,38 @@ class DashboardController extends Controller
 
 
         foreach ($deposits as $deposit) {
-            if (in_array($deposit->month,$months)) {
+            if (in_array($deposit->month, $months)) {
                 $index = array_search($deposit->month, $months);
 
-                $depositsTotalAmount[$index] = $deposit->total;
+                $depositsTotalAmount[$index] = $deposit->amount;
             }
         }
+
+
 
         $data['months'] = $months;
         $data['totalAmount'] = $totalAmount;
         $data['withdrawTotalAmount'] = $withdrawTotalAmount;
         $data['depositsTotalAmount'] = $depositsTotalAmount;
 
-        $data['browser'] = UserLog::select(DB::raw('COUNT(browser) as total'),'browser')->groupBy('browser')->get();
+        $data['browser'] = UserLog::select(DB::raw('COUNT(browser) as total'), 'browser')->groupBy('browser')->get();
 
         $data['logTotal'] = UserLog::count();
-       
 
 
-        $data['investments'] = Payment::when($request->trx, function($item) use($request){
+
+        $data['investments'] = Payment::when($request->trx, function ($item) use ($request) {
 
             $item->where('transaction_id', $request->trx);
-
-        })->where('status',1)->latest()->with('user','plan')->limit(4)->get();
-
+        })->where('status', 1)->latest()->with('user', 'plan')->limit(4)->get();
 
 
-        $data['deposits'] = Deposit::where('status',1)->latest()->with('user')->limit(4)->get();
-        $data['withdraws'] = Withdraw::where('status',1)->latest()->with('user','withdrawMethod')->limit(4)->get();
-        
 
-     
+        $data['deposits'] = Deposit::where('status', 1)->latest()->with('user')->limit(4)->get();
+        $data['withdraws'] = Withdraw::where('status', 1)->latest()->with('user', 'withdrawMethod')->limit(4)->get();
+
+
+
 
         return view('backend.dashboard')->with($data);
     }

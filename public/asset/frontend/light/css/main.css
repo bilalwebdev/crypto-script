@@ -33,12 +33,28 @@
     border-bottom: 1px dotted grey;
     font-style: italic;
 }
-.text-details {
+.acc-no {
     text-align: center;
     font-weight: bold;
     border-bottom: 1px dotted green;
 }
-
+.depo-info {
+    text-align: center;
+    font-weight: bold;
+}
+.amt-txt {
+    font-family: Arial;
+    font-size: 15px;
+    animation: fadeIn 1s;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 /*
 ==============================
 Preloader css
