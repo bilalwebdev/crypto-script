@@ -50,8 +50,12 @@ class MT5Service
     public function openAccount($leverage, $inves_pass, $mas_pass)
     {
 
+      
+
 
         $id = $this->getToken();
+
+        dd($id);
 
         $response = Http::get("{$this->baseUrl}/AccountCreate", [
             'id' => $id,

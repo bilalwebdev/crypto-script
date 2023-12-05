@@ -6,6 +6,7 @@ use App\Helpers\Helper\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentMethodController extends Controller
 {
@@ -29,6 +30,7 @@ class PaymentMethodController extends Controller
             'name' => 'required|max:255|unique:payment_methods,name',
             'wallet_address' => 'required',
             'min_amount' => 'required',
+            'user_id' => Auth::id(),
             'status' => 'required|in:0,1'
         ]);
 
@@ -44,6 +46,9 @@ class PaymentMethodController extends Controller
 
         $data = $request->validate([
             'name' => 'required|max:255|unique:payment_methods,name,' . $method->id,
+            'wallet_address' => 'required',
+            'min_amount' => 'required',
+            'user_id' => Auth::id(),
             'status' => 'required|in:0,1'
         ]);
 

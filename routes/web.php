@@ -20,6 +20,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\SignalController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPaymentMethodsController;
 use App\Http\Controllers\WithdrawController;
 use Illuminate\Support\Facades\Route;
 
@@ -99,6 +100,10 @@ Route::name('user.')->group(function () {
             Route::post('getAccount', [UserController::class, 'getAccount'])->name('getAccount');
 
             Route::get('withdraw', [UserController::class, 'withdraw'])->name('withdraw');
+            Route::post(
+                'create/withdraw',
+                [UserController::class, 'withdraw']
+            );
             Route::get('history', [UserController::class, 'history'])->name('history');
             Route::get('history/delete/{id}', [UserController::class, 'historyDel'])->name('history.delete');
 
@@ -131,7 +136,8 @@ Route::name('user.')->group(function () {
 
 
 
-
+            Route::resource('user-payment-method', UserPaymentMethodsController::class);
+            Route::post('user-payment-method/changeStatus/{id}', [UserPaymentMethodsController::class, 'changeStatus'])->name('user-payment-method.changestatus');
 
             Route::get('withdraw/all', [LogController::class, 'allWithdraw'])->name('withdraw.all');
             Route::get('withdraw/pending', [LogController::class, 'pendingWithdraw'])->name('withdraw.pending');

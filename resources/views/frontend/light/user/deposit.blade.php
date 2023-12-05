@@ -31,7 +31,7 @@
                                 <option value=""></option>
                                 @foreach ($payment_methods as $item)
                                     <option data-amount="{{ $item['min_amount'] }}"
-                                        data-waddress="{{ $item['wallet_address'] }}" data-name ="{{ $item['min_amount'] }}"
+                                        data-waddress="{{ $item['wallet_address'] }}" data-name ="{{ $item['name'] }}"
                                         value="{{ $item['id'] }}">
                                         {{ $item['name'] }}
                                     </option>

@@ -9,6 +9,8 @@ use App\Models\Deposit;
 use App\Models\Gateway;
 use App\Models\PaymentMethod;
 use App\Models\User;
+use App\Models\UserPaymentMethod;
+use App\Models\Withdraw;
 use App\Services\UserDashboardService;
 use App\Services\UserProfileService;
 use Illuminate\Http\Request;
@@ -50,6 +52,8 @@ class UserController extends Controller
 
         if ($request->all()) {
 
+          
+
             $this->dashboard->openAccount($request->leverage, $request->investor_pass, $request->master_pass);
 
             // Account::create([
@@ -85,7 +89,7 @@ class UserController extends Controller
                 'status' => 2
             ]);
 
-            session()->flash('success', 'deposit resquest sent successfully!');
+            session()->flash('success', 'Deposit request sent successfully!');
 
             return redirect('/history');
         }
@@ -111,11 +115,34 @@ class UserController extends Controller
         }
     }
 
-    public function withdraw()
+    public function withdraw(Request $request)
     {
         $user = auth()->user();
         $data['accounts'] = $user->accounts;
+        $data['payment_methods'] = UserPaymentMethod::where('status', 1)->get()->toArray();
         $data['title'] = 'Withdraw';
+
+
+        if ($request->all()) {
+
+            $request->validate([
+                'payment_method_id' => 'required',
+                'amount' => 'required',
+                'login' => 'required',
+            ]);
+
+            Withdraw::create([
+                'user_id' => Auth::id(),
+                'payment_method_id' => $request->payment_method_id,
+                'amount' => $request->amount,
+                'login' => $request->login,
+                'status' => 2
+            ]);
+
+            session()->flash('success', 'Withdraw request sent successfully!');
+
+            return redirect('/history');
+        }
 
         return view(Helper::theme() . 'user.withdraw.index')->with($data);
     }

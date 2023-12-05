@@ -47,6 +47,9 @@
         <li class="<?php echo e(Config::singleMenu('user.ticket.index')); ?>"><a href="<?php echo e(route('user.ticket.index')); ?>"><i
                     class="fas fa-ticket-alt"></i> <?php echo e(__('Support Ticket')); ?></a></li>
 
+        <li class="<?php echo e(Config::singleMenu('user.user-payment-method.index')); ?>"><a href="<?php echo e(route('user.user-payment-method.index')); ?>"><i
+                        class="fas fa-exchange-alt"></i> <?php echo e(__('Payment Methods')); ?></a></li>
+
         <li class="<?php echo e(Config::singleMenu('user.profile')); ?>"><a href="<?php echo e(route('user.profile')); ?>"><i
                         class="fas fa-user-cog"></i> <?php echo e(__('Profile Settings')); ?></a></li>
 

@@ -92,6 +92,9 @@
         <li class="{{ Config::singleMenu('user.ticket.index') }}"><a href="{{ route('user.ticket.index') }}"><i
                     class="fas fa-ticket-alt"></i> {{ __('Support Ticket') }}</a></li>
 
+        <li class="{{ Config::singleMenu('user.user-payment-method.index') }}"><a href="{{ route('user.user-payment-method.index') }}"><i
+                        class="fas fa-exchange-alt"></i> {{ __('Payment Methods') }}</a></li>
+
         <li class="{{ Config::singleMenu('user.profile') }}"><a href="{{ route('user.profile') }}"><i
                         class="fas fa-user-cog"></i> {{ __('Profile Settings') }}</a></li>
 
