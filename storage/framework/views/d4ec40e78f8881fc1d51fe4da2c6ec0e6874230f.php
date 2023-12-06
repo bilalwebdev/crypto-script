@@ -22,10 +22,8 @@
                         <table class="table student-data-table m-t-20">
                             <thead>
                                 <tr>
-                                    <th><?php echo e(__('TRX')); ?></th>
                                     <th><?php echo e(__('User')); ?></th>
                                     <th><?php echo e(__('Amount')); ?></th>
-                                    <th><?php echo e(__('Charge')); ?></th>
                                     <th><?php echo e(__('status')); ?></th>
                                     <th><?php echo e(__('Action')); ?></th>
                                 </tr>
@@ -33,7 +31,7 @@
                             <tbody>
                                 <?php $__empty_1 = true; $__currentLoopData = $deposits; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $manual): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr>
-                                        <td><?php echo e($manual->trx); ?></td>
+                                      
                                         <td>
                                             <a href="<?php echo e(route('admin.user.details', $manual->user->id)); ?>">
                                                 <img src="<?php echo e(Config::getFile('user', $manual->user->image, true)); ?>"
@@ -47,10 +45,7 @@
                                            
                                         </td>
                                         <td><?php echo e(Config::formatter($manual->amount)); ?></td>
-                                        <td>
-                                            <?php echo e(Config::formatter($manual->charge)); ?>
-
-                                        </td>
+                                     
                                         <td>
                                             <?php if($manual->status == 2): ?>
                                                 <span class="badge badge-warning"><?php echo e(__('Pending')); ?></span>
@@ -62,14 +57,14 @@
                                         </td>
                                         <td>
                                             <a class="btn btn-sm btn-outline-primary details"
-                                                href="<?php echo e(route('admin.deposit.details', $manual->trx)); ?>">
+                                                href="<?php echo e(route('admin.deposit.details', $manual->id)); ?>">
                                                 <i class="far fa-eye"></i></a>
 
                                             <?php if($manual->status == 2): ?>
                                                 <a class="btn  btn-sm btn-outline-primary accept"
-                                                    data-url="<?php echo e(route('admin.deposit.accept', $manual->trx)); ?>"><i class="fas fa-check"></i></a>
+                                                    data-url="<?php echo e(route('admin.deposit.accept', $manual->id)); ?>"><i class="fas fa-check"></i></a>
                                                 <a class="btn  btn-sm btn-outline-danger reject"
-                                                    data-url="<?php echo e(route('admin.deposit.reject', $manual->trx)); ?>"><i class="fas fa-times"></i></a>
+                                                    data-url="<?php echo e(route('admin.deposit.reject', $manual->id)); ?>"><i class="fas fa-times"></i></a>
                                             <?php endif; ?>
                                         </td>
                                     </tr>

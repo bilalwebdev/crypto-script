@@ -16,7 +16,7 @@
                             <select id="account_number" class="form-control" name="login">
                                 <option value=""></option>
                                 @foreach($accounts as $item)
-                                    <option data-login="{{$item->login}}" value="{{$item->id}}">{{$item->login}} {{$item->account_type=='4'?'(DEMO)':''}}</option>
+                                    <option data-login="{{$item->login}}" value="{{$item->login}}">{{$item->login}} {{$item->account_type=='4'?'(DEMO)':''}}</option>
                                 @endforeach
 
                             </select>

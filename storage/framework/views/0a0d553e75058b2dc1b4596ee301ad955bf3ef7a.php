@@ -162,13 +162,13 @@
 
                 <div class="modal-content bg1">
                     <div class="modal-header ">
-                        <h5 class="modal-title"><?php echo e(__('Delete Payment Metgod')); ?></h5>
+                        <h5 class="modal-title"><?php echo e(__('Delete Payment Method')); ?></h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body ">
-                        <p><?php echo e(__('Are you sure to delete this payment method')); ?></p>
+                        <p><?php echo e(__('Are you sure to delete this payment method?')); ?></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm sp_btn_secondary"

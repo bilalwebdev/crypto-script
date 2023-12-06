@@ -44,7 +44,7 @@
 
                         <div class="form-group mb-3">
                             <label for="">AMOUNT</label>
-                            <input type="text" class="form-control" name="amount" id="amount" required
+                            <input type="number" min="" class="form-control" name="amount" id="amount" required
                                 placeholder="Amount in USD">
                         </div>
                         <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-dollar-sign"
@@ -234,11 +234,14 @@
 
             $('#payment_method_id').on('change', function() {
 
+              
                 $('#amountentered').show();
                 $('#payment_info').show();
                 var amt = $(this).find(':selected').data('amount');
                 var w_address = $(this).find(':selected').data('waddress');
                 var name = $(this).find(':selected').data('name');
+
+                $('#amount').attr('min', amt);
 
                 $('#min_deposit').html(amt);
                 $('#wallet_add').html(w_address);

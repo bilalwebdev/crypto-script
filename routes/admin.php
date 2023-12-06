@@ -259,12 +259,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         Route::middleware('permission:manage-deposit,admin')->group(function () {
-            Route::get('deposit/log/{user?}', [LogController::class, 'depositLog'])->name('deposit.log');
-            Route::get('deposit/{status}', [ManageDepositController::class, 'index'])->name('deposit');
-            Route::post('deposit/{trx}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
-            Route::post('deposit/{trx}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
-            Route::get('deposit/{trx}/details', [ManageDepositController::class, 'details'])->name('deposit.details');
+            Route::get('deposits', [ManageDepositController::class, 'index'])->name('deposits');
+            Route::get('deposit/{id}/details', [ManageDepositController::class, 'details'])->name('deposit.details');
+            Route::post('deposit/{id}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
+            Route::post('deposit/{id}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
         });
+
+        Route::middleware('permission:manage-withdraw,admin')->group(function () {
+            Route::get('withdraws', [ManageWithdrawController::class, 'index'])->name('withdraws');
+            Route::get('withdraw/{id}/details', [ManageWithdrawController::class, 'details'])->name('withdraw.details');
+            Route::post('withdraw/{id}/accept', [ManageWithdrawController::class, 'accept'])->name('withdraw.accept');
+            Route::post('withdraw/{id}/reject', [ManageWithdrawController::class, 'reject'])->name('withdraw.reject');
+        });
+
+        // Route::middleware('permission:manage-deposit,admin')->group(function () {
+        //     Route::get('deposit/log/{user?}', [LogController::class, 'depositLog'])->name('deposit.log');
+        //     Route::get('deposit/{status}', [ManageDepositController::class, 'index'])->name('deposit');
+        //     Route::post('deposit/{trx}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
+        //     Route::post('deposit/{trx}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
+        //     Route::get('deposit/{trx}/details', [ManageDepositController::class, 'details'])->name('deposit.details');
+        // });
 
 
         Route::middleware('permission:manage-logs,admin')->group(function () {

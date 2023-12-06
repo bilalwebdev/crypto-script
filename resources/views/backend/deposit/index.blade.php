@@ -22,10 +22,8 @@
                         <table class="table student-data-table m-t-20">
                             <thead>
                                 <tr>
-                                    <th>{{ __('TRX') }}</th>
                                     <th>{{ __('User') }}</th>
                                     <th>{{ __('Amount') }}</th>
-                                    <th>{{ __('Charge') }}</th>
                                     <th>{{ __('status') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
@@ -33,7 +31,7 @@
                             <tbody>
                                 @forelse ($deposits as $key => $manual)
                                     <tr>
-                                        <td>{{ $manual->trx }}</td>
+                                      
                                         <td>
                                             <a href="{{ route('admin.user.details', $manual->user->id) }}">
                                                 <img src="{{ Config::getFile('user', $manual->user->image, true) }}"
@@ -46,9 +44,7 @@
                                            
                                         </td>
                                         <td>{{ Config::formatter($manual->amount)}}</td>
-                                        <td>
-                                            {{ Config::formatter($manual->charge)}}
-                                        </td>
+                                     
                                         <td>
                                             @if ($manual->status == 2)
                                                 <span class="badge badge-warning">{{ __('Pending') }}</span>
@@ -60,14 +56,14 @@
                                         </td>
                                         <td>
                                             <a class="btn btn-sm btn-outline-primary details"
-                                                href="{{ route('admin.deposit.details', $manual->trx) }}">
+                                                href="{{ route('admin.deposit.details', $manual->id) }}">
                                                 <i class="far fa-eye"></i></a>
 
                                             @if ($manual->status == 2)
                                                 <a class="btn  btn-sm btn-outline-primary accept"
-                                                    data-url="{{ route('admin.deposit.accept', $manual->trx) }}"><i class="fas fa-check"></i></a>
+                                                    data-url="{{ route('admin.deposit.accept', $manual->id) }}"><i class="fas fa-check"></i></a>
                                                 <a class="btn  btn-sm btn-outline-danger reject"
-                                                    data-url="{{ route('admin.deposit.reject', $manual->trx) }}"><i class="fas fa-times"></i></a>
+                                                    data-url="{{ route('admin.deposit.reject', $manual->id) }}"><i class="fas fa-times"></i></a>
                                             @endif
                                         </td>
                                     </tr>

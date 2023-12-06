@@ -8,6 +8,7 @@ use App\Jobs\SendEmailJob;
 use App\Jobs\SendSubscriberEmail;
 use App\Jobs\SendSubscriberMail;
 use App\Models\Admin;
+use App\Models\Deposit;
 use App\Models\Subscriber;
 use App\Models\Template;
 use App\Notifications\DepositNotification;
@@ -193,4 +194,6 @@ class AdminController extends Controller
 
         return redirect()->route('admin.subscribers')->with('success', 'Successfully Send Mail');
     }
+
+   
 }

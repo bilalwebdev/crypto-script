@@ -46,7 +46,7 @@
             <?php endif; ?>
 
 
-            
+
 
             <?php if(auth()->guard('admin')->user()->can('payments')): ?>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="list"></i><span
@@ -64,32 +64,16 @@
             <?php endif; ?>
 
             <?php if(auth()->guard('admin')->user()->can('manage-deposit')): ?>
-                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                <li><a class="" href="<?php echo e(route('admin.deposits')); ?>" aria-expanded="false"><i
                             data-feather="credit-card"></i><span class="nav-text"><?php echo e(__('Manage Deposit')); ?></span></a>
-                    <ul aria-expanded="false">
-
-                        <li><a href="<?php echo e(route('admin.deposit', 'online')); ?>"><?php echo e(__('Online Deposit')); ?></a></li>
-                        <li><a href="<?php echo e(route('admin.deposit', 'offline')); ?>"><?php echo e(__('Offline Deposit')); ?></a></li>
-                    </ul>
+                    
                 </li>
             <?php endif; ?>
 
             <?php if(auth()->guard('admin')->user()->can('manage-withdraw')): ?>
-                <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                <li><a class="" href="<?php echo e(route('admin.withdraws')); ?>" aria-expanded="false"><i
                             data-feather="package"></i><span class="nav-text"><?php echo e(__('Manage Withdraw')); ?></span></a>
-                    <ul aria-expanded="false">
-                        <li><a href="<?php echo e(route('admin.withdraw.index')); ?>"><?php echo e(__('Withdraw Methods')); ?></a></li>
-                        <li><a href="<?php echo e(route('admin.withdraw.filter')); ?>"><?php echo e(__('All Withdraw')); ?></a></li>
-                        <li><a href="<?php echo e(route('admin.withdraw.filter', 'pending')); ?>"><?php echo e(__('Pending Withdraw')); ?>
-
-                                <span class="noti-count"><?php echo e(Config::sidebarData()['pendingWithdraw']); ?></span></a></li>
-                        <li><a
-                                href="<?php echo e(route('admin.withdraw.filter', 'accepted')); ?>"><?php echo e(__('Accepted Withdraw')); ?></a>
-                        </li>
-                        <li><a
-                                href="<?php echo e(route('admin.withdraw.filter', 'rejected')); ?>"><?php echo e(__('Rejected Withdraw')); ?></a>
-                        </li>
-                    </ul>
+                
                 </li>
             <?php endif; ?>
 
@@ -106,17 +90,15 @@
                 <li class="nav-label"><?php echo e(__('Application Settings')); ?></li>
             <?php endif; ?>
 
-
             <?php if(auth()->guard('admin')->user()->can('manage-gateway')): ?>
-                <li><a class="has-arrow" href="<?php echo e(route('admin.payment-method.index')); ?>" aria-expanded="false"><i data-feather="tool"></i><span
-                            class="nav-text"><?php echo e(__('Payment Methods')); ?></span></a>
-                    <ul aria-expanded="false">
-
-                        
-
-                    </ul>
+                <li><a href="<?php echo e(route('admin.payment-method.index')); ?>" aria-expanded="false"><i
+                            data-feather="payment"></i><span class="nav-text"><?php echo e(__('Payment Methods')); ?></span></a>
                 </li>
             <?php endif; ?>
+
+
+
+            
 
 
             <?php if(auth()->guard('admin')->user()->can('manage-setting')): ?>
@@ -154,7 +136,7 @@
                             data-feather="book-open"></i><span class="nav-text"><?php echo e(__('Manage Pages')); ?></span></a>
                 </li>
 
-                
+
 
                 <li><a href="<?php echo e(route('admin.frontend.section.manage', 'banner')); ?>" aria-expanded="false"><i
                             data-feather="layout"></i><span class="nav-text"><?php echo e(__('Manage Frontend')); ?></span></a>
@@ -241,7 +223,7 @@
                         data-feather="feather"></i><span class="nav-text"><?php echo e(__('Clear Cache')); ?></span></a>
             </li>
 
-            <li class="nav-label"><?php echo e(__('Current Version') .' - '. Config::APP_VERSION); ?></li>
+            <li class="nav-label"><?php echo e(__('Current Version') . ' - ' . Config::APP_VERSION); ?></li>
         </ul>
     </div>
 </div>

@@ -30,8 +30,8 @@ class DashboardController extends Controller
         $data['pendingDeposit'] = Deposit::where('status', 2)->sum('amount');
 
 
-        $data['totalWithdraw'] = Withdraw::where('status', 1)->sum('withdraw_amount');
-        $data['pendingWithdraw'] = Withdraw::where('status', 0)->sum('withdraw_amount');
+        $data['totalWithdraw'] = Withdraw::where('status', 1)->sum('amount');
+        $data['pendingWithdraw'] = Withdraw::where('status', 0)->sum('amount');
 
         $data['totalUser'] = User::count();
         $data['pendingUser'] = User::where('status', 0)->count();
@@ -65,7 +65,7 @@ class DashboardController extends Controller
             ->groupby('month')
             ->get();
         $withdraws = Withdraw::where('status', 1)
-            ->select(DB::raw('SUM(withdraw_amount) as total'), DB::raw('MONTHNAME(created_at) month'))
+            ->select(DB::raw('SUM(amount) as total'), DB::raw('MONTHNAME(created_at) month'))
             ->groupby('month')
             ->get();
 

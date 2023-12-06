@@ -152,32 +152,36 @@ class UserController extends Controller
 
         $user = auth()->user();
         $data['accounts'] = $user->accounts;
-
-        if ($request->type == 'dep') {
-            $data['requests'] = Deposit::where('user_id', Auth::id())
-                ->orWhere('login', $request->login)
-                ->with('payment')
-                ->paginate(10);
-        }
+        $data['login'] = '';
 
         if ($request->type == 'with') {
-            $data['requests'] = Withdraw::where('user_id', Auth::id())
-                ->orWhere('login', $request->login)
-                ->with('payment')
-                ->paginate(10);
+            $query = Withdraw::where('user_id', Auth::id());
+            $data['type'] = 'with';
+        }
+        if ($request->type == 'dep' || $request->type == '') {
+            $query = Deposit::where('user_id', Auth::id());
+            $data['type'] = 'dep';
         }
 
+        if ($request->login) {
 
-        //  dd($data['deposit_requests']);
+            $query =  $query->where('login', $request->login);
+            $data['login'] = $request->login;
+        }
 
-        dd($data);
+        $query =  $query->with('payment');
+        $query =  $query->paginate(10);
+        $data['requests'] = $query;
 
+        
+       
         return view(Helper::theme() . 'user.history')->with($data);
     }
     public function historyDel($id)
     {
         $data['title'] = 'History';
 
+    
         Deposit::find($id)->delete();
         //  dd($data['deposit_requests']);
 

@@ -16,7 +16,7 @@
                             <select id="account_number" class="form-control" name="login">
                                 <option value=""></option>
                                 <?php $__currentLoopData = $accounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option data-login="<?php echo e($item->login); ?>" value="<?php echo e($item->id); ?>"><?php echo e($item->login); ?> <?php echo e($item->account_type=='4'?'(DEMO)':''); ?></option>
+                                    <option data-login="<?php echo e($item->login); ?>" value="<?php echo e($item->login); ?>"><?php echo e($item->login); ?> <?php echo e($item->account_type=='4'?'(DEMO)':''); ?></option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             </select>

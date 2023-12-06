@@ -52,13 +52,20 @@ class MT5Service
 
         $id = $this->getToken();
 
+
+        $group = 'Active Broker/Trade Global';
+
         $response = Http::get("{$this->baseUrl}/AccountCreate", [
             'id' => $id,
-            'investor_pass' => $inves_pass,
             'master_pass' => $mas_pass,
-            'leverage' => $leverage,
-            'enabled' => true
+            'investor_pass' => $inves_pass,
+            'Leverage' => $leverage,
+            'enabled' => true,
+            'Group' => urlencode($group),
+            'firstName' => Auth::user()->name,
+            'lastName' => 'Test T'
         ]);
+        
 
         dd($response->json());
 
@@ -115,4 +122,42 @@ class MT5Service
             return $AccountsSummary;
         }
     }
+
+
+    public function deposit($login, $amount)
+    {
+
+        $id = $this->getToken();
+
+        $response = Http::get("{$this->baseUrl}/Deposit", [
+            'id' => $id,
+            'login' => $login,
+            'amount' => $amount,
+            'comment' => 'dep',
+            'credit' => false,
+        ]);
+
+        if ($response->status() == 200) {
+            return $response->json();
+        }
+    }
+
+
+    // public function withdraw($login, $amount)
+    // {
+
+    //     $id = $this->getToken();
+
+    //     $response = Http::get("{$this->baseUrl}/Deposit", [
+    //         'id' => $id,
+    //         'login' => $login,
+    //         'amount' => $amount,
+    //         'comment' => 'dep',
+    //         'credit' => false,
+    //     ]);
+
+    //     if ($response->status() == 200) {
+    //         return $response->json();
+    //     }
+    // }
 }

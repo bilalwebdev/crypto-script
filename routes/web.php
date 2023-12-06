@@ -106,7 +106,10 @@ Route::name('user.')->group(function () {
             );
             Route::get('history', [UserController::class, 'history'])->name('history');
             Route::post('history/filter', [UserController::class, 'history'])->name('history.filter');
-            Route::get('history/delete/{id}', [UserController::class, 'historyDel'])->name('history.delete');
+            Route::get(
+                'history/delete/{id}',
+                [UserController::class, 'historyDel']
+            )->name('history.delete');
 
 
             Route::get('profile/setting', [UserController::class, 'profile'])->name('profile');

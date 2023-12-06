@@ -26,28 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="card mb-4 gr-white gr-white2 rounded-xl link-item widget-hr-effect">
-                        <a href="<?php echo e(route('admin.deposit', 'offline')); ?>" class="link"></a>
-                        <div class="sp-widget-2 card-body">
-                            <a href="<?php echo e(route('admin.deposit', 'offline')); ?>" class="widget-link-arrow"><i
-                                    class="las la-arrow-right"></i></a>
-                            <div class="top">
-                                <div class="widget-icon">
-                                    <i class="las la-hourglass-half"></i>
-                                </div>
-                                <div class="widget-content">
-                                    <h5 class="mb-0"><?php echo e(__('Total Deposit')); ?></h5>
-                                </div>
-                            </div>
-                            <div class="bottom mt-3">
-                                <div class="widget-content">
-                                    <h2 class="mb-0"><?php echo e(Config::formatter($totalDeposit)); ?></h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-lg-4 col-sm-6">
                     <div class="card mb-4 gr-white gr-white3 rounded-xl link-item widget-hr-effect">
                         <a href="<?php echo e(route('admin.withdraw.filter', 'pending')); ?>" class="link"></a>
@@ -119,30 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
-                    <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
-                        <a href="<?php echo e(route('admin.payment.index')); ?>" class="link"></a>
-                        <div class="widget-icon light-icon-5">
-                            <i class="las la-dollar-sign"></i>
-                        </div>
-                        <div class="widget-content">
-                            <div class="widget-caption text-dark"><?php echo e(__('Online Gateway')); ?></div>
-                            <h3 class="mb-0 mt-1 widget-title text-dark"><?php echo e($totalOnlineGateway); ?></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
-                    <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
-                        <a href="<?php echo e(route('admin.payment.offline')); ?>" class="link"></a>
-                        <div class="widget-icon light-icon-6">
-                            <i class="las la-user-friends"></i>
-                        </div>
-                        <div class="widget-content">
-                            <div class="widget-caption text-dark"><?php echo e(__('Offline Gateway')); ?></div>
-                            <h3 class="mb-0 mt-1 widget-title text-dark"><?php echo e($totalOfflineGateway); ?></h3>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <div class="col-xxl-3 col-md-6">
@@ -177,24 +133,8 @@
                                 <p class="short-card-title"><?php echo e(__('Signals')); ?></p>
                             </div>
                         </div>
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.deposit', 'offline')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-4">
-                                    <i class="fas fa-wallet"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Deposit')); ?></p>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.withdraw.filter', 'pending')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-5">
-                                    <i class="fas fa-hand-holding-usd"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Withdraw')); ?></p>
-                            </div>
-                        </div>
+                        
+                        
                         <div class="col-4 mb-3">
                             <div class="short-card link-item">
                                 <a href="<?php echo e(route('admin.payments.index', 'offline')); ?>" class="link"></a>
@@ -410,7 +350,7 @@
             <div class="card">
                 <div class="card-header justify-content-between">
                     <h4 class="card-title"><?php echo e(__('Latest Deposit')); ?></h4>
-                    <a href="<?php echo e(route('admin.deposit', 'offline')); ?>" class="site-color fw-500"><?php echo e(__('View All')); ?></a>
+                    <a href="<?php echo e(route('admin.deposit.manage')); ?>" class="site-color fw-500"><?php echo e(__('View All')); ?></a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
