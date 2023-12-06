@@ -10,11 +10,11 @@
                     <h6 class="mb-0 ">Select transaction type</h6>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="{{ url('history/filter') }}" method="post">
                         <input type="hidden" name="_token" value="g3TvDwyj3LQSms88hy4duVAnFsUgK4r131aaAdfJ">
                         <div class="form-group mb-3">
                             <label for="">TRANSACTIONS TYPE</label>
-                            <select class="form-control">
+                            <select class="form-control" name="type">
                                 <option value="dep">Deposit</option>
                                 <option value="with">Withdraw</option>
                             </select>
@@ -22,10 +22,13 @@
 
                         <div class="form-group mb-3">
                             <label for="">ACCOUNT NUMBER</label>
-                            <select class="form-control">
-                                <option value="0"></option>
-                                <option value="575021002">575021002</option>
-                                <option value="575021003">575021003</option>
+
+                            <select class="form-control" name="login">
+                                <option value=""></option>
+                                @foreach ($accounts as $acc)
+                                    <option value="{{ $acc->login }}">{{ $acc->login }}</option>
+                                @endforeach
+
                             </select>
                         </div>
 
@@ -67,7 +70,7 @@
                             </thead>
                             <tbody>
 
-                                @forelse ($deposit_requests as $dreq)
+                                @forelse ($requests as $dreq)
                                     <tr>
                                         <td>{{ $dreq->login }}</td>
                                         <td>Deposit</td>
@@ -95,9 +98,9 @@
 
                         <table class="table align-items-center table-flush table-borderless" name="incidents"
                             id="incidents">
-                            @if ($deposit_requests->hasPages())
+                            @if ($requests->hasPages())
                                 <div class="col-md-12">
-                                    {{ $deposit_requests->links() }}
+                                    {{ $requests->links() }}
                                 </div>
                             @endif
                         </table>

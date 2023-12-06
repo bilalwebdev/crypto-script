@@ -42,7 +42,7 @@
 
                         <div class="form-group mb-3">
                             <label for="">AMOUNT</label>
-                            <input type="text" class="form-control" name="amount" id="amount" required
+                            <input type="number" min="" class="form-control" name="amount" id="amount" required
                                 placeholder="Amount in USD">
                         </div>
                         <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-dollar-sign"

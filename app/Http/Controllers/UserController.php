@@ -52,7 +52,7 @@ class UserController extends Controller
 
         if ($request->all()) {
 
-          
+
 
             $this->dashboard->openAccount($request->leverage, $request->investor_pass, $request->master_pass);
 
@@ -146,13 +146,31 @@ class UserController extends Controller
 
         return view(Helper::theme() . 'user.withdraw.index')->with($data);
     }
-    public function history()
+    public function history(Request $request)
     {
         $data['title'] = 'History';
 
-        $data['deposit_requests'] = Deposit::where('user_id', Auth::id())->with('payment')->paginate(10);
+        $user = auth()->user();
+        $data['accounts'] = $user->accounts;
+
+        if ($request->type == 'dep') {
+            $data['requests'] = Deposit::where('user_id', Auth::id())
+                ->orWhere('login', $request->login)
+                ->with('payment')
+                ->paginate(10);
+        }
+
+        if ($request->type == 'with') {
+            $data['requests'] = Withdraw::where('user_id', Auth::id())
+                ->orWhere('login', $request->login)
+                ->with('payment')
+                ->paginate(10);
+        }
+
 
         //  dd($data['deposit_requests']);
+
+        dd($data);
 
         return view(Helper::theme() . 'user.history')->with($data);
     }
@@ -163,7 +181,7 @@ class UserController extends Controller
         Deposit::find($id)->delete();
         //  dd($data['deposit_requests']);
 
-        return view(Helper::theme() . 'user.history')->with($data);
+        return redirect('/history');
     }
 
     public function profile()

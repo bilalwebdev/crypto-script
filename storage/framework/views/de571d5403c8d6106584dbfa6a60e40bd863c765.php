@@ -41,7 +41,7 @@
 
     <style>
         :root {
-            --clr-main: <?= Config::config()->color[Config::config()->theme] ?? '#F2062F' ?>;
+            --clr-main: <?=Config::config()->color[Config::config()->theme] ?? '#F2062F' ?>;
             --h-font: <?=$heading ?>;
             --p-font: <?=$paragraph ?>;
         }
@@ -60,7 +60,16 @@
     <?php if(Config::config()->preloader_status): ?>
         <div class="preloader-holder">
             <div class="preloader">
-                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </div>
     <?php endif; ?>
@@ -191,14 +200,14 @@
             var url = "<?php echo e(route('change-language')); ?>";
 
             $(".changeLang").on('change', function() {
-               
+
                 if ($(this).val() == '') {
                     return false;
                 }
                 window.location.href = url + "?lang=" + $(this).val();
             });
 
-        })
+        });
     </script>
 
 

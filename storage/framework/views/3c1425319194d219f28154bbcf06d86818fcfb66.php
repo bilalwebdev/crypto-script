@@ -8,11 +8,11 @@
                     <h6 class="mb-0 ">Select transaction type</h6>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="<?php echo e(url('history/filter')); ?>" method="post">
                         <input type="hidden" name="_token" value="g3TvDwyj3LQSms88hy4duVAnFsUgK4r131aaAdfJ">
                         <div class="form-group mb-3">
                             <label for="">TRANSACTIONS TYPE</label>
-                            <select class="form-control">
+                            <select class="form-control" name="type">
                                 <option value="dep">Deposit</option>
                                 <option value="with">Withdraw</option>
                             </select>
@@ -20,10 +20,13 @@
 
                         <div class="form-group mb-3">
                             <label for="">ACCOUNT NUMBER</label>
-                            <select class="form-control">
-                                <option value="0"></option>
-                                <option value="575021002">575021002</option>
-                                <option value="575021003">575021003</option>
+
+                            <select class="form-control" name="login">
+                                <option value=""></option>
+                                <?php $__currentLoopData = $accounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($acc->login); ?>"><?php echo e($acc->login); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                             </select>
                         </div>
 
@@ -65,7 +68,7 @@
                             </thead>
                             <tbody>
 
-                                <?php $__empty_1 = true; $__currentLoopData = $deposit_requests; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dreq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <?php $__empty_1 = true; $__currentLoopData = $requests; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dreq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr>
                                         <td><?php echo e($dreq->login); ?></td>
                                         <td>Deposit</td>
@@ -93,9 +96,9 @@
 
                         <table class="table align-items-center table-flush table-borderless" name="incidents"
                             id="incidents">
-                            <?php if($deposit_requests->hasPages()): ?>
+                            <?php if($requests->hasPages()): ?>
                                 <div class="col-md-12">
-                                    <?php echo e($deposit_requests->links()); ?>
+                                    <?php echo e($requests->links()); ?>
 
                                 </div>
                             <?php endif; ?>

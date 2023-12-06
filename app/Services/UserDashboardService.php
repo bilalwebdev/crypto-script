@@ -32,6 +32,8 @@ class UserDashboardService
 
 
 
+
+
         $data['liveAccounts'] = array_map(function ($item1, $item2) {
             return [
                 'balance' => $item2['balance'],
@@ -52,7 +54,7 @@ class UserDashboardService
     }
     public function openAccount($lev, $inves_pass, $mas_pass)
     {
-      
+
         return $this->mt5Service->openAccount($lev, $inves_pass, $mas_pass);
     }
 }

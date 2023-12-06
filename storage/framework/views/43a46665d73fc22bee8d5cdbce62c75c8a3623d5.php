@@ -30,7 +30,7 @@
                                 <option value=""></option>
                                 <?php $__currentLoopData = $payment_methods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <option data-amount="<?php echo e($item['min_amount']); ?>"
-                                        data-waddress="<?php echo e($item['wallet_address']); ?>" data-name ="<?php echo e($item['min_amount']); ?>"
+                                        data-waddress="<?php echo e($item['wallet_address']); ?>" data-name ="<?php echo e($item['name']); ?>"
                                         value="<?php echo e($item['id']); ?>">
                                         <?php echo e($item['name']); ?>
 
@@ -42,7 +42,7 @@
 
                         <div class="form-group mb-3">
                             <label for="">AMOUNT</label>
-                            <input type="text" class="form-control" name="amount" id="amount" required
+                            <input type="number" min="" class="form-control" name="amount" id="amount" required
                                 placeholder="Amount in USD">
                         </div>
                         <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-dollar-sign"

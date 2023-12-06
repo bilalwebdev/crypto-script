@@ -50,12 +50,7 @@ class MT5Service
     public function openAccount($leverage, $inves_pass, $mas_pass)
     {
 
-      
-
-
         $id = $this->getToken();
-
-        dd($id);
 
         $response = Http::get("{$this->baseUrl}/AccountCreate", [
             'id' => $id,
@@ -97,6 +92,8 @@ class MT5Service
         }
 
         $response = Http::get("{$this->baseUrl}/AccountDetailsMany?id=$id$arr");
+
+        // dd($response->json());
 
         if ($response->status() === 200) {
             return $response->json();
