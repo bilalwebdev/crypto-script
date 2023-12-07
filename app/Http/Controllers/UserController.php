@@ -173,15 +173,15 @@ class UserController extends Controller
         $query =  $query->paginate(10);
         $data['requests'] = $query;
 
-        
-       
+
+
         return view(Helper::theme() . 'user.history')->with($data);
     }
     public function historyDel($id)
     {
         $data['title'] = 'History';
 
-    
+
         Deposit::find($id)->delete();
         //  dd($data['deposit_requests']);
 
@@ -190,6 +190,7 @@ class UserController extends Controller
 
     public function profile()
     {
+
         $data['title'] = 'Profile Edit';
 
         $data['user'] = auth()->user();

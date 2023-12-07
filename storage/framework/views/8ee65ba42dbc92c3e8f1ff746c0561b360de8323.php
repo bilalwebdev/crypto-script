@@ -1,25 +1,22 @@
-@extends(Config::theme() . 'layout.auth')
-
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="row mb-4">
         <div class="col-md-12">
             <div class="sp_site_card">
                 <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
-                    <h4>{{ __('Profile Settings') }}</h4>
-                    <a href="{{ route('user.change.password') }}"
-                        class="btn btn-sm sp_theme_btn mb-2">{{ __('Change Password') }}</a>
+                    <h4><?php echo e(__('Profile Settings')); ?></h4>
+                    <a href="<?php echo e(route('user.change.password')); ?>"
+                        class="btn btn-sm sp_theme_btn mb-2"><?php echo e(__('Change Password')); ?></a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('user.profileupdate') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+                    <form action="<?php echo e(route('user.profileupdate')); ?>" method="POST" enctype="multipart/form-data">
+                        <?php echo csrf_field(); ?>
                         <div class="row gy-4 justify-content-center">
                             <div class="col-md-4 pe-lg-5 pe-md-4 justify-content-center">
                                 <div class="img-choose-div text-center">
-                                    <p class="mb-4">{{ __('Profile Picture') }}</p>
+                                    <p class="mb-4"><?php echo e(__('Profile Picture')); ?></p>
 
                                     <img class=" rounded file-id-preview" id="file-id-preview"
-                                        src="{{ Config::getFile('user', Auth::user()->image, true) }}" alt="pp">
+                                        src="<?php echo e(Config::getFile('user', Auth::user()->image, true)); ?>" alt="pp">
 
                                     <input type="file" name="image" id="imageUpload" class="upload"
                                         accept=".png, .jpg, .jpeg" hidden>
@@ -32,67 +29,67 @@
                                 <div class="row">
 
                                     <div class="mb-3 col-md-6">
-                                        <label>{{ __('Username') }}</label>
+                                        <label><?php echo e(__('Username')); ?></label>
                                         <input type="text" class="form-control text-white" name="username"
-                                            value="{{ Auth::user()->username }}" placeholder="{{ __('Enter User Name') }}"
+                                            value="<?php echo e(Auth::user()->username); ?>" placeholder="<?php echo e(__('Enter User Name')); ?>"
                                             disabled>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label>{{ __('Email address') }}</label>
+                                        <label><?php echo e(__('Email address')); ?></label>
                                         <input type="email" class="form-control" name="email"
-                                            value="{{ Auth::user()->email }}" placeholder="{{ __('Enter Email') }}"
+                                            value="<?php echo e(Auth::user()->email); ?>" placeholder="<?php echo e(__('Enter Email')); ?>"
                                             disabled>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label>{{ __('Phone') }}</label>
+                                        <label><?php echo e(__('Phone')); ?></label>
                                         <input type="text" class="form-control" name="phone"
-                                            value="{{ Auth::user()->phone }}" placeholder="{{ __('Enter Phone') }}">
+                                            value="<?php echo e(Auth::user()->phone); ?>" placeholder="<?php echo e(__('Enter Phone')); ?>">
                                     </div>
 
 
 
                                     <div class="form-group col-md-6 mb-3 ">
-                                        <label>{{ __('Country') }}</label>
+                                        <label><?php echo e(__('Country')); ?></label>
                                         <input type="text" name="country" class="form-control"
-                                            value="{{ optional(Auth::user()->address)->country }}">
+                                            value="<?php echo e(optional(Auth::user()->address)->country); ?>">
                                     </div>
 
                                     <div class="col-md-6 mb-3">
 
-                                        <label>{{ __('city') }}</label>
+                                        <label><?php echo e(__('city')); ?></label>
                                         <input type="text" name="city" class="form-control form_control"
-                                            value="{{ optional(Auth::user()->address)->city }}">
+                                            value="<?php echo e(optional(Auth::user()->address)->city); ?>">
 
                                     </div>
 
                                     <div class="col-md-6 mb-3">
 
-                                        <label>{{ __('zip') }}</label>
+                                        <label><?php echo e(__('zip')); ?></label>
                                         <input type="text" name="zip" class="form-control form_control"
-                                            value="{{ optional(Auth::user()->address)->zip }}">
+                                            value="<?php echo e(optional(Auth::user()->address)->zip); ?>">
 
                                     </div>
 
                                     <div class="col-md-6 mb-3">
 
-                                        <label>{{ __('state') }}</label>
+                                        <label><?php echo e(__('state')); ?></label>
                                         <input type="text" name="state" class="form-control form_control"
-                                            value="{{ optional(Auth::user()->address)->state }}">
+                                            value="<?php echo e(optional(Auth::user()->address)->state); ?>">
 
                                     </div>
 
 
                                     <div class="col-md-6 mb-3">
 
-                                        <label>{{ __('Telegram Username') }}</label>
+                                        <label><?php echo e(__('Telegram Username')); ?></label>
                                         <input type="text" name="telegram_id" class="form-control form_control"
-                                            value="{{ Auth::user()->telegram_id }}" required>
+                                            value="<?php echo e(Auth::user()->telegram_id); ?>" required>
 
                                     </div>
 
                                 </div>
 
-                                <button class="btn sp_theme_btn mt-3 w-100">{{ __('Update') }}</button>
+                                <button class="btn sp_theme_btn mt-3 w-100"><?php echo e(__('Update')); ?></button>
                             </div>
 
 
@@ -109,7 +106,7 @@
         <div class="col-md-12">
             <div class="sp_site_card">
                 <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
-                    <h4>{{ __('Upload KYC Documents') }}</h4>
+                    <h4><?php echo e(__('Upload KYC Documents')); ?></h4>
 
                 </div>
                 <div class="card-body">
@@ -126,7 +123,7 @@
                         </div>
                         <div class="col-md-4 pe-lg-5 pe-md-4 justify-content-center">
                             <div class="img-choose-div text-center">
-                                <p class="mb-2">{{ __('Profile Picture') }}</p>
+                                <p class="mb-2"><?php echo e(__('Profile Picture')); ?></p>
 
 
                                 <input type="file" name="image" id="imageUpload" class=""
@@ -143,20 +140,20 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@push('style')
+<?php $__env->startPush('style'); ?>
     <style>
         .file-id-preview {
             max-height: 300px;
             display: inline-block !important;
         }
     </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
 
-@push('script')
+<?php $__env->startPush('script'); ?>
     <script>
         'use strict'
 
@@ -174,4 +171,6 @@
             }
         }
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make(Config::theme() . 'layout.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\personal\crypto-script\resources\views/frontend/light/user/profile.blade.php ENDPATH**/ ?>

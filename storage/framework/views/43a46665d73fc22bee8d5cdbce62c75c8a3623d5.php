@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-sm-12 col-lg-4">
@@ -232,11 +234,14 @@
 
             $('#payment_method_id').on('change', function() {
 
+              
                 $('#amountentered').show();
                 $('#payment_info').show();
                 var amt = $(this).find(':selected').data('amount');
                 var w_address = $(this).find(':selected').data('waddress');
                 var name = $(this).find(':selected').data('name');
+
+                $('#amount').attr('min', amt);
 
                 $('#min_deposit').html(amt);
                 $('#wallet_add').html(w_address);

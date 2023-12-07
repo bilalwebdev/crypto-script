@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-md-6">
@@ -43,12 +45,12 @@
                         <div class="form-group mb-3">
                             <label for="">Investor Password</label>
                             <input type="password" class="form-control" name="investor_pass" id="" required
-                                placeholder="">
+                                placeholder="Enter Investor Password">
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Master Password</label>
                             <input type="password" class="form-control" name="master_pass" id="" required
-                                placeholder="">
+                                placeholder="Enter Master Password">
                         </div>
 
 
