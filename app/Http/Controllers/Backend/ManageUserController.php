@@ -8,6 +8,7 @@ use App\Http\Requests\AdminUserRequest;
 use App\Jobs\SendEmailJob;
 use App\Jobs\SendQueueEmail;
 use App\Models\GeneralSetting;
+use App\Models\KycDocs;
 use App\Models\Payment;
 use App\Models\ReferralCommission;
 use App\Models\Template;
@@ -57,9 +58,9 @@ class ManageUserController extends Controller
 
     public function userDetails(Request $request)
     {
-        
-       
-        
+
+
+
         $data['user'] = User::with('refferals')->where('id', $request->user)->firstOrFail();
 
         $data['payment'] = Payment::where('user_id', $data['user']->id)->where('status', 1)->latest()->first();
@@ -68,7 +69,7 @@ class ManageUserController extends Controller
 
         $data['userCommission'] = $data['user']->commissions->sum('amount');
 
-        $data['withdrawTotal'] = Withdraw::where('user_id', $data['user']->id)->where('status', 1)->sum('withdraw_amount');
+        $data['withdrawTotal'] = Withdraw::where('user_id', $data['user']->id)->where('status', 1)->sum('amount');
 
         $data['totalDeposit'] = $data['user']->deposits()->where('status', 1)->sum('amount');
 
@@ -77,7 +78,7 @@ class ManageUserController extends Controller
         $data['totalTicket'] = $data['user']->tickets->count();
 
         $data['title'] = "User Details";
-        
+
 
         return view('backend.users.details')->with($data);
     }
@@ -92,14 +93,14 @@ class ManageUserController extends Controller
 
     public function sendUserMail(Request $request, User $user)
     {
-    
-        
+
+
         $data = $request->validate([
             'subject' => 'required',
             "message" => 'required',
         ]);
 
-       
+
         $data['name'] = $user->username;
         $data['subject'] = $request->subject;
         $data['message'] = $request->message;
@@ -108,8 +109,8 @@ class ManageUserController extends Controller
         $data['app_name'] = Helper::config()->appname;
 
         Helper::commonMail($data);
-        
-       
+
+
 
         return back()->with('success', 'Send Email To user Successfully');
     }
@@ -219,6 +220,8 @@ class ManageUserController extends Controller
 
         $data['infos'] = $user->where('is_kyc_verified', 2)->paginate(Helper::pagination());
 
+        //   $data['infos'] = KycDocs::all();
+
         $data['title'] = 'KYC Requests';
 
         return view('backend.users.kyc_req')->with($data);
@@ -258,5 +261,19 @@ class ManageUserController extends Controller
         SendEmailJob::dispatch($data);
 
         return redirect()->route('admin.user.index')->with('success', 'Successfully Send Mail');
+    }
+
+    public function kycDoc($id)
+    {
+
+
+        $data['info'] = User::where('id', $id)->with('kycinfo')->first()->toArray();
+
+        $data['title']  = 'KYC Details';
+        //  $data['infos'] = $user['kyc_information'];
+
+
+
+        return view('backend.users.kyc_details')->with($data);
     }
 }

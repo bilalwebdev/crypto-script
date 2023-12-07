@@ -11,12 +11,12 @@
                 </div>
                 <div class="card-body">
                     <form action="{{ url('history/filter') }}" method="post">
-                       @csrf
+                        @csrf
                         <div class="form-group mb-3">
                             <label for="">TRANSACTIONS TYPE</label>
-                            <select class="form-control" name="type" >
-                                <option @if($type == 'dep') selected @endif value="dep">Deposit</option>
-                                <option @if($type == 'with') selected @endif value="with">Withdraw</option>
+                            <select class="form-control" name="type">
+                                <option @if ($type == 'dep') selected @endif value="dep">Deposit</option>
+                                <option @if ($type == 'with') selected @endif value="with">Withdraw</option>
                             </select>
                         </div>
 
@@ -26,7 +26,8 @@
                             <select class="form-control" name="login">
                                 <option value=""></option>
                                 @foreach ($accounts as $acc)
-                                    <option @if($login == $acc->login) selected @endif value="{{ $acc->login }}">{{ $acc->login }}</option>
+                                    <option @if ($login == $acc->login) selected @endif value="{{ $acc->login }}">
+                                        {{ $acc->login }}</option>
                                 @endforeach
 
                             </select>
@@ -34,9 +35,9 @@
 
 
                         <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-history"
-                        aria-hidden="true"></i>&nbsp;Apply</button>
+                                aria-hidden="true"></i>&nbsp;Apply</button>
                         <a href="/history" class="btn sp_theme_btn btn-md text-uppercase"><i class="fa fa-refresh"
-                        aria-hidden="true"></i>&nbsp;Reset</a>
+                                aria-hidden="true"></i>&nbsp;Reset</a>
                     </form>
                 </div>
             </div>
@@ -75,30 +76,38 @@
                                 @forelse ($requests as $dreq)
                                     <tr>
                                         <td>{{ $dreq->login }}</td>
-                                        @if($type == 'dep')
-                                          <td>Deposit</td>
+                                        @if ($type == 'dep')
+                                            <td>Deposit</td>
                                         @else
-                                          <td>Withdraw</td>
+                                            <td>Withdraw</td>
                                         @endif
                                         <td>{{ $dreq->payment?->name }}</td>
                                         <td>{{ $dreq->amount }}</td>
                                         @if ($dreq->status == 2)
-                                            <td>Pending</td>
+                                            <td> <span class="status-btn status-btn-warning">
+                                                    <i class="fas fa-clock" aria-hidden="true"></i>
+                                                    Pending</span></td>
                                         @elseif($dreq->status == 1)
-                                            <td>Approved</td>
+                                            <td> <span class="status-btn status-btn-success">
+                                                    <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+                                                    Approved</span></td>
                                         @else
-                                            <td>Rejected</td>
+                                            <td> <span class="status-btn status-btn-danger">
+                                                    <i class="fas fa-ban" aria-hidden="true"></i>
+                                                    Rejected</span></td>
                                         @endif
-                                        <td><div onclick="cancelTrans('{{ $dreq->id }}')" class="cancel cursor-pointer"
-                                                style="font-style:italic;text-decoration:underline;font-size:11px;color:silver; pointer-events:auto;">Cancel</div>
+                                        <td>
+                                            <div onclick="cancelTrans('{{ $dreq->id }}')" class="cancel cursor-pointer"
+                                                style="font-style:italic;text-decoration:underline;font-size:11px;color:silver; pointer-events:auto;">
+                                                Cancel</div>
                                         </td>
                                         <td>{{ date($dreq->created_at) }}</td>
 
                                     </tr>
                                 @empty
-                                 <tr>
-                                    <td class="text-center">No request found!</td>
-                                 </tr>
+                                    <tr>
+                                        <td class="text-center">No request found!</td>
+                                    </tr>
                                 @endforelse
 
                             </tbody>
@@ -118,30 +127,31 @@
         </div>
 
 
-   <div class="modal fade" tabindex="-3" id="delete" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div>
-                
+        <div class="modal fade" tabindex="-3" id="delete" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div>
 
-                <div class="modal-content bg1">
-                    <div class="modal-header ">
-                        <h5 class="modal-title">{{ __('Cancel Transaction') }}</h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body ">
-                        <p>{{ __('Are you sure to cancel this transaction?') }}</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-sm sp_btn_secondary"
-                            data-bs-dismiss="modal">{{ __('Close') }}</button>
-                        <button type="button" onclick="confirmCancel()" class="btn btn-sm sp_btn_danger">{{ __('Yes') }}</button>
+
+                    <div class="modal-content bg1">
+                        <div class="modal-header ">
+                            <h5 class="modal-title">{{ __('Cancel Transaction') }}</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body ">
+                            <p>{{ __('Are you sure to cancel this transaction?') }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm sp_btn_secondary"
+                                data-bs-dismiss="modal">{{ __('Close') }}</button>
+                            <button type="button" onclick="confirmCancel()"
+                                class="btn btn-sm sp_btn_danger">{{ __('Yes') }}</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
     </div>
@@ -152,23 +162,20 @@
 @endpush
 @push('script')
     <script>
-
         var hid = '';
-          
-           function cancelTrans(id){
-              
-                const modal = $('#delete');
 
-                modal.modal('show');
+        function cancelTrans(id) {
 
-                hid = id;
+            const modal = $('#delete');
 
-           }
-               
-            function confirmCancel(){
-                 window.location.href = '/history/delete/'+hid;
-            }     
+            modal.modal('show');
 
-           
+            hid = id;
+
+        }
+
+        function confirmCancel() {
+            window.location.href = '/history/delete/' + hid;
+        }
     </script>
 @endpush

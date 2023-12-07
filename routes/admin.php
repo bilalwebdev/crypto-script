@@ -118,6 +118,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::post('bulk/mail', [ManageUserController::class, 'bulkMail'])->name('bulk');
 
+            Route::get('doc/{user}', [ManageUserController::class, 'kycDoc'])->name('doc');
+
             Route::get('kyc/request', [ManageUserController::class, 'kycAll'])->name('kyc.req');
             Route::get('kyc/request/{id}', [ManageUserController::class, 'kycDetails'])->name('kyc.details');
             Route::post('kyc/{status}/{id}', [ManageUserController::class, 'kycStatus'])->name('kyc.status');
@@ -272,13 +274,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('withdraw/{id}/reject', [ManageWithdrawController::class, 'reject'])->name('withdraw.reject');
         });
 
-        // Route::middleware('permission:manage-deposit,admin')->group(function () {
-        //     Route::get('deposit/log/{user?}', [LogController::class, 'depositLog'])->name('deposit.log');
-        //     Route::get('deposit/{status}', [ManageDepositController::class, 'index'])->name('deposit');
-        //     Route::post('deposit/{trx}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
-        //     Route::post('deposit/{trx}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
-        //     Route::get('deposit/{trx}/details', [ManageDepositController::class, 'details'])->name('deposit.details');
-        // });
+        Route::middleware('permission:manage-deposit,admin')->group(function () {
+            Route::get('deposit/log/{user?}', [LogController::class, 'depositLog'])->name('deposit.log');
+            // Route::get('deposit/{status}', [ManageDepositController::class, 'index'])->name('deposit');
+            // Route::post('deposit/{trx}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
+            // Route::post('deposit/{trx}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
+            // Route::get('deposit/{trx}/details', [ManageDepositController::class, 'details'])->name('deposit.details');
+        });
 
 
         Route::middleware('permission:manage-logs,admin')->group(function () {

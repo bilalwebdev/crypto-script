@@ -112,6 +112,11 @@ Route::name('user.')->group(function () {
             )->name('history.delete');
 
 
+            //kyc file
+
+            Route::post('kyc-file-upload', [UserController::class, 'KYCFileUpload'])->name('withdraw');
+
+
             Route::get('profile/setting', [UserController::class, 'profile'])->name('profile');
             Route::post('profile/setting', [UserController::class, 'profileUpdate'])->name('profileupdate');
             Route::get('profile/change/password', [UserController::class, 'changePassword'])->name('change.password');

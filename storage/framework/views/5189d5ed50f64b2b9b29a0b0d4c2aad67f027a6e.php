@@ -226,9 +226,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               
+
                                 <?php $__empty_1 = true; $__currentLoopData = $investments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $invest): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                
                                     <tr>
                                         <td>
                                             <a href="<?php echo e(route('admin.user.details', optional($invest->user)->id)); ?>">
@@ -265,7 +264,7 @@
 
                     <ul class="browser-status-list mt-4">
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','chrome.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'chrome.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('Chrome')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Chrome')->first())->total ?? 0); ?></span>
@@ -278,7 +277,7 @@
                             </div>
                         </li>
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','firefox.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'firefox.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('Friefox')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Mozilla')->first())->total ?? 0); ?></span>
@@ -290,7 +289,7 @@
                             </div>
                         </li>
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','safari.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'safari.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('Safari')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Safari')->first())->total ?? 0); ?></span>
@@ -302,7 +301,7 @@
                             </div>
                         </li>
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','edge.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'edge.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('Edge')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Edge')->first())->total ?? 0); ?></span>
@@ -315,7 +314,7 @@
                             </div>
                         </li>
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','opera.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'opera.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('Opera')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Opera')->first())->total ?? 0); ?></span>
@@ -327,7 +326,7 @@
                             </div>
                         </li>
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','uc.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'uc.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('UC')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Uc')->first())->total ?? 0); ?></span>
@@ -350,7 +349,7 @@
             <div class="card">
                 <div class="card-header justify-content-between">
                     <h4 class="card-title"><?php echo e(__('Latest Deposit')); ?></h4>
-                    <a href="<?php echo e(route('admin.deposit.manage')); ?>" class="site-color fw-500"><?php echo e(__('View All')); ?></a>
+                    <a href="<?php echo e(route('admin.deposits')); ?>" class="site-color fw-500"><?php echo e(__('View All')); ?></a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -584,7 +583,7 @@
 
         var chart2 = new ApexCharts(document.querySelector("#chart2"), user);
         chart2.render();
-        
+
         var chart5 = new ApexCharts(document.querySelector("#chart5"), user);
         chart5.render();
 

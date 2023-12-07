@@ -8,15 +8,19 @@
     border-radius: 20px;
     margin-right: 10px;
 }
+
 .green {
     background-color: #1ad482;
 }
+
 .yellow {
     background-color: yellow;
 }
+
 .purple {
     background-color: #797ddb;
 }
+
 .red {
     background-color: red;
 }
@@ -25,36 +29,44 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding: 15px 0px;
 }
+
 .account-item-value label {
     display: block;
     text-transform: uppercase;
 }
+
 .tdStyle {
     border-bottom: 1px dotted grey;
     font-style: italic;
 }
+
 .acc-no {
     text-align: center;
     font-weight: bold;
     border-bottom: 1px dotted green;
 }
+
 .depo-info {
     text-align: center;
     font-weight: bold;
 }
+
 .amt-txt {
     font-family: Arial;
     font-size: 15px;
     animation: fadeIn 1s;
 }
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
 }
+
 /*
 ==============================
 Preloader css
@@ -416,7 +428,7 @@ Exetend css
 ==============================
 */
 .d-card,
-.has_submenu > a,
+.has_submenu>a,
 .or-text,
 .account-page .img-wrapper,
 .sp_testimonial_item .sp_testimonial_thumb_area,
@@ -444,7 +456,7 @@ body {
     position: relative;
 }
 
-.has_submenu > a::before,
+.has_submenu>a::before,
 .or-text::before,
 .account-page .img-wrapper .account-line-bg,
 .team-section::before,
@@ -503,7 +515,7 @@ body {
 }
 
 .d-card,
-.sidebar-menu > li a,
+.sidebar-menu>li a,
 .user-sidebar,
 .other-login-btns .other-login-btn i,
 .other-login-btns .other-login-btn,
@@ -519,7 +531,7 @@ body {
     transition: all 0.3s;
 }
 
-.sidebar-menu > li.active a,
+.sidebar-menu>li.active a,
 .other-login-btns .other-login-btn:hover,
 .sp_pricing_item .package-features li::before,
 .sp_pricing_item .pricing-header .left .icon::before,
@@ -559,7 +571,7 @@ body {
 }
 
 .has_submenu .submenu li.active a,
-.sidebar-menu > li a:hover,
+.sidebar-menu>li a:hover,
 .user-sidebar .sidebar-bottom-box .upgrade-plan,
 .sp_contact_item .sp_contact_content a:hover,
 .sp_contact_item .sp_contact_icon,
@@ -569,14 +581,14 @@ body {
 .sp_banner .sp_banner_title span,
 .sp_footer_menu li a:hover,
 .social-icons li a:hover,
-.hc-list > li > a i,
-.hc-list > li > a:hover,
+.hc-list>li>a i,
+.hc-list>li>a:hover,
 .sp_header .sp_site_menu li .dropdown-menu li a:hover,
 .sp_header .sp_site_menu li a:hover,
 .sp_header .sp_site_menu li a:focus,
 .sp_header .site-logo.site-title,
 .tab-btn-group .tab-btn.active,
-.sp_input_icon_field .form-control:focus ~ i,
+.sp_input_icon_field .form-control:focus~i,
 .sp_site_table thead th,
 .sp_check_list li::before,
 .sp_theme_top_caption i,
@@ -586,7 +598,7 @@ body {
 }
 
 .d-card-icon,
-.sidebar-menu > li.active a,
+.sidebar-menu>li.active a,
 .other-login-btns .other-login-btn:hover,
 .sp_testimonial_item .sp_testimonial_thumb_area .slick-arrow,
 .sp_pricing_item .pricing-header .left .content p span,
@@ -638,7 +650,7 @@ body {
 .signal-info-list .signal-single-list,
 .singnal-card .singnal-card-top,
 .single-recent-transaction,
-.sidebar-menu > li a,
+.sidebar-menu>li a,
 .user-header,
 .other-login-btns,
 .account-page,
@@ -685,7 +697,7 @@ body {
 .singnal-card .singnal-card-top,
 .single-recent-transaction,
 .d-card-icon,
-.sidebar-menu > li a,
+.sidebar-menu>li a,
 .user-header,
 .account-page .img-wrapper,
 .sp_blog_btn,
@@ -806,7 +818,7 @@ body {
 .signal-details-thumb,
 .signal-details-wrapper,
 .d-left-wrapper,
-.sidebar-menu > li.active a,
+.sidebar-menu>li.active a,
 .user-sidebar .sidebar-bottom-box,
 .sp_contact_form,
 .blog-details-img,
@@ -826,10 +838,7 @@ body {
 .sp_testimonial_item .sp_testimonial_thumb_area .slick-arrow,
 .sp_testimonial_item .sp_testimonial_thumb_area img,
 .sp_testimonial_item .sp_testimonial_thumb_area .sp_testimonial_thumb,
-.sp_testimonial_item
-    .sp_testimonial_thumb_area
-    .shape-circle
-    span[class*="dot"],
+.sp_testimonial_item .sp_testimonial_thumb_area .shape-circle span[class*="dot"],
 .sp_testimonial_item .sp_testimonial_thumb_area::before,
 .sp_pricing_item .package-features li::before,
 .sp_pricing_item .pricing-header .left .icon::before,
@@ -995,7 +1004,7 @@ Header css
     padding-right: 0;
 }
 
-.sp_header .sp_site_menu > li > a {
+.sp_header .sp_site_menu>li>a {
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     padding: 1.75rem 0.9375rem 1.75rem 0;
@@ -1048,6 +1057,7 @@ Header css
         border: none;
         padding: 0 0.9375rem;
     }
+
     .sp_header .sp_site_menu li .dropdown-menu.show {
         display: block;
     }
@@ -1077,22 +1087,22 @@ Header css
     }
 }
 
-.sp_header .sp_site_menu li .dropdown-menu li + li {
+.sp_header .sp_site_menu li .dropdown-menu li+li {
     margin-left: 0;
 }
 
-.sp_header .sp_site_menu li:hover > .dropdown-menu {
+.sp_header .sp_site_menu li:hover>.dropdown-menu {
     top: 100%;
     opacity: 1;
     visibility: visible;
 }
 
-.sp_header .sp_site_menu li + li {
+.sp_header .sp_site_menu li+li {
     margin-left: 1.25rem;
 }
 
 @media (max-width: 1199px) {
-    .sp_header .sp_site_menu li + li {
+    .sp_header .sp_site_menu li+li {
         margin-left: 0;
     }
 }
@@ -1115,26 +1125,26 @@ Header css
     border-bottom: 1px solid rgba(255, 255, 255, 0.0745098039);
 }
 
-.hc-list > li {
+.hc-list>li {
     padding: 0.625rem 1.25rem;
     border-right: 1px solid rgba(255, 255, 255, 0.0745098039);
 }
 
 @media (max-width: 991px) {
-    .hc-list > li {
+    .hc-list>li {
         border-right: none;
     }
 }
 
-.hc-list > li:first-child {
+.hc-list>li:first-child {
     padding-left: 0;
 }
 
-.hc-list > li > a {
+.hc-list>li>a {
     color: white;
 }
 
-.hc-list > li > a i {
+.hc-list>li>a i {
     margin-right: 4px;
 }
 
@@ -1241,6 +1251,7 @@ Header css
 }
 
 @media (max-width: 1199px) {
+
     .menu-toggle:before,
     .menu-toggle:after {
         background-color: #fff;
@@ -1491,7 +1502,7 @@ Footer css
     color: #fff;
 }
 
-.sp_footer_menu li + li {
+.sp_footer_menu li+li {
     margin-top: 0.625rem;
 }
 
@@ -1581,6 +1592,7 @@ Banner css
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(359deg);
     }
@@ -1668,11 +1680,9 @@ Choose section css
     left: -18%;
     width: 35%;
     height: 100%;
-    background: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0),
-        rgba(0, 0, 0, 0.015)
-    );
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0),
+            rgba(0, 0, 0, 0.015));
     border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -1708,11 +1718,9 @@ About css
     right: -18%;
     width: 35%;
     height: 100%;
-    background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 0.015)
-    );
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.015));
     border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -1759,7 +1767,7 @@ Benefit css
     padding-left: 1.6875rem;
 }
 
-.sp_benefit_item + .sp_benefit_item {
+.sp_benefit_item+.sp_benefit_item {
     margin-top: 40px;
 }
 
@@ -1816,18 +1824,22 @@ Overview css
         transform: scale(1, 1);
         /* opacity: 0.25; */
     }
+
     25% {
         transform: scale(1.15, 1.15);
         /* opacity: 0.15; */
     }
+
     50% {
         transform: scale(1.35, 1.35);
         /* opacity: 0; */
     }
+
     75% {
         transform: scale(1.15, 1.15);
         /* opacity: 0.15; */
     }
+
     100% {
         transform: scale(1, 1);
         /* opacity: 0.25; */
@@ -2038,7 +2050,7 @@ Plan section css
     flex-basis: auto;
 }
 
-.sp_pricing_item .package-features li + li {
+.sp_pricing_item .package-features li+li {
     margin-top: 1.25rem;
 }
 
@@ -2113,11 +2125,9 @@ Team section css
     right: -18%;
     width: 35%;
     height: 100%;
-    background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 0.025)
-    );
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.025));
     border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -2196,11 +2206,9 @@ Team section css
 .sp_team_content ul {
     display: flex;
     align-items: center;
-    background: linear-gradient(
-        to bottom,
-        var(--clr-main),
-        rgba(0, 0, 0, 0.85)
-    );
+    background: linear-gradient(to bottom,
+            var(--clr-main),
+            rgba(0, 0, 0, 0.85));
     margin-top: 15px;
     border-radius: 8px;
 }
@@ -2406,7 +2414,7 @@ Blog section css
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.sp_blog_list_post_box .sp_blog_list_post + .sp_blog_list_post {
+.sp_blog_list_post_box .sp_blog_list_post+.sp_blog_list_post {
     margin-top: 35px;
 }
 
@@ -2452,9 +2460,7 @@ Blog section css
     width: calc(100% - 150px);
 }
 
-.sp_blog_list_post.sp_blog_list_post-two
-    .sp_blog_list_post_content
-    .sp_blog_title {
+.sp_blog_list_post.sp_blog_list_post-two .sp_blog_list_post_content .sp_blog_title {
     font-size: 22px;
 }
 
@@ -2478,6 +2484,7 @@ Blog section css
     .sp_blog_list_post .sp_blog_list_post_thumb {
         width: 100%;
     }
+
     .sp_blog_list_post .sp_blog_list_post_content {
         width: 100%;
         padding-left: 0;
@@ -3065,17 +3072,17 @@ Dashboard css
     }
 }
 
-.sidebar-menu > li + li {
+.sidebar-menu>li+li {
     margin-top: 0.625rem;
 }
 
-.sidebar-menu > li a {
+.sidebar-menu>li a {
     color: #6a6a6a;
     padding: 0.625rem 0.9375rem;
     font-size: 1rem;
 }
 
-.sidebar-menu > li a i {
+.sidebar-menu>li a i {
     font-size: 1.125rem;
     width: 40px;
     background: linear-gradient(var(--clr-main), #fff);
@@ -3104,7 +3111,7 @@ Dashboard css
     border: 3px solid #fff;
 }
 
-.has_submenu > a::before {
+.has_submenu>a::before {
     content: "\f078";
     top: 16px;
     right: 3px;
@@ -3356,10 +3363,12 @@ Dashboard css
     .d-left-countdown #countdownTwo {
         justify-content: center;
     }
+
     .d-left-countdown .countdown-wrapper {
         width: 100%;
         margin-top: 7px;
     }
+
     .d-left-countdown .countdown-wrapper .countdown-single {
         background-color: #fff;
     }
@@ -3376,9 +3385,7 @@ Dashboard css
     font-size: 14px;
 }
 
-.recent-transaction-list
-    .single-recent-transaction
-    + .single-recent-transaction {
+.recent-transaction-list .single-recent-transaction+.single-recent-transaction {
     margin-top: 1.25rem;
 }
 
@@ -3866,6 +3873,33 @@ Dashboard css
     .sp_referral_item p {
         font-size: 14px;
     }
+
 }
 
 /* resposnsive css end */
+
+.file-upload {
+    margin-top: 31px;
+    padding: 15% 25%;
+    border: dashed 1px var(--clr-main);
+    border-radius: 5px;
+}
+
+.status-btn {
+    padding: 8px 10px;
+    color: white;
+    width: 100%;
+}
+
+.status-btn-success {
+    background: linear-gradient(135deg, #17a13e 0, #023b1e 100%) !important;
+
+}
+
+.status-btn-danger {
+    background: linear-gradient(135deg, #db094f 0, #830011 100%) !important;
+}
+
+.status-btn-warning {
+    background: linear-gradient(135deg, #56afe6 0, #003f83 100%) !important;
+}

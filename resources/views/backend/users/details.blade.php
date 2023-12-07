@@ -14,7 +14,9 @@
                                 <i class="las la-hand-holding-usd"></i>
                             </div>
                             <div class="sp-user-box_content">
-                                <h4 class="mb-1"> {{ $user->currentplan->first() ?  $user->currentplan->first()->plan->name : 'N/A'}}</h4>
+                                <h4 class="mb-1">
+                                    {{ $user->currentplan->first() ? $user->currentplan->first()->plan->name : 'N/A' }}
+                                </h4>
                                 <p>{{ __('Current Plan') }}</p>
                             </div>
                         </div>
@@ -36,7 +38,7 @@
                                 <i class="las la-dollar-sign"></i>
                             </div>
                             <div class="sp-user-box_content">
-                                <h4 class="mb-1"> {{ Config::formatter($userCommission)}}</h4>
+                                <h4 class="mb-1"> {{ Config::formatter($userCommission) }}</h4>
                                 <p>{{ __('Total Commission') }}</p>
                             </div>
                         </div>
@@ -47,7 +49,7 @@
                                 <i class="las la-hand-holding-usd"></i>
                             </div>
                             <div class="sp-user-box_content">
-                                <h4 class="mb-1"> {{ Config::formatter($withdrawTotal)}}</h4>
+                                <h4 class="mb-1"> {{ Config::formatter($withdrawTotal) }}</h4>
                                 <p>{{ __('Total Withdraw') }}</p>
                             </div>
                         </div>
@@ -58,7 +60,7 @@
                                 <i class="las la-credit-card"></i>
                             </div>
                             <div class="sp-user-box_content">
-                                <h4 class="mb-1"> {{ Config::formatter($totalDeposit)}}</h4>
+                                <h4 class="mb-1"> {{ Config::formatter($totalDeposit) }}</h4>
                                 <p>{{ __('Total Deposit') }}</p>
                             </div>
                         </div>
@@ -69,7 +71,7 @@
                                 <i class="las la-credit-card"></i>
                             </div>
                             <div class="sp-user-box_content">
-                                <h4 class="mb-1"> {{ Config::formatter($totalInvest)}}</h4>
+                                <h4 class="mb-1"> {{ Config::formatter($totalInvest) }}</h4>
                                 <p>{{ __('Total Invest amount') }}</p>
                             </div>
                         </div>
@@ -116,24 +118,26 @@
                             <div class="row">
                                 <div class="col-xl-3 col-6 mb-2">
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" {{ $user->is_email_verified ? 'checked' : '' }} name="email_status"
-                                            class="custom-control-input" id="useCheck1">
+                                        <input type="checkbox" {{ $user->is_email_verified ? 'checked' : '' }}
+                                            name="email_status" class="custom-control-input" id="useCheck1">
                                         <label class="custom-control-label"
                                             for="useCheck1">{{ __('Email Verified') }}</label>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-6 mb-2">
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" name="sms_status" {{ $user->is_sms_verified ? 'checked' : '' }}
-                                            class="custom-control-input" id="useCheck2">
+                                        <input type="checkbox" name="sms_status"
+                                            {{ $user->is_sms_verified ? 'checked' : '' }} class="custom-control-input"
+                                            id="useCheck2">
                                         <label class="custom-control-label"
                                             for="useCheck2">{{ __('SMS Verified') }}</label>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-6 mb-2">
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" name="kyc_status" {{ $user->is_kyc_verified ? 'checked' : '' }}
-                                            class="custom-control-input" id="useCheck3">
+                                        <input type="checkbox" name="kyc_status"
+                                            {{ $user->is_kyc_verified ? 'checked' : '' }} class="custom-control-input"
+                                            id="useCheck3">
                                         <label class="custom-control-label"
                                             for="useCheck3">{{ __('KYC Verified') }}</label>
                                     </div>
@@ -142,8 +146,7 @@
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" name="status" {{ $user->status ? 'checked' : '' }}
                                             class="custom-control-input" id="useCheck4">
-                                        <label class="custom-control-label"
-                                            for="useCheck4">{{ __('Status') }}</label>
+                                        <label class="custom-control-label" for="useCheck4">{{ __('Status') }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -163,19 +166,22 @@
         <div class="col-lg-3">
             <div class="p-4 bg-white rounded-lg">
                 <div class="sp-widget-user-thumb">
-                    <img src="{{ Config::getFile('user', $user->image,true) }}">
+                    <img src="{{ Config::getFile('user', $user->image, true) }}">
                 </div>
                 <div class="text-center mt-3">
                     <div>{{ __('Total Balance') }}</div>
-                    <h2 class="mb-0 mt-1 sp_d_user_balance"> {{ Config::formatter($user->balance)}}</h2>
+                    <h2 class="mb-0 mt-1 sp_d_user_balance"> {{ Config::formatter($user->balance) }}</h2>
                 </div>
 
                 <div class="sp_balance_btns mt-4">
-                    <button type="button" id="addBtn" class="btn btn-sm py-2 btn-success">{{ __('Add Balance') }}</button>
-                    <button type="button" id="subBtn" class="btn btn-sm py-2 btn-danger">{{ __('Subtract Balance') }}</button>
+                    <button type="button" id="addBtn"
+                        class="btn btn-sm py-2 btn-success">{{ __('Add Balance') }}</button>
+                    <button type="button" id="subBtn"
+                        class="btn btn-sm py-2 btn-danger">{{ __('Subtract Balance') }}</button>
                 </div>
 
-                <form action="{{ route('admin.user.balance.update', $user->id) }}" method="post" id="addBalance" class="mt-3">
+                <form action="{{ route('admin.user.balance.update', $user->id) }}" method="post" id="addBalance"
+                    class="mt-3">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="hidden" class="form-control" name="user_id" value="{{ $user->id }}">
@@ -187,7 +193,8 @@
                         </button>
                     </div>
                 </form>
-                <form action="{{ route('admin.user.balance.update', $user->id) }}" method="post" id="subBalance" class="mt-3">
+                <form action="{{ route('admin.user.balance.update', $user->id) }}" method="post" id="subBalance"
+                    class="mt-3">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="hidden" class="form-control" name="user_id" value="{{ $user->id }}">
@@ -206,12 +213,11 @@
                     <li>
                         <a href="#" class="user-action-btn sendMail">
                             <i class="fas fa-envelope mr-2"></i>
-                            {{ __('Send Email') }} 
+                            {{ __('Send Email') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.user.login', $user->id) }}" target="_blank"
-                        class="user-action-btn">
+                        <a href="{{ route('admin.user.login', $user->id) }}" target="_blank" class="user-action-btn">
                             <i class="fas fa-user-alt mr-2"></i>
                             {{ __('Login As User') }}
                         </a>
@@ -241,8 +247,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.ticket.index', ['user' => $user->id]) }}"
-                        class="user-action-btn">
+                        <a href="{{ route('admin.ticket.index', ['user' => $user->id]) }}" class="user-action-btn">
                             <i class="fas fa-life-ring mr-2"></i>
                             {{ __('User Ticket') }}
                         </a>
@@ -251,6 +256,12 @@
                         <a href="{{ route('admin.transaction', $user) }}" class="user-action-btn">
                             <i class="fas fa-exchange-alt mr-2"></i>
                             {{ __('User Transactions') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.user.doc', $user->id) }}" class="user-action-btn">
+                            <i class="fas fa-file-alt mr-2"></i>
+                            {{ __('Document') }}
                         </a>
                     </li>
                 </ul>
@@ -298,7 +309,8 @@
                                                             @foreach ($ref->refferals as $ref2)
                                                                 <li class="single-child">
                                                                     <p>
-                                                                        <img src="{{ Config::getFile('user', $ref2->image) }}">
+                                                                        <img
+                                                                            src="{{ Config::getFile('user', $ref2->image) }}">
                                                                         <span class="mb-0">{{ $ref2->username }}</span>
                                                                     </p>
                                                                 </li>
@@ -324,7 +336,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <div class="modal fade" tabindex="-1" role="dialog" id="mail">
         <div class="modal-dialog modal-lg" role="document">
@@ -495,8 +507,6 @@
 
 @push('script')
     <script>
-        
-        
         $(function() {
             'use strict'
 
@@ -506,24 +516,24 @@
             addBalance.addClass('d-none');
             subBalance.addClass('d-none');
 
-            $("#addBtn").on('click', function(){
+            $("#addBtn").on('click', function() {
                 addBalance.toggleClass('d-none');
-                if(subBalance.hasClass('d-none')) {
+                if (subBalance.hasClass('d-none')) {
                     return true;
                 } else {
                     subBalance.addClass('d-none');
                 }
             });
 
-            $("#subBtn").on('click', function(){
+            $("#subBtn").on('click', function() {
                 subBalance.toggleClass('d-none');
-                if(addBalance.hasClass('d-none')) {
+                if (addBalance.hasClass('d-none')) {
                     return true;
                 } else {
                     addBalance.addClass('d-none');
                 }
             });
-            
+
             $('#addBalance').on('submit', function(e) {
                 e.preventDefault();
 

@@ -18,7 +18,7 @@ class User extends Authenticatable
 
     public function accounts()
     {
-        return $this->hasMany(Account::class,'user_id');
+        return $this->hasMany(Account::class, 'user_id');
     }
 
 
@@ -34,57 +34,57 @@ class User extends Authenticatable
 
     public function currentplan()
     {
-        return $this->subscriptions()->where('is_current',1);
+        return $this->subscriptions()->where('is_current', 1);
     }
-    
+
     public function payments()
     {
-        return $this->hasMany(Payment::class,'user_id');
+        return $this->hasMany(Payment::class, 'user_id');
     }
 
     public function deposits()
     {
-        return $this->hasMany(Deposit::class,'user_id');
+        return $this->hasMany(Deposit::class, 'user_id');
     }
 
     public function withdraws()
     {
-        return $this->hasMany(Withdraw::class,'user_id');
+        return $this->hasMany(Withdraw::class, 'user_id');
     }
 
     public function refferals()
     {
-        return $this->hasMany(User::class,'ref_id' );
+        return $this->hasMany(User::class, 'ref_id');
     }
 
     public function refferedBy()
     {
-        return $this->belongsTo(User::class,'ref_id');
+        return $this->belongsTo(User::class, 'ref_id');
     }
-    
+
     public function reffer()
     {
-        return $this->hasMany(User::class,'ref_id');
+        return $this->hasMany(User::class, 'ref_id');
     }
 
     public function interest()
     {
-        return $this->hasMany(UserInterest::class,'user_id');
+        return $this->hasMany(UserInterest::class, 'user_id');
     }
 
     public function commissions()
     {
-        return $this->hasMany(ReferralCommission::class,'commission_to');
+        return $this->hasMany(ReferralCommission::class, 'commission_to');
     }
 
     public function tickets()
     {
-        return $this->hasMany(Ticket::class,'user_id');
+        return $this->hasMany(Ticket::class, 'user_id');
     }
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class,'user_id');
+        return $this->hasMany(Transaction::class, 'user_id');
     }
 
     public function dashboardSignal()
@@ -94,7 +94,11 @@ class User extends Authenticatable
 
     public function trades()
     {
-        return $this->hasMany(Trade::class,'user_id');
+        return $this->hasMany(Trade::class, 'user_id');
     }
 
+    public function kycinfo()
+    {
+        return $this->hasMany(KycDocs::class, 'user_id');
+    }
 }

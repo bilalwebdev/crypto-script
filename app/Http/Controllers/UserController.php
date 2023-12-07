@@ -7,6 +7,7 @@ use App\Http\Requests\UserProfile;
 use App\Models\Account;
 use App\Models\Deposit;
 use App\Models\Gateway;
+use App\Models\KycDocs;
 use App\Models\PaymentMethod;
 use App\Models\User;
 use App\Models\UserPaymentMethod;
@@ -195,6 +196,8 @@ class UserController extends Controller
 
         $data['user'] = auth()->user();
 
+        $data['docs'] = KycDocs::where('user_id', Auth::id())->get();
+
         return view(Helper::theme() . 'user.profile')->with($data);
     }
 
@@ -231,5 +234,25 @@ class UserController extends Controller
 
             return redirect()->back()->with('success', 'Password Updated');
         }
+    }
+
+    public function KYCFileUpload(Request $request)
+    {
+
+        // dd($request->all());
+
+        if ($request->hasFile('file')) {
+            $filename = Helper::saveImage($request->file, Helper::filePath('kyc', true));
+            // $user->image = $filename;
+        }
+
+        KycDocs::create([
+            'user_id' => Auth::id(),
+            'file' => $filename,
+            'type' => $request->doc_type,
+
+        ]);
+
+        return redirect()->back()->with('success', 'File Uploaded');
     }
 }
