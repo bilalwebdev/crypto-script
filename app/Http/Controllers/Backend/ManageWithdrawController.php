@@ -119,17 +119,14 @@ class ManageWithdrawController extends Controller
 
         $deposit->user->save();
 
-        $this->mt5service->deposit($deposit->login, $deposit->amount);
-
-
-
+        $this->mt5service->deposit($deposit->login, $deposit->amount, 'true');
 
         Transaction::create([
             'id' => $deposit->id,
             'amount' => $deposit->amount,
             'details' => 'Withdraw Successfull',
             // 'charge' => $gateway->charge,
-            'type' => '+',
+            'type' => '-',
             'user_id' => $deposit->user_id
         ]);
 

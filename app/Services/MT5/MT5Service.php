@@ -52,22 +52,14 @@ class MT5Service
 
         $id = $this->getToken();
 
+        $url = $this->baseUrl . '/AccountCreate?id=' . $id . '&master_pass=' . $mas_pass . '
+        &investor_pass=' . $inves_pass . '&enabled=true&Group=Active%20Broker%5CTrade%20Global&Leverage='
+            . $leverage . '&firstName=' . Auth::user()->username . '&lastName=Test T';
 
-        $group = 'Active Broker/Trade Global';
 
-        $response = Http::get("{$this->baseUrl}/AccountCreate", [
-            'id' => $id,
-            'master_pass' => $mas_pass,
-            'investor_pass' => $inves_pass,
-            'Leverage' => $leverage,
-            'enabled' => true,
-            'Group' => urlencode($group),
-            'firstName' => Auth::user()->name,
-            'lastName' => 'Test T'
-        ]);
-        
+        $response = Http::get($url);
 
-        dd($response->json());
+
 
         if ($response->status() === 200) {
             return $response->json();
@@ -124,8 +116,9 @@ class MT5Service
     }
 
 
-    public function deposit($login, $amount)
+    public function deposit($login, $amount, $status)
     {
+        $status =  $status == 'false' ? false : true;
 
         $id = $this->getToken();
 
@@ -133,31 +126,14 @@ class MT5Service
             'id' => $id,
             'login' => $login,
             'amount' => $amount,
-            'comment' => 'dep',
-            'credit' => false,
+            'comment' => 'transaction',
+            'credit' => $status,
         ]);
+
+        //  dd($response->json());
 
         if ($response->status() == 200) {
             return $response->json();
         }
     }
-
-
-    // public function withdraw($login, $amount)
-    // {
-
-    //     $id = $this->getToken();
-
-    //     $response = Http::get("{$this->baseUrl}/Deposit", [
-    //         'id' => $id,
-    //         'login' => $login,
-    //         'amount' => $amount,
-    //         'comment' => 'dep',
-    //         'credit' => false,
-    //     ]);
-
-    //     if ($response->status() == 200) {
-    //         return $response->json();
-    //     }
-    // }
 }

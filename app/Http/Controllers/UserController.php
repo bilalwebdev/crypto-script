@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -53,15 +54,32 @@ class UserController extends Controller
 
         if ($request->all()) {
 
+            $request->validate([
+                'investor_pass' => ['required', Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()],
+                'master_pass' => ['required', Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()]
+            ]);
 
+            $res =  $this->dashboard->openAccount($request->leverage, $request->investor_pass, $request->master_pass);
 
-            $this->dashboard->openAccount($request->leverage, $request->investor_pass, $request->master_pass);
+            Account::create([
+                'user_id' => Auth::id(),
+                'login' => $res['login'],
+                'account_type' => $request->acc_type,
+                'currency' => 'usd',
+                'account-leverage' => $request->leverage,
+            ]);
 
-            // Account::create([
-            //     ''
-            // ]);
-
+            session()->flash('success', 'Account created successfully!');
         }
+
 
         return view(Helper::theme() . 'user.open_account')->with($data);
     }
@@ -118,6 +136,7 @@ class UserController extends Controller
 
     public function withdraw(Request $request)
     {
+
         $user = auth()->user();
         $data['accounts'] = $user->accounts;
         $data['payment_methods'] = UserPaymentMethod::where('status', 1)->get()->toArray();

@@ -246,6 +246,10 @@ class ManageUserController extends Controller
             $user->is_kyc_verified = 3;
         }
 
+        KycDocs::where('user_id', $id)->update([
+            'status' => 1
+        ]);
+
         $user->save();
 
         return back()->with('success', 'Successfull');

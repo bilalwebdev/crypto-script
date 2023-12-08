@@ -185,11 +185,11 @@
                                                 Proof of Address 2
                                             @endif
                                         </td>
-                                        @if (auth()->user()->is_kyc_verified == 2)
+                                        @if ($doc->status == 2)
                                             <td> <span class="status-btn status-btn-warning"><i class="fas fa-clock"
                                                         aria-hidden="true"></i>
                                                     Pending</span></td>
-                                        @elseif(auth()->user()->is_kyc_verified == 1)
+                                        @elseif($doc->status == 1)
                                             <td> <span class="status-btn status-btn-success">
                                                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                                                     Approved</span></td>

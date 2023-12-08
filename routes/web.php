@@ -114,7 +114,7 @@ Route::name('user.')->group(function () {
 
             //kyc file
 
-            Route::post('kyc-file-upload', [UserController::class, 'KYCFileUpload'])->name('withdraw');
+            Route::post('kyc-file-upload', [UserController::class, 'KYCFileUpload'])->name('kyc');
 
 
             Route::get('profile/setting', [UserController::class, 'profile'])->name('profile');

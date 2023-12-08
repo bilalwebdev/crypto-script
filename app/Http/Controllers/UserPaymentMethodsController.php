@@ -49,7 +49,7 @@ class UserPaymentMethodsController extends Controller
         $method = UserPaymentMethod::findOrFail($id);
 
         $data = $request->validate([
-            'name' => 'required|max:255|unique:payment_methods,name,' . $method->id,
+            'name' => 'required|max:255|unique:user_payment_methods,name,' . $method->id,
             'wallet_address' => 'required',
         ]);
 
