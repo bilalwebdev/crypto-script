@@ -9,13 +9,13 @@
                 </a>
             </li>
 
-            @if (auth()->guard('admin')->user()->can('manage-plan'))
+            {{-- @if (auth()->guard('admin')->user()->can('manage-plan'))
                 <li><a href="{{ route('admin.plan.index') }}" aria-expanded="false"><i data-feather="box"></i><span
                             class="nav-text">{{ __('Manage Plans') }}</span></a>
                 </li>
-            @endif
+            @endif --}}
 
-            @if (auth()->guard('admin')->user()->can('signal'))
+            {{-- @if (auth()->guard('admin')->user()->can('signal'))
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                             data-feather="activity"></i><span class="nav-text">{{ __('Signal Tools') }}</span></a>
                     <ul aria-expanded="false">
@@ -37,18 +37,18 @@
                         </li>
                     </ul>
                 </li>
-            @endif
+            @endif --}}
 
-            @if (auth()->guard('admin')->user()->can('manage-referral'))
+            {{-- @if (auth()->guard('admin')->user()->can('manage-referral'))
                 <li><a href="{{ route('admin.refferal.index') }}" aria-expanded="false"><i
                             data-feather="link"></i><span class="nav-text">{{ __('Manage Affiliates') }}</span></a>
                 </li>
-            @endif
+            @endif --}}
 
 
 
 
-            @if (auth()->guard('admin')->user()->can('payments'))
+            {{-- @if (auth()->guard('admin')->user()->can('payments'))
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="list"></i><span
                             class="nav-text">{{ __('Manage Payments') }}</span></a>
                     <ul aria-expanded="false">
@@ -61,23 +61,27 @@
 
                     </ul>
                 </li>
-            @endif
+            @endif --}}
 
-            @if (auth()->guard('admin')->user()->can('manage-deposit'))
+            {{-- @if (auth()->guard('admin')->user()->can('manage-deposit'))
                 <li><a class="" href="{{ route('admin.deposits') }}" aria-expanded="false"><i
                             data-feather="credit-card"></i><span class="nav-text">{{ __('Manage Deposit') }}</span></a>
                     {{-- <ul aria-expanded="false">
 
                         <li><a href="{{ route('admin.deposit', 'online') }}">{{ __('Online Deposit') }}</a></li>
                         <li><a href="{{ route('admin.deposit', 'offline') }}">{{ __('Offline Deposit') }}</a></li>
-                    </ul> --}}
+                    </ul> 
                 </li>
-            @endif
+            @endif --}}
 
-            @if (auth()->guard('admin')->user()->can('manage-withdraw'))
-                <li><a class="" href="{{ route('admin.withdraws') }}" aria-expanded="false"><i
-                            data-feather="package"></i><span class="nav-text">{{ __('Manage Withdraw') }}</span></a>
-                {{-- <ul aria-expanded="false">
+
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="activity"></i><span
+                        class="nav-text">{{ __('Transactions') }}</span></a>
+                <ul aria-expanded="false">
+                    @if (auth()->guard('admin')->user()->can('manage-withdraw'))
+                        <li><a class="" href="{{ route('admin.withdraws') }}"
+                                aria-expanded="false">{{ __('Manage Withdraw') }}</a>
+                            {{-- <ul aria-expanded="false">
                         {{-- <li><a href="{{ route('admin.withdraw.index') }}">{{ __('Withdraw Methods') }}</a></li>
                         <li><a href="{{ route('admin.withdraw.filter') }}">{{ __('All Withdraw') }}</a></li>
                         <li><a href="{{ route('admin.withdraw.filter', 'pending') }}">{{ __('Pending Withdraw') }}
@@ -89,19 +93,39 @@
                                 href="{{ route('admin.withdraw.filter', 'rejected') }}">{{ __('Rejected Withdraw') }}</a>
                         </li>
                     </ul> --}}
-                </li>
-            @endif
+                        </li>
+                    @endif
+                    @if (auth()->guard('admin')->user()->can('manage-deposit'))
+                        <li><a class="" href="{{ route('admin.deposits') }}"
+                                aria-expanded="false">{{ __('Manage Deposit') }}</a>
+                            {{-- <ul aria-expanded="false">
+
+                        <li><a href="{{ route('admin.deposit', 'online') }}">{{ __('Online Deposit') }}</a></li>
+                        <li><a href="{{ route('admin.deposit', 'offline') }}">{{ __('Offline Deposit') }}</a></li>
+                    </ul> --}}
+                        </li>
+                    @endif
+                </ul>
+
+            </li>
+
 
             @if (auth()->guard('admin')->user()->can('manage-user'))
                 <li><a href="{{ route('admin.user.index') }}"><i data-feather="user"></i><span
                             class="nav-text">{{ __('Manage Users') }}</span></a>
                 </li>
             @endif
+            @if (auth()->guard('admin')->user()->can('manage-gateway'))
+                <li><a href="{{ route('admin.payment-method.index') }}" aria-expanded="false"><i
+                            data-feather="credit-card"></i><span
+                            class="nav-text">{{ __('Payment Methods') }}</span></a>
+                </li>
+            @endif
 
-            @if (auth()->guard('admin')->user()->can('manage-setting') ||
-                    auth()->guard('admin')->user()->can('manage-email') ||
-                    auth()->guard('admin')->user()->can('manage-theme') ||
-                    auth()->guard('admin')->user()->can('manage-gateway'))
+            {{-- @if (auth()->guard('admin')->user()->can('manage-setting') ||
+    auth()->guard('admin')->user()->can('manage-email') ||
+    auth()->guard('admin')->user()->can('manage-theme') ||
+    auth()->guard('admin')->user()->can('manage-gateway'))
                 <li class="nav-label">{{ __('Application Settings') }}</li>
             @endif
 
@@ -109,7 +133,7 @@
                 <li><a href="{{ route('admin.payment-method.index') }}" aria-expanded="false"><i
                             data-feather="payment"></i><span class="nav-text">{{ __('Payment Methods') }}</span></a>
                 </li>
-            @endif
+            @endif --}}
 
 
 
@@ -128,7 +152,7 @@
             @endif --}}
 
 
-            @if (auth()->guard('admin')->user()->can('manage-setting'))
+            {{-- @if (auth()->guard('admin')->user()->can('manage-setting'))
                 <li><a href="{{ route('admin.general.index') }}" aria-expanded="false"><i
                             data-feather="settings"></i><span class="nav-text">{{ __('Manage Settings') }}</span></a>
                 </li>
@@ -154,7 +178,7 @@
 
 
             @if (auth()->guard('admin')->user()->can('manage-frontend') ||
-                    auth()->guard('admin')->user()->can('manage-language'))
+    auth()->guard('admin')->user()->can('manage-language'))
                 <li class="nav-label">{{ __('Theme Settings') }}</li>
             @endif
 
@@ -177,7 +201,7 @@
             @endif
 
             @if (auth()->guard('admin')->user()->can('manage-role') ||
-                    auth()->guard('admin')->user()->can('manage-admin'))
+    auth()->guard('admin')->user()->can('manage-admin'))
                 <li class="nav-label">{{ __('Administration') }}</li>
             @endif
 
@@ -247,7 +271,7 @@
 
             <li><a href="{{ route('admin.general.cacheclear') }}" aria-expanded="false"><i
                         data-feather="feather"></i><span class="nav-text">{{ __('Clear Cache') }}</span></a>
-            </li>
+            </li> --}}
 
             <li class="nav-label">{{ __('Current Version') . ' - ' . Config::APP_VERSION }}</li>
         </ul>

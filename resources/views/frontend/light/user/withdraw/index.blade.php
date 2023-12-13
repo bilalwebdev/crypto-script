@@ -15,8 +15,10 @@
                             <label for="">ACCOUNT NUMBER</label>
                             <select id="account_number" class="form-control" name="login">
                                 <option value=""></option>
-                                @foreach($accounts as $item)
-                                    <option data-login="{{$item->login}}" value="{{$item->login}}">{{$item->login}} {{$item->account_type=='4'?'(DEMO)':''}}</option>
+                                @foreach ($accounts as $item)
+                                    <option data-currency="{{ $item->currency }}" data-login="{{ $item->login }}"
+                                        value="{{ $item->login }}">{{ $item->login }}
+                                        {{ $item->account_type == '4' ? '(DEMO)' : '' }}</option>
                                 @endforeach
 
                             </select>
@@ -27,8 +29,7 @@
                             <select disabled class="form-control" name="payment_method_id" id="payment_method_id">
                                 <option value=""></option>
                                 @foreach ($payment_methods as $item)
-                                    <option 
-                                        data-waddress="{{ $item['wallet_address'] }}" data-name ="{{ $item['name'] }}"
+                                    <option data-waddress="{{ $item['wallet_address'] }}" data-name ="{{ $item['name'] }}"
                                         value="{{ $item['id'] }}">
                                         {{ $item['name'] }}
                                     </option>
@@ -38,9 +39,11 @@
 
                         <div class="form-group mb-3">
                             <label for="">AMOUNT</label>
-                            <input type="text" id="amount" class="form-control" name="amount" required placeholder="Amount in USD">
+                            <input type="text" id="amount" class="form-control" name="amount" required
+                                placeholder="Amount in USD">
                         </div>
-                        <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-lock" aria-hidden="true"></i>&nbsp;Withdraw Funds</button>
+                        <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-lock"
+                                aria-hidden="true"></i>&nbsp;Withdraw Funds</button>
                     </form>
                 </div>
             </div>
@@ -48,7 +51,7 @@
 
         </div>
 
-         <div class="col-sm-12 col-lg-5">
+        <div class="col-sm-12 col-lg-5">
 
             <div class="sp_site_card mb-4">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
@@ -82,7 +85,7 @@
             </div>
         </div>
 
-          <div class="col-sm-12 col-lg-3">
+        <div class="col-sm-12 col-lg-3">
 
             <div class="sp_site_card mb-4">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center">

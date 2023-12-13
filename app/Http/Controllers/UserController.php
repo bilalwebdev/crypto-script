@@ -69,19 +69,21 @@ class UserController extends Controller
 
             $res =  $this->dashboard->openAccount($request->leverage, $request->investor_pass, $request->master_pass);
 
-            Account::create([
+            $data['acc_created'] = Account::create([
                 'user_id' => Auth::id(),
                 'login' => $res['login'],
                 'account_type' => $request->acc_type,
                 'currency' => 'usd',
                 'account-leverage' => $request->leverage,
+                'investor_pass' => $request->investor_pass,
+                'master_pass' => $request->master_pass,
             ]);
 
             session()->flash('success', 'Account created successfully!');
         }
 
 
-        return view(Helper::theme() . 'user.open_account')->with($data);
+        return view(Helper::theme() . 'user.open_account_success')->with($data);
     }
 
     public function deposit(Request $request)
@@ -110,7 +112,8 @@ class UserController extends Controller
 
             session()->flash('success', 'Deposit request sent successfully!');
 
-            return redirect('/history');
+
+            return redirect('/history')->with($data);
         }
 
 
@@ -161,7 +164,9 @@ class UserController extends Controller
 
             session()->flash('success', 'Withdraw request sent successfully!');
 
-            return redirect('/history');
+            $data['type'] = 'with';
+
+            return redirect('/history')->with($data);
         }
 
         return view(Helper::theme() . 'user.withdraw.index')->with($data);
@@ -273,5 +278,10 @@ class UserController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'File Uploaded');
+    }
+
+    public function openAccountSuccess()
+    {
+        return view('frontend.light.user.open_account_success');
     }
 }

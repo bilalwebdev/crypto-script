@@ -16,7 +16,10 @@
                             <select id="account_number" class="form-control" name="login">
                                 <option value=""></option>
                                 <?php $__currentLoopData = $accounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option data-login="<?php echo e($item->login); ?>" value="<?php echo e($item->login); ?>"><?php echo e($item->login); ?> <?php echo e($item->account_type=='4'?'(DEMO)':''); ?></option>
+                                    <option data-currency="<?php echo e($item->currency); ?>" data-login="<?php echo e($item->login); ?>"
+                                        value="<?php echo e($item->login); ?>"><?php echo e($item->login); ?>
+
+                                        <?php echo e($item->account_type == '4' ? '(DEMO)' : ''); ?></option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             </select>
@@ -27,8 +30,7 @@
                             <select disabled class="form-control" name="payment_method_id" id="payment_method_id">
                                 <option value=""></option>
                                 <?php $__currentLoopData = $payment_methods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option 
-                                        data-waddress="<?php echo e($item['wallet_address']); ?>" data-name ="<?php echo e($item['name']); ?>"
+                                    <option data-waddress="<?php echo e($item['wallet_address']); ?>" data-name ="<?php echo e($item['name']); ?>"
                                         value="<?php echo e($item['id']); ?>">
                                         <?php echo e($item['name']); ?>
 
@@ -39,9 +41,11 @@
 
                         <div class="form-group mb-3">
                             <label for="">AMOUNT</label>
-                            <input type="text" id="amount" class="form-control" name="amount" required placeholder="Amount in USD">
+                            <input type="text" id="amount" class="form-control" name="amount" required
+                                placeholder="Amount in USD">
                         </div>
-                        <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-lock" aria-hidden="true"></i>&nbsp;Withdraw Funds</button>
+                        <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-lock"
+                                aria-hidden="true"></i>&nbsp;Withdraw Funds</button>
                     </form>
                 </div>
             </div>
@@ -49,7 +53,7 @@
 
         </div>
 
-         <div class="col-sm-12 col-lg-5">
+        <div class="col-sm-12 col-lg-5">
 
             <div class="sp_site_card mb-4">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
@@ -83,7 +87,7 @@
             </div>
         </div>
 
-          <div class="col-sm-12 col-lg-3">
+        <div class="col-sm-12 col-lg-3">
 
             <div class="sp_site_card mb-4">
                 <div class="card-header d-flex flex-wrap justify-content-between align-items-center">

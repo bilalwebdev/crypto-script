@@ -10,8 +10,9 @@
                 <div class="card-header">
                     <form action="" method="get">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control form-control-sm" placeholder="transaction id">
-                            <input type="text" name="date" class="form-control form-control-sm datepicker" placeholder="dates" autocomplete="off">
+
+                            <input type="text" name="date" class="form-control form-control-sm datepicker"
+                                placeholder="dates" autocomplete="off">
                             <button class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
                         </div>
                     </form>
@@ -23,6 +24,10 @@
                             <thead>
                                 <tr>
                                     <th><?php echo e(__('User')); ?></th>
+                                    <th><?php echo e(__('Payment Type')); ?></th>
+                                    <th><?php echo e(__('A/C No')); ?></th>
+                                    <th><?php echo e(__('Email')); ?></th>
+                                    <th><?php echo e(__('Trans. Date')); ?></th>
                                     <th><?php echo e(__('Amount')); ?></th>
                                     <th><?php echo e(__('status')); ?></th>
                                     <th><?php echo e(__('Action')); ?></th>
@@ -31,7 +36,7 @@
                             <tbody>
                                 <?php $__empty_1 = true; $__currentLoopData = $withdraws; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $manual): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr>
-                                      
+
                                         <td>
                                             <a href="<?php echo e(route('admin.user.details', $manual->user->id)); ?>">
                                                 <img src="<?php echo e(Config::getFile('user', $manual->user->image, true)); ?>"
@@ -42,10 +47,26 @@
                                                 </span>
                                             </a>
 
-                                           
+
                                         </td>
+                                        <td> <span>
+                                                <?php echo e($manual->payment?->name); ?>
+
+                                            </span></td>
+                                        <td> <span>
+                                                <?php echo e($manual->login); ?>
+
+                                            </span></td>
+                                        <td> <span>
+                                                <?php echo e($manual->user->email); ?>
+
+                                            </span></td>
+                                        <td> <span>
+                                                <?php echo e($manual->created_at); ?>
+
+                                            </span></td>
                                         <td><?php echo e(Config::formatter($manual->amount)); ?></td>
-                                     
+
                                         <td>
                                             <?php if($manual->status == 2): ?>
                                                 <span class="badge badge-warning"><?php echo e(__('Pending')); ?></span>
@@ -56,16 +77,17 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-outline-primary details"
-                                                href="<?php echo e(route('admin.withdraw.details', $manual->id)); ?>">
-                                                <i class="far fa-eye"></i></a>
+                                            
 
-                                            <?php if($manual->status == 2): ?>
-                                                <a class="btn  btn-sm btn-outline-primary accept"
-                                                    data-url="<?php echo e(route('admin.withdraw.accept', $manual->id)); ?>"><i class="fas fa-check"></i></a>
-                                                <a class="btn  btn-sm btn-outline-danger reject"
-                                                    data-url="<?php echo e(route('admin.withdraw.reject', $manual->id)); ?>"><i class="fas fa-times"></i></a>
-                                            <?php endif; ?>
+
+                                            <a class="btn
+                                                  <?php if($manual->status != 2): ?> disabled <?php endif; ?> btn-sm btn-outline-primary accept"
+                                                data-url="<?php echo e(route('admin.withdraw.accept', $manual->id)); ?>"><i
+                                                    class="fas fa-check"></i></a>
+                                            <a class="btn <?php if($manual->status != 2): ?> disabled <?php endif; ?>  btn-sm btn-outline-danger reject"
+                                                data-url="<?php echo e(route('admin.withdraw.reject', $manual->id)); ?>"><i
+                                                    class="fas fa-times"></i></a>
+
                                         </td>
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
@@ -174,7 +196,7 @@
                     'MM/DD/YYYY'));
             });
 
-          
+
 
             $('.accept').on('click', function() {
                 const modal = $('#accept');

@@ -10,8 +10,8 @@
                     <h6 class="mb-0 ">Select transaction type</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('history/filter') }}" method="post">
-                        @csrf
+                    <form action="{{ url('history/filter') }}" method="get">
+
                         <div class="form-group mb-3">
                             <label for="">TRANSACTIONS TYPE</label>
                             <select class="form-control" name="type">
@@ -36,8 +36,8 @@
 
                         <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-history"
                                 aria-hidden="true"></i>&nbsp;Apply</button>
-                        <a href="/history" class="btn sp_theme_btn btn-md text-uppercase"><i class="fa fa-refresh"
-                                aria-hidden="true"></i>&nbsp;Reset</a>
+                        {{-- <a href="/history" class="btn sp_theme_btn btn-md text-uppercase"><i class="fa fa-refresh"
+                                aria-hidden="true"></i>&nbsp;Reset</a> --}}
                     </form>
                 </div>
             </div>
@@ -73,21 +73,21 @@
                             </thead>
                             <tbody>
 
-                                @forelse ($requests as $dreq)
+                                @forelse ($requests as $req)
                                     <tr>
-                                        <td>{{ $dreq->login }}</td>
+                                        <td>{{ $req->login }}</td>
                                         @if ($type == 'dep')
                                             <td>Deposit</td>
                                         @else
                                             <td>Withdraw</td>
                                         @endif
-                                        <td>{{ $dreq->payment?->name }}</td>
-                                        <td>{{ $dreq->amount }}</td>
-                                        @if ($dreq->status == 2)
+                                        <td>{{ $req->payment?->name }}</td>
+                                        <td>{{ $req->amount }}</td>
+                                        @if ($req->status == 2)
                                             <td> <span class="status-btn status-btn-warning">
                                                     <i class="fas fa-clock" aria-hidden="true"></i>
                                                     Pending</span></td>
-                                        @elseif($dreq->status == 1)
+                                        @elseif($req->status == 1)
                                             <td> <span class="status-btn status-btn-success">
                                                     <i class="fas fa-thumbs-up" aria-hidden="true"></i>
                                                     Approved</span></td>
@@ -96,12 +96,17 @@
                                                     <i class="fas fa-ban" aria-hidden="true"></i>
                                                     Rejected</span></td>
                                         @endif
+
                                         <td>
-                                            <div onclick="cancelTrans('{{ $dreq->id }}')" class="cancel cursor-pointer"
-                                                style="font-style:italic;text-decoration:underline;font-size:11px;color:silver; pointer-events:auto;">
-                                                Cancel</div>
+                                            @if ($req->status == 2)
+                                                <div onclick="cancelTrans('{{ $req->id }}')"
+                                                    class="cancel cursor-pointer"
+                                                    style="font-style:italic;text-decoration:underline;font-size:11px;color:silver; pointer-events:auto;">
+                                                    Cancel</div>
+                                            @endif
                                         </td>
-                                        <td>{{ date($dreq->created_at) }}</td>
+
+                                        <td>{{ date($req->created_at) }}</td>
 
                                     </tr>
                                 @empty

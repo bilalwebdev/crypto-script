@@ -33,16 +33,7 @@
       <?php endif; ?>
     </a>
   </li>
-  <li>
-    <a href="<?php echo e(route('admin.user.filter', 'sms-unverified')); ?>" class="<?php echo e(Config::activeMenu(route('admin.user.filter', 'sms-unverified'))); ?>">
-      <i class="las la-comments"></i> 
-      <?php echo e(__('Sms Unverified')); ?>
-
-      <?php if(Config::sidebarData()['smsUnverified']): ?>
-          <span class="noti-count"><?php echo e(Config::sidebarData()['smsUnverified']); ?></span>
-      <?php endif; ?>
-    </a>
-  </li>
+  
   <li>
     <a href="<?php echo e(route('admin.user.kyc.req')); ?>" class="<?php echo e(Config::activeMenu(route('admin.user.kyc.req'))); ?>">
       <i class="las la-user-shield"></i> 

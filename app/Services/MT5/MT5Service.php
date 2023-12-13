@@ -125,7 +125,7 @@ class MT5Service
         $response = Http::get("{$this->baseUrl}/Deposit", [
             'id' => $id,
             'login' => $login,
-            'amount' => $amount,
+            'amount' => '-' . $amount,
             'comment' => 'transaction',
             'credit' => $status,
         ]);

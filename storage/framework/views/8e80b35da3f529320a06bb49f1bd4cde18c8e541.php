@@ -10,8 +10,8 @@
                     <h6 class="mb-0 ">Select transaction type</h6>
                 </div>
                 <div class="card-body">
-                    <form action="<?php echo e(url('history/filter')); ?>" method="post">
-                        <?php echo csrf_field(); ?>
+                    <form action="<?php echo e(url('history/filter')); ?>" method="get">
+
                         <div class="form-group mb-3">
                             <label for="">TRANSACTIONS TYPE</label>
                             <select class="form-control" name="type">
@@ -36,8 +36,7 @@
 
                         <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-history"
                                 aria-hidden="true"></i>&nbsp;Apply</button>
-                        <a href="/history" class="btn sp_theme_btn btn-md text-uppercase"><i class="fa fa-refresh"
-                                aria-hidden="true"></i>&nbsp;Reset</a>
+                        
                     </form>
                 </div>
             </div>
@@ -73,21 +72,21 @@
                             </thead>
                             <tbody>
 
-                                <?php $__empty_1 = true; $__currentLoopData = $requests; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dreq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <?php $__empty_1 = true; $__currentLoopData = $requests; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $req): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr>
-                                        <td><?php echo e($dreq->login); ?></td>
+                                        <td><?php echo e($req->login); ?></td>
                                         <?php if($type == 'dep'): ?>
                                             <td>Deposit</td>
                                         <?php else: ?>
                                             <td>Withdraw</td>
                                         <?php endif; ?>
-                                        <td><?php echo e($dreq->payment?->name); ?></td>
-                                        <td><?php echo e($dreq->amount); ?></td>
-                                        <?php if($dreq->status == 2): ?>
+                                        <td><?php echo e($req->payment?->name); ?></td>
+                                        <td><?php echo e($req->amount); ?></td>
+                                        <?php if($req->status == 2): ?>
                                             <td> <span class="status-btn status-btn-warning">
                                                     <i class="fas fa-clock" aria-hidden="true"></i>
                                                     Pending</span></td>
-                                        <?php elseif($dreq->status == 1): ?>
+                                        <?php elseif($req->status == 1): ?>
                                             <td> <span class="status-btn status-btn-success">
                                                     <i class="fas fa-thumbs-up" aria-hidden="true"></i>
                                                     Approved</span></td>
@@ -96,12 +95,17 @@
                                                     <i class="fas fa-ban" aria-hidden="true"></i>
                                                     Rejected</span></td>
                                         <?php endif; ?>
+
                                         <td>
-                                            <div onclick="cancelTrans('<?php echo e($dreq->id); ?>')" class="cancel cursor-pointer"
-                                                style="font-style:italic;text-decoration:underline;font-size:11px;color:silver; pointer-events:auto;">
-                                                Cancel</div>
+                                            <?php if($req->status == 2): ?>
+                                                <div onclick="cancelTrans('<?php echo e($req->id); ?>')"
+                                                    class="cancel cursor-pointer"
+                                                    style="font-style:italic;text-decoration:underline;font-size:11px;color:silver; pointer-events:auto;">
+                                                    Cancel</div>
+                                            <?php endif; ?>
                                         </td>
-                                        <td><?php echo e(date($dreq->created_at)); ?></td>
+
+                                        <td><?php echo e(date($req->created_at)); ?></td>
 
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

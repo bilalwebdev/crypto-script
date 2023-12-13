@@ -17,18 +17,20 @@
          <nav class="navbar navbar-expand">
              <div class="collapse navbar-collapse justify-content-between">
                  <div class="header-left">
-                    <button type="button" class="sidebar-open">
+                     <button type="button" class="sidebar-open">
                          <span class="line"></span>
                      </button>
                      <a href="<?php echo e(route('admin.home')); ?>" class="mobile-brand-logo">
-                         <img class="brand-title" src="<?php echo e(Config::fetchImage('icon', Config::config()->favicon, true)); ?>" alt="">
+                         <img class="brand-title"
+                             src="<?php echo e(Config::fetchImage('icon', Config::config()->favicon, true)); ?>" alt="">
                      </a>
                      <div class="header-search d-lg-block d-none">
-                        <button type="button" class="header-search-res-btn">
-                            <i data-feather="search"></i>
-                        </button>
+                         <button type="button" class="header-search-res-btn">
+                             <i data-feather="search"></i>
+                         </button>
                          <div class="form">
-                             <input class="form-control searchNav" type="text" placeholder="Search" aria-label="Search">
+                             <input class="form-control searchNav" type="text" placeholder="Search"
+                                 aria-label="Search">
                              <ul class="search-item">
 
                              </ul>
@@ -38,21 +40,7 @@
                  </div>
 
                  <ul class="navbar-nav header-right">
-                     <li class="nav-item d-md-flex d-none">
-                         <a href="<?php echo e(route('home')); ?>"
-                             class="btn btn-primary btn-sm" target="_blank"><?php echo e(__('Visit Frontend')); ?></a>
-                     </li>
-                     <li class="nav-item header-lang">
-                         <select class="form-control selectric changeLang">
-                             <?php $__currentLoopData = Config::languages(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $top): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                 <option value="<?php echo e($top->code); ?>"
-                                     <?php echo e(Config::languageSelection($top->code)); ?>>
-                                     <?php echo e(__(ucwords($top->name))); ?>
-
-                                 </option>
-                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                         </select>
-                     </li>
+                     
                      <li class="nav-item dropdown notification_dropdown">
                          <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                              <i data-feather="bell"></i>
@@ -73,7 +61,8 @@
                                                  </p>
                                              </a>
                                          </div>
-                                         <span class="notify-time"><?php echo e($notification->created_at->format('h:m A')); ?></span>
+                                         <span
+                                             class="notify-time"><?php echo e($notification->created_at->format('h:m A')); ?></span>
                                      </li>
                                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
 
@@ -113,18 +102,19 @@
                          </div>
                      </li>
                      <li class="d-lg-none d-flex justify-content-center align-items-center pl-md-0">
-                        <div class="header-search">
-                            <button type="button" class="header-search-res-btn">
-                                <i data-feather="search"></i>
-                            </button>
-                            <div class="form">
-                                <input class="form-control searchNav" type="text" placeholder="Search" aria-label="Search">
-                                <ul class="search-item">
+                         <div class="header-search">
+                             <button type="button" class="header-search-res-btn">
+                                 <i data-feather="search"></i>
+                             </button>
+                             <div class="form">
+                                 <input class="form-control searchNav" type="text" placeholder="Search"
+                                     aria-label="Search">
+                                 <ul class="search-item">
 
-                                </ul>
-                                <button type="search"><i class="las la-search"></i></button>
-                            </div>
-                        </div>
+                                 </ul>
+                                 <button type="search"><i class="las la-search"></i></button>
+                             </div>
+                         </div>
                      </li>
                  </ul>
              </div>
@@ -134,18 +124,19 @@
  <!-- Header end -->
 
 
-<!-- mobile bottom menu start -->
-<div class="mobile-bottom-menu">
-    <a href="<?php echo e(route('admin.notifications')); ?>">
-        <i data-feather="bell"></i>
-        <p><?php echo e(__('Notification')); ?></p>
-    </a>
-    <a href="<?php echo e(route('admin.profile')); ?>" class="profile-img">
-        <img src="<?php echo e(asset('asset/backend/images/' .auth()->guard('admin')->user()->image)); ?>" alt="image">
-    </a>
-    <a href="<?php echo e(route('home')); ?>">
-        <i data-feather="globe"></i>
-        <p><?php echo e(__('Visit Frontend')); ?></p>
-    </a>
-</div>
-<!-- mobile bottom menu end --><?php /**PATH D:\personal\crypto-script\resources\views/backend/layout/header.blade.php ENDPATH**/ ?>
+ <!-- mobile bottom menu start -->
+ <div class="mobile-bottom-menu">
+     <a href="<?php echo e(route('admin.notifications')); ?>">
+         <i data-feather="bell"></i>
+         <p><?php echo e(__('Notification')); ?></p>
+     </a>
+     <a href="<?php echo e(route('admin.profile')); ?>" class="profile-img">
+         <img src="<?php echo e(asset('asset/backend/images/' .auth()->guard('admin')->user()->image)); ?>" alt="image">
+     </a>
+     <a href="<?php echo e(route('home')); ?>">
+         <i data-feather="globe"></i>
+         <p><?php echo e(__('Visit Frontend')); ?></p>
+     </a>
+ </div>
+ <!-- mobile bottom menu end -->
+<?php /**PATH D:\personal\crypto-script\resources\views/backend/layout/header.blade.php ENDPATH**/ ?>

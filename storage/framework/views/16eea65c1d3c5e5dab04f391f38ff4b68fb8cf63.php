@@ -14,18 +14,17 @@
                     <div class="card-header-left">
                         <form action="" method="get">
                             <div class="input-group flex-wrap user-search-area">
-                                <input type="text" class="form-control form-control-sm" placeholder="username or email or phone" name="search">
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="username or email or phone" name="search">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary btn-sm" type="submit"> 
+                                    <button class="btn btn-primary btn-sm" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div  class="card-header-right">
-                        <button class="btn btn-sm btn-primary sendMail"><i class="las la-mail-bulk mr-2"></i><?php echo e(__('Bulk Mail')); ?></button>
-                    </div>
+                    
                 </div>
 
                 <div class="card-body p-0">
@@ -35,9 +34,10 @@
                                 <tr>
                                     <th><?php echo e(__('Sl')); ?></th>
                                     <th><?php echo e(__('Username')); ?></th>
+                                    
                                     <th><?php echo e(__('Phone')); ?></th>
                                     <th><?php echo e(__('Email')); ?></th>
-                                    <th><?php echo e(__('Country')); ?></th>
+                                    <th><?php echo e(__('Reg. Date')); ?></th>
                                     <th><?php echo e(__('Status')); ?></th>
                                     <th><?php echo e(__('Action')); ?></th>
                                 </tr>
@@ -47,9 +47,10 @@
                                     <tr>
                                         <td><?php echo e($loop->iteration); ?></td>
                                         <td><?php echo e($user->username); ?></td>
+                                        
                                         <td><?php echo e($user->phone); ?></td>
                                         <td><?php echo e($user->email); ?></td>
-                                        <td><?php echo e($user->address->country ?? 'N/A'); ?></td>
+                                        <td><?php echo e($user->created_at); ?></td>
                                         <td>
                                             <?php if($user->status): ?>
                                                 <span class='badge badge-success'><?php echo e(__('Active')); ?></span>
@@ -58,7 +59,8 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <a href="<?php echo e(route('admin.user.details', $user)); ?>" class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="<?php echo e(route('admin.user.details', $user)); ?>"
+                                                class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
@@ -105,7 +107,8 @@
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-sm btn-primary"><i class="las la-envelope"></i>
                             <?php echo e(__('Send Mail')); ?></button>
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><?php echo e(__('Close')); ?></button>
+                        <button type="button" class="btn btn-sm btn-danger"
+                            data-dismiss="modal"><?php echo e(__('Close')); ?></button>
                     </div>
                 </div>
             </form>

@@ -10,8 +10,9 @@
                 <div class="card-header">
                     <form action="" method="get">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control form-control-sm" placeholder="transaction id">
-                            <input type="text" name="date" class="form-control form-control-sm datepicker" placeholder="dates" autocomplete="off">
+
+                            <input type="text" name="date" class="form-control form-control-sm datepicker"
+                                placeholder="dates" autocomplete="off">
                             <button class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
                         </div>
                     </form>
@@ -23,6 +24,10 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('User') }}</th>
+                                    <th>{{ __('Payment Type') }}</th>
+                                    <th>{{ __('A/C No') }}</th>
+                                    <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Trans. Date') }}</th>
                                     <th>{{ __('Amount') }}</th>
                                     <th>{{ __('status') }}</th>
                                     <th>{{ __('Action') }}</th>
@@ -31,7 +36,7 @@
                             <tbody>
                                 @forelse ($withdraws as $key => $manual)
                                     <tr>
-                                      
+
                                         <td>
                                             <a href="{{ route('admin.user.details', $manual->user->id) }}">
                                                 <img src="{{ Config::getFile('user', $manual->user->image, true) }}"
@@ -41,10 +46,22 @@
                                                 </span>
                                             </a>
 
-                                           
+
                                         </td>
-                                        <td>{{ Config::formatter($manual->amount)}}</td>
-                                     
+                                        <td> <span>
+                                                {{ $manual->payment?->name }}
+                                            </span></td>
+                                        <td> <span>
+                                                {{ $manual->login }}
+                                            </span></td>
+                                        <td> <span>
+                                                {{ $manual->user->email }}
+                                            </span></td>
+                                        <td> <span>
+                                                {{ $manual->created_at }}
+                                            </span></td>
+                                        <td>{{ Config::formatter($manual->amount) }}</td>
+
                                         <td>
                                             @if ($manual->status == 2)
                                                 <span class="badge badge-warning">{{ __('Pending') }}</span>
@@ -55,16 +72,19 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-outline-primary details"
+                                            {{-- <a class="btn btn-sm btn-outline-primary details"
                                                 href="{{ route('admin.withdraw.details', $manual->id) }}">
-                                                <i class="far fa-eye"></i></a>
+                                                <i class="far fa-eye"></i></a> --}}
 
-                                            @if ($manual->status == 2)
-                                                <a class="btn  btn-sm btn-outline-primary accept"
-                                                    data-url="{{ route('admin.withdraw.accept', $manual->id) }}"><i class="fas fa-check"></i></a>
-                                                <a class="btn  btn-sm btn-outline-danger reject"
-                                                    data-url="{{ route('admin.withdraw.reject', $manual->id) }}"><i class="fas fa-times"></i></a>
-                                            @endif
+
+                                            <a class="btn
+                                                  @if ($manual->status != 2) disabled @endif btn-sm btn-outline-primary accept"
+                                                data-url="{{ route('admin.withdraw.accept', $manual->id) }}"><i
+                                                    class="fas fa-check"></i></a>
+                                            <a class="btn @if ($manual->status != 2) disabled @endif  btn-sm btn-outline-danger reject"
+                                                data-url="{{ route('admin.withdraw.reject', $manual->id) }}"><i
+                                                    class="fas fa-times"></i></a>
+
                                         </td>
                                     </tr>
                                 @empty
@@ -171,7 +191,7 @@
                     'MM/DD/YYYY'));
             });
 
-          
+
 
             $('.accept').on('click', function() {
                 const modal = $('#accept');

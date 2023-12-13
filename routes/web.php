@@ -94,6 +94,7 @@ Route::name('user.')->group(function () {
             Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
             Route::get('open-account', [UserController::class, 'openAccount'])->name('open-account');
             Route::post('open-account', [UserController::class, 'openAccount'])->name('open.account');
+            Route::get('open-account-success', [UserController::class, 'openAccountSuccess'])->name('open.account.success');
 
             Route::get('deposit', [UserController::class, 'deposit'])->name('deposit');
             Route::post('create/deposit', [UserController::class, 'deposit']);
@@ -105,7 +106,7 @@ Route::name('user.')->group(function () {
                 [UserController::class, 'withdraw']
             );
             Route::get('history', [UserController::class, 'history'])->name('history');
-            Route::post('history/filter', [UserController::class, 'history'])->name('history.filter');
+            Route::get('history/filter', [UserController::class, 'history'])->name('history.filter');
             Route::get(
                 'history/delete/{id}',
                 [UserController::class, 'historyDel']

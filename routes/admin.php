@@ -31,7 +31,8 @@ use App\Http\Controllers\Backend\{
     SignalController,
     SignalCurrencyPairController,
     SignalTimeFrameController,
-    TicketController
+    TicketController,
+    TransactionController
 };
 
 
@@ -261,11 +262,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         Route::middleware('permission:manage-deposit,admin')->group(function () {
+
             Route::get('deposits', [ManageDepositController::class, 'index'])->name('deposits');
             Route::get('deposit/{id}/details', [ManageDepositController::class, 'details'])->name('deposit.details');
             Route::post('deposit/{id}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
             Route::post('deposit/{id}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
         });
+
+        Route::get('/transact', [TransactionController::class, 'transac']);
 
         Route::middleware('permission:manage-withdraw,admin')->group(function () {
             Route::get('withdraws', [ManageWithdrawController::class, 'index'])->name('withdraws');
