@@ -107,7 +107,7 @@ class ManageWithdrawController extends Controller
 
         $deposit = Withdraw::where('id', $request->id)->firstOrFail();
 
-        $general = Configuration::first();
+        // $general = Configuration::first();
 
         // $gateway = Gateway::find($deposit->gateway_id);
 
@@ -122,7 +122,6 @@ class ManageWithdrawController extends Controller
         $this->mt5service->deposit($deposit->login, $deposit->amount, 'true');
 
         Transaction::create([
-            'id' => $deposit->id,
             'amount' => $deposit->amount,
             'details' => 'Withdraw Successfull',
             // 'charge' => $gateway->charge,
@@ -149,7 +148,7 @@ class ManageWithdrawController extends Controller
         //     Helper::fireMail($data, $template);
         // }
 
-        return redirect()->back()->with('success', "Payment Confirmed Successfully");
+        return redirect()->back()->with('success', "Transaction Done Successfully");
     }
 
     public function reject(Request $request)
@@ -157,7 +156,7 @@ class ManageWithdrawController extends Controller
 
         $deposit = Withdraw::where('id', $request->id)->firstOrFail();
 
-        $general = Configuration::first();
+        //  $general = Configuration::first();
 
         // $gateway = Gateway::find($deposit->gateway_id);
 

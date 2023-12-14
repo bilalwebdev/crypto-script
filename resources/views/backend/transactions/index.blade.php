@@ -28,65 +28,72 @@
                                     <th>{{ __('Email') }}</th>
                                     <th>{{ __('Account') }}</th>
                                     <th>{{ __('Amount') }}</th>
-                                    {{-- <th>{{ __('Action') }}</th> --}}
+                                    <th>{{ __('Trans. Type') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($accounts as $key => $manual)
-                                    <tr>
+                                @foreach ($users as $user)
+                                    @forelse ($user->accounts as $key => $manual)
+                                        <form id="transact_form" action="{{ route('admin.transac.store') }}" method="POST">
+                                            @csrf
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        {{ $key + 1 }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        {{ $manual->user->username }}
+                                                    </span>
+                                                </td>
+                                                <td> <span>
+                                                        {{ $manual->user?->email }}
+                                                    </span></td>
+                                                <td> <span>
+                                                        {{ $manual['login'] }}
 
-                                        <td>
-                                            <span>
-                                                {{ $manual->user->username }}
-                                            </span>
-                                        </td>
-                                        <td> <span>
-                                                {{ $manual->user?->email }}
-                                            </span></td>
-                                        <td> <span>
-                                                {{ $manual['login'] }}
-                                            </span></td>
-                                        <td>
-                                            <input type="text" class="form-control form-control-sm">
-                                        </td>
+                                                    </span></td>
+                                                <td>
+                                                    <input type="number" name="amount"
+                                                        class="form-control form-control-sm" required>
+                                                </td>
 
+                                                <td>
+                                                    <select name="transac_type" class="form-control form-control-sm"
+                                                        id="transac_type" required>
+                                                        <option value=""></option>
+                                                        <option value="with">Winthdraw</option>
+                                                        <option value="dep">Deposit</option>
+                                                    </select>
+                                                </td>
+                                                <td>
 
+                                                    <input type="hidden" name="login" value="{{ $manual['login'] }}" />
+                                                    <input type="hidden" name="user_id"
+                                                        value="{{ $manual['user_id'] }}" />
+                                                    <button type="submit" class="btn btn-sm btn-primary"
+                                                        href="">Submit</button>
 
-                                        <td>
-                                            <select name="transac_type" class="form-control form-control-sm" id="">
-                                                <option value=""></option>
-                                                <option value="with">Winthdraw</option>
-                                                <option value="with">Deposit</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            {{-- <a class="btn btn-sm btn-outline-primary details"
-                                                href="{{ route('admin.withdraw.details', $manual->id) }}">
-                                                <i class="far fa-eye"></i></a> --}}
+                                                </td>
+                                            </tr>
+                                        </form>
 
+                                    @empty
+                                        <tr>
+                                            <td class="text-center" colspan="100%">{{ __('No Data Found') }}
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                @endforeach
 
-                                            <a class="btn
-                                                  @if ($manual->status != 2) disabled @endif btn-sm btn-outline-primary accept"
-                                                data-url="{{ route('admin.withdraw.accept', $manual->id) }}"><i
-                                                    class="fas fa-check"></i></a>
-                                            <a class="btn @if ($manual->status != 2) disabled @endif  btn-sm btn-outline-danger reject"
-                                                data-url="{{ route('admin.withdraw.reject', $manual->id) }}"><i
-                                                    class="fas fa-times"></i></a>
-
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td class="text-center" colspan="100%">{{ __('No Data Found') }}
-                                        </td>
-                                    </tr>
-                                @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
-                @if ($withdraws->hasPages())
-                    {{ $withdraws->links() }}
+                @if ($users->hasPages())
+                    {{ $users->links() }}
                 @endif
             </div>
         </div>

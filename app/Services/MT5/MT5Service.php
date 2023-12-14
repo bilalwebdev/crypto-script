@@ -120,12 +120,22 @@ class MT5Service
     {
         $status =  $status == 'false' ? false : true;
 
+
+        if ($status == false) {
+            $amount = '+' . $amount;
+        } else {
+            $amount = '-' . $amount;
+        }
+
+
+
+
         $id = $this->getToken();
 
         $response = Http::get("{$this->baseUrl}/Deposit", [
             'id' => $id,
             'login' => $login,
-            'amount' => '-' . $amount,
+            'amount' => $amount,
             'comment' => 'transaction',
             'credit' => $status,
         ]);

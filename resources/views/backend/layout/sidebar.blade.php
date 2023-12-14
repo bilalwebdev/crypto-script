@@ -78,6 +78,11 @@
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="activity"></i><span
                         class="nav-text">{{ __('Transactions') }}</span></a>
                 <ul aria-expanded="false">
+                    @if (auth()->guard('admin')->user()->can('manage-deposit'))
+                        <li><a class="" href="{{ route('admin.transac') }}"
+                                aria-expanded="false">{{ __('Transaction into account') }}</a>
+                        </li>
+                    @endif
                     @if (auth()->guard('admin')->user()->can('manage-withdraw'))
                         <li><a class="" href="{{ route('admin.withdraws') }}"
                                 aria-expanded="false">{{ __('Manage Withdraw') }}</a>
@@ -105,6 +110,7 @@
                     </ul> --}}
                         </li>
                     @endif
+
                 </ul>
 
             </li>

@@ -268,8 +268,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('deposit/{id}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
             Route::post('deposit/{id}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
         });
+        Route::middleware('permission:manage-deposit,admin')->group(function () {
 
-        Route::get('/transact', [TransactionController::class, 'transac']);
+            Route::get('/transac', [TransactionController::class, 'trans'])->name('transac');
+            Route::post('/transac/store', [TransactionController::class, 'storeTrans'])->name('transac.store');
+        });
 
         Route::middleware('permission:manage-withdraw,admin')->group(function () {
             Route::get('withdraws', [ManageWithdrawController::class, 'index'])->name('withdraws');

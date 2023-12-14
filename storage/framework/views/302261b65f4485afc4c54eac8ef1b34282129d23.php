@@ -28,67 +28,77 @@
                                     <th><?php echo e(__('Email')); ?></th>
                                     <th><?php echo e(__('Account')); ?></th>
                                     <th><?php echo e(__('Amount')); ?></th>
-                                    
+                                    <th><?php echo e(__('Trans. Type')); ?></th>
+                                    <th><?php echo e(__('Action')); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $__empty_1 = true; $__currentLoopData = $accounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $manual): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                    <tr>
+                                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php $__empty_1 = true; $__currentLoopData = $user->accounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $manual): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                        <form id="transact_form" action="<?php echo e(route('admin.transac.store')); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        <?php echo e($key + 1); ?>
 
-                                        <td>
-                                            <span>
-                                                <?php echo e($manual->user->username); ?>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        <?php echo e($manual->user->username); ?>
 
-                                            </span>
-                                        </td>
-                                        <td> <span>
-                                                <?php echo e($manual->user?->email); ?>
+                                                    </span>
+                                                </td>
+                                                <td> <span>
+                                                        <?php echo e($manual->user?->email); ?>
 
-                                            </span></td>
-                                        <td> <span>
-                                                <?php echo e($manual['login']); ?>
-
-                                            </span></td>
-                                        <td>
-                                            <input type="text" class="form-control form-control-sm">
-                                        </td>
-
-
-
-                                        <td>
-                                            <select name="transac_type" class="form-control form-control-sm" id="">
-                                                <option value=""></option>
-                                                <option value="with">Winthdraw</option>
-                                                <option value="with">Deposit</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            
+                                                    </span></td>
+                                                <td> <span>
+                                                        <?php echo e($manual['login']); ?>
 
 
-                                            <a class="btn
-                                                  <?php if($manual->status != 2): ?> disabled <?php endif; ?> btn-sm btn-outline-primary accept"
-                                                data-url="<?php echo e(route('admin.withdraw.accept', $manual->id)); ?>"><i
-                                                    class="fas fa-check"></i></a>
-                                            <a class="btn <?php if($manual->status != 2): ?> disabled <?php endif; ?>  btn-sm btn-outline-danger reject"
-                                                data-url="<?php echo e(route('admin.withdraw.reject', $manual->id)); ?>"><i
-                                                    class="fas fa-times"></i></a>
+                                                    </span></td>
+                                                <td>
+                                                    <input type="number" name="amount"
+                                                        class="form-control form-control-sm" required>
+                                                </td>
 
-                                        </td>
-                                    </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                    <tr>
-                                        <td class="text-center" colspan="100%"><?php echo e(__('No Data Found')); ?>
+                                                <td>
+                                                    <select name="transac_type" class="form-control form-control-sm"
+                                                        id="transac_type" required>
+                                                        <option value=""></option>
+                                                        <option value="with">Winthdraw</option>
+                                                        <option value="dep">Deposit</option>
+                                                    </select>
+                                                </td>
+                                                <td>
 
-                                        </td>
-                                    </tr>
-                                <?php endif; ?>
+                                                    <input type="hidden" name="login" value="<?php echo e($manual['login']); ?>" />
+                                                    <input type="hidden" name="user_id"
+                                                        value="<?php echo e($manual['user_id']); ?>" />
+                                                    <button type="submit" class="btn btn-sm btn-primary"
+                                                        href="">Submit</button>
+
+                                                </td>
+                                            </tr>
+                                        </form>
+
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                        <tr>
+                                            <td class="text-center" colspan="100%"><?php echo e(__('No Data Found')); ?>
+
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <?php if($withdraws->hasPages()): ?>
-                    <?php echo e($withdraws->links()); ?>
+                <?php if($users->hasPages()): ?>
+                    <?php echo e($users->links()); ?>
 
                 <?php endif; ?>
             </div>

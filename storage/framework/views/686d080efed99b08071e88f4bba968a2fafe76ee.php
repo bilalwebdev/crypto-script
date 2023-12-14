@@ -26,6 +26,11 @@
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="activity"></i><span
                         class="nav-text"><?php echo e(__('Transactions')); ?></span></a>
                 <ul aria-expanded="false">
+                    <?php if(auth()->guard('admin')->user()->can('manage-deposit')): ?>
+                        <li><a class="" href="<?php echo e(route('admin.transac')); ?>"
+                                aria-expanded="false"><?php echo e(__('Transaction into account')); ?></a>
+                        </li>
+                    <?php endif; ?>
                     <?php if(auth()->guard('admin')->user()->can('manage-withdraw')): ?>
                         <li><a class="" href="<?php echo e(route('admin.withdraws')); ?>"
                                 aria-expanded="false"><?php echo e(__('Manage Withdraw')); ?></a>
@@ -38,6 +43,7 @@
                             
                         </li>
                     <?php endif; ?>
+
                 </ul>
 
             </li>
