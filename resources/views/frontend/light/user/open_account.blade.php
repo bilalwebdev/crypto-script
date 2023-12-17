@@ -24,7 +24,6 @@
 
                             </select>
                         </div>
-
                         <div class="form-group mb-3">
                             <label for="">BASE CURRENCY</label>
                             <select class="form-control" name="currency">
@@ -52,9 +51,6 @@
                             <input type="password" class="form-control" name="master_pass" id="" required
                                 placeholder="Enter Master Password">
                         </div>
-
-
-
                         <button type="submit" class="btn sp_theme_btn btn-md text-uppercase">Open account</button>
                     </form>
                 </div>

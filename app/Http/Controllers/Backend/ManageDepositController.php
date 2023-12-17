@@ -83,7 +83,7 @@ class ManageDepositController extends Controller
 
         $deposit = Deposit::where('id', $request->id)->firstOrFail();
 
-        //  $general = Configuration::first();
+        $general = Configuration::first();
 
         // $gateway = Gateway::find($deposit->gateway_id);
 
@@ -127,7 +127,7 @@ class ManageDepositController extends Controller
         //     Helper::fireMail($data, $template);
         // }
 
-        return redirect()->back()->with('success', "Transaction Done Successfully");
+        return redirect()->back()->with('success', "Payment Confirmed Successfully");
     }
 
     public function reject(Request $request)
@@ -135,31 +135,31 @@ class ManageDepositController extends Controller
 
         $deposit = Deposit::where('id', $request->id)->firstOrFail();
 
-        // $general = Configuration::first();
+        $general = Configuration::first();
 
-        // $gateway = Gateway::find($deposit->gateway_id);
+        $gateway = Gateway::find($deposit->gateway_id);
 
         $deposit->status = 3;
         $deposit->save();
 
 
-        // $template = Template::where('name', 'payment_rejected')->where('status', 1)->first();
+        $template = Template::where('name', 'payment_rejected')->where('status', 1)->first();
 
-        // if ($template) {
+        if ($template) {
 
-        //     $data = [
-        //         'username' => $deposit->user->username,
-        //         'email' => $deposit->user->email,
-        //         'app_name' => $general->appname,
-        //         'id' => $deposit->id,
-        //         'amount' => $deposit->amount,
-        //         'charge' => number_format($gateway->charge, 4),
-        //         'plan' => '',
-        //         'currency' => $general->currency
-        //     ];
+            $data = [
+                'username' => $deposit->user->username,
+                'email' => $deposit->user->email,
+                'app_name' => $general->appname,
+                'id' => $deposit->id,
+                'amount' => $deposit->amount,
+                'charge' => number_format($gateway->charge, 4),
+                'plan' => '',
+                'currency' => $general->currency
+            ];
 
-        //     Helper::fireMail($data, $template);
-        // }
+            Helper::fireMail($data, $template);
+        }
 
 
         return back()->with('success', "Payment Rejected Successfully");

@@ -16,6 +16,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Withdraw;
 use App\Services\AdminUserService;
+use App\Services\MT5\MT5Service;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -63,21 +64,23 @@ class ManageUserController extends Controller
 
         $data['user'] = User::with('refferals')->where('id', $request->user)->firstOrFail();
 
-        $data['payment'] = Payment::where('user_id', $data['user']->id)->where('status', 1)->latest()->first();
+        // $data['payment'] = Payment::where('user_id', $data['user']->id)->where('status', 1)->latest()->first();
 
-        $data['totalRef'] = $data['user']->refferals->count();
+        // $data['totalRef'] = $data['user']->refferals->count();
 
-        $data['userCommission'] = $data['user']->commissions->sum('amount');
+        // $data['userCommission'] = $data['user']->commissions->sum('amount');
 
-        $data['withdrawTotal'] = Withdraw::where('user_id', $data['user']->id)->where('status', 1)->sum('amount');
+        // $data['withdrawTotal'] = Withdraw::where('user_id', $data['user']->id)->where('status', 1)->sum('amount');
 
-        $data['totalDeposit'] = $data['user']->deposits()->where('status', 1)->sum('amount');
+        // $data['totalDeposit'] = $data['user']->deposits()->where('status', 1)->sum('amount');
 
-        $data['totalInvest'] = $data['user']->payments()->where('status', 1)->sum('amount');
+        // $data['totalInvest'] = $data['user']->payments()->where('status', 1)->sum('amount');
 
-        $data['totalTicket'] = $data['user']->tickets->count();
+        // $data['totalTicket'] = $data['user']->tickets->count();
 
         $data['title'] = "User Details";
+
+        $data['mt5'] = new MT5Service();
 
 
         return view('backend.users.details')->with($data);
@@ -236,23 +239,24 @@ class ManageUserController extends Controller
         return view('backend.users.kyc_details')->with($data);
     }
 
-    public function kycStatus($status, $id)
+    public function kycStatus(Request $req)
     {
-        $user = User::findOrFail($id);
 
-        if ($status === 'approve') {
-            $user->is_kyc_verified = 1;
-        } else {
-            $user->is_kyc_verified = 3;
+        //dd($req->all());
+        $user = User::findOrFail($req->user_id);
+
+        foreach ($req->docs as $id) {
+            KycDocs::where('user_id', $user->id)
+                ->where('id', $id)
+                ->update([
+                    'status' => 1
+                ]);
         }
-
-        KycDocs::where('user_id', $id)->update([
-            'status' => 1
-        ]);
-
+        $user->is_kyc_verified = 1;
+        //  dd($user);
         $user->save();
 
-        return back()->with('success', 'Successfull');
+        return back()->with('success', 'Verified successfully!');
     }
 
     public function bulkMail(Request $request)

@@ -123,7 +123,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::get('kyc/request', [ManageUserController::class, 'kycAll'])->name('kyc.req');
             Route::get('kyc/request/{id}', [ManageUserController::class, 'kycDetails'])->name('kyc.details');
-            Route::post('kyc/{status}/{id}', [ManageUserController::class, 'kycStatus'])->name('kyc.status');
+            Route::post('/kyc-approve', [ManageUserController::class, 'kycStatus'])->name('kyc.approve');
 
             Route::get('login/user/{id}', [ManageUserController::class, 'loginAsUser'])->name('login');
         });

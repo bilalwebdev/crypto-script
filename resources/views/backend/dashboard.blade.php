@@ -28,9 +28,9 @@
                 </div>
                 {{-- <div class="col-lg-4 col-sm-6">
                     <div class="card mb-4 gr-white gr-white2 rounded-xl link-item widget-hr-effect">
-                        <a href="{{ route('admin.deposit', 'offline') }}" class="link"></a>
+                        <a href="{{ route('admin.deposits, 'offline') }}" class="link"></a>
                         <div class="sp-widget-2 card-body">
-                            <a href="{{ route('admin.deposit', 'offline') }}" class="widget-link-arrow"><i
+                            <a href="{{ route('admin.deposits, 'offline') }}" class="widget-link-arrow"><i
                                     class="las la-arrow-right"></i></a>
                             <div class="top">
                                 <div class="widget-icon">
@@ -179,7 +179,7 @@
                         </div>
                         {{-- <div class="col-4 mb-3">
                             <div class="short-card link-item">
-                                <a href="{{ route('admin.deposit', 'offline') }}" class="link"></a>
+                                <a href="{{ route('admin.deposits, 'offline') }}" class="link"></a>
                                 <div class="short-card-icon light-icon-4">
                                     <i class="fas fa-wallet"></i>
                                 </div>

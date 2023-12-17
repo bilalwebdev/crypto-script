@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
     <div class="row">
         <div class="col-sm-12 col-lg-4">
@@ -7,14 +9,17 @@
                     <h6 class="mb-0 ">Withdraw Funds</h6>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="<?php echo e(url('create/withdraw')); ?>" method="post">
                         <?php echo csrf_field(); ?>
                         <div class="form-group mb-3">
                             <label for="">ACCOUNT NUMBER</label>
-                            <select class="form-control">
-                                <option value="0"></option>
+                            <select id="account_number" class="form-control" name="login">
+                                <option value=""></option>
                                 <?php $__currentLoopData = $accounts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option data-login="<?php echo e($item->login); ?>" value="<?php echo e($item->id); ?>"><?php echo e($item->login); ?> <?php echo e($item->account_type=='4'?'(DEMO)':''); ?></option>
+                                    <option data-currency="<?php echo e($item->currency); ?>" data-login="<?php echo e($item->login); ?>"
+                                        value="<?php echo e($item->login); ?>"><?php echo e($item->login); ?>
+
+                                        <?php echo e($item->account_type == '4' ? '(DEMO)' : ''); ?></option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             </select>
@@ -22,16 +27,25 @@
 
                         <div class="form-group mb-3">
                             <label for="">PAYMENT METHOD</label>
-                            <select class="form-control">
+                            <select disabled class="form-control" name="payment_method_id" id="payment_method_id">
+                                <option value=""></option>
+                                <?php $__currentLoopData = $payment_methods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option data-waddress="<?php echo e($item['wallet_address']); ?>" data-name ="<?php echo e($item['name']); ?>"
+                                        value="<?php echo e($item['id']); ?>">
+                                        <?php echo e($item['name']); ?>
 
+                                    </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">AMOUNT</label>
-                            <input type="text" class="form-control" required placeholder="Amount in USD">
+                            <input type="text" id="amount" class="form-control" name="amount" required
+                                placeholder="Amount in USD">
                         </div>
-                        <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-lock" aria-hidden="true"></i>&nbsp;Withdraw Funds</button>
+                        <button type="submit" class="btn sp_theme_btn btn-md text-uppercase"><i class="fas fa-lock"
+                                aria-hidden="true"></i>&nbsp;Withdraw Funds</button>
                     </form>
                 </div>
             </div>
@@ -46,7 +60,29 @@
                     <h6 class="mb-0 ">Withdraw details</h6>
                 </div>
                 <div class="card-body">
-                    <div class="text-center">Please select account number on your left</div>
+                    <div class="text-center account_default_text">Please select account number on your left</div>
+                    <span id="accountnoselected" style="display:none;">&nbsp;Selected account:
+                        <span id="accounttab" class="acc-no"></span>
+                    </span>
+                    <br>
+                    <span id="amountentered" class="amt-txt" style="display:none;">&nbsp;Withdraw amount(USD):
+                        <span id="amounttab" class=""></span>
+                    </span>
+                    <br><br>
+
+                    <div class="mt-6" style="display: none" id="payment_info">
+
+                        <span id="">&nbsp;Withdraw method:
+                            <span id="withdraw_mathod" class="depo-info"></span>
+                        </span>
+                        <br>
+                        <span id="">&nbsp;Wallet:
+                            <span id="wallet_add" class="depo-info"></span>
+                        </span>
+                        <br>
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -63,8 +99,8 @@
                         <label>Available fund</label>
                         <span class="account-item-pin green"> </span>
                         <span class="balance">0 </span> <span class="currency"></span>
-                        <span class="loading" style="display:none"><img src="assets/images/loading.gif"
-                                width="30px"></span>
+                        <span class="loading" style="display:none"><img
+                                src="<?php echo e(Config::getFile('icon', 'loading.gif', true)); ?>" width="27px"></span>
                     </div>
 
 
@@ -72,8 +108,8 @@
                         <label>Total Profit</label>
                         <span class="account-item-pin yellow"> </span>
                         <span class="profit">0 </span> <span class="currency"></span>
-                        <span class="loading" style="display:none"><img src="assets/images/loading.gif"
-                                width="30px"></span>
+                        <span class="loading" style="display:none"><img
+                                src="<?php echo e(Config::getFile('icon', 'loading.gif', true)); ?>" width="27px"></span>
                     </div>
 
 
@@ -81,8 +117,8 @@
                         <label>Floating P/L</label>
                         <span class="account-item-pin purple"> </span>
                         <span class="floating">0 </span> <span class="currency"></span>
-                        <span class="loading" style="display:none"><img src="assets/images/loading.gif"
-                                width="30px"></span>
+                        <span class="loading" style="display:none"><img
+                                src="<?php echo e(Config::getFile('icon', 'loading.gif', true)); ?>" width="27px"></span>
                     </div>
 
 
@@ -91,8 +127,8 @@
                         <label>Free Margin</label>
                         <span class="account-item-pin yellow"> </span>
                         <span class="margin">0 </span> <span class="currency"></span>
-                        <span class="loading" style="display:none"><img src="assets/images/loading.gif"
-                                width="30px"></span>
+                        <span class="loading" style="display:none"><img
+                                src="<?php echo e(Config::getFile('icon', 'loading.gif', true)); ?>" width="27px"></span>
                     </div>
 
 
@@ -100,8 +136,8 @@
                         <label>Equity</label>
                         <span class="account-item-pin red"> </span>
                         <span class="equity">0 </span> <span class="currency"></span>
-                        <span class="loading" style="display:none"><img src="assets/images/loading.gif"
-                                width="30px"></span>
+                        <span class="loading" style="display:none"><img
+                                src="<?php echo e(Config::getFile('icon', 'loading.gif', true)); ?>" width="27px"></span>
                     </div>
                 </div>
             </div>
@@ -113,6 +149,95 @@
 
 <?php $__env->startPush('external-css'); ?>
     <link rel="stylesheet" href="<?php echo e(Config::cssLib('frontend', 'lib/apex.min.css')); ?>">
+<?php $__env->stopPush(); ?>
+<?php $__env->startPush('script'); ?>
+    <script>
+        $(function() {
+            'use strict'
+
+            $('#account_number').on('change', function() {
+
+                $('#payment_method_id').removeAttr('disabled');
+
+
+                var selectedValue = $(this).val();
+                var selectedOption = $(this).find('option:selected');
+                var login = selectedOption.data('login');
+
+
+
+                $('#accountnoselected').hide();
+                $('.account-item-value').find('.balance').html(0);
+                $('.account-item-value').find('.profit').html(0);
+                $('.account-item-value').find('.floating').html(0);
+                $('.account-item-value').find('.margin').html(0);
+                $('.account-item-value').find('.equity').html(0);
+
+                if (selectedValue == 0) {
+                    $('.account_default_text').show();
+                    $('.account-item-value').find('.loading').hide();
+                    return false;
+                }
+
+                $('.account_default_text').hide();
+                $('#accountnoselected').show();
+                $('#accounttab').html(login);
+
+                $('.account-item-value').find('.loading').show();
+                var currency = selectedOption.data('currency').toUpperCase();
+                $.ajax({
+                    url: '<?php echo e(route('user.getAccount')); ?>',
+                    type: 'POST',
+                    data: {
+                        _token: "<?php echo e(csrf_token()); ?>",
+                        login: login,
+                    },
+                    success: function(response) {
+                        $('.account-item-value').find('.loading').hide();
+                        $('.account-item-value').find('.balance').html(currency + ' ' + response
+                            .balance);
+                        $('.account-item-value').find('.profit').html(currency + ' ' + response
+                            .profit);
+                        $('.account-item-value').find('.floating').html(currency + ' ' +
+                            response.floating);
+                        $('.account-item-value').find('.margin').html(currency + ' ' + response
+                            .margin);
+                        $('.account-item-value').find('.equity').html(currency + ' ' + response
+                            .equity);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+
+            });
+
+            $('#amount').on('input', function() {
+
+                var val = $(this).val();
+
+                $('#amountentered').show();
+
+                $('#amounttab').html(val);
+
+
+            });
+
+            $('#payment_method_id').on('change', function() {
+
+                $('#amountentered').show();
+                $('#payment_info').show();
+                var amt = $(this).find(':selected').data('amount');
+                var w_address = $(this).find(':selected').data('waddress');
+                var name = $(this).find(':selected').data('name');
+
+                $('#min_withdraw').html(amt);
+                $('#wallet_add').html(w_address);
+                $('#withdraw_mathod').html(name);
+
+            });
+        })
+    </script>
 <?php $__env->stopPush(); ?>
 
 <?php echo $__env->make(Config::theme() . 'layout.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\personal\crypto-script\resources\views/frontend/light/user/withdraw/index.blade.php ENDPATH**/ ?>

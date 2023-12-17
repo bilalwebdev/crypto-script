@@ -80,10 +80,11 @@ class UserController extends Controller
             ]);
 
             session()->flash('success', 'Account created successfully!');
+            return view(Helper::theme() . 'user.open_account_success')->with($data);
         }
 
 
-        return view(Helper::theme() . 'user.open_account_success')->with($data);
+        return view(Helper::theme() . 'user.open_account')->with($data);
     }
 
     public function deposit(Request $request)

@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('element'); ?>
     <div class="row">
         <div class="col-xxl-9">
@@ -26,28 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="card mb-4 gr-white gr-white2 rounded-xl link-item widget-hr-effect">
-                        <a href="<?php echo e(route('admin.deposit', 'offline')); ?>" class="link"></a>
-                        <div class="sp-widget-2 card-body">
-                            <a href="<?php echo e(route('admin.deposit', 'offline')); ?>" class="widget-link-arrow"><i
-                                    class="las la-arrow-right"></i></a>
-                            <div class="top">
-                                <div class="widget-icon">
-                                    <i class="las la-hourglass-half"></i>
-                                </div>
-                                <div class="widget-content">
-                                    <h5 class="mb-0"><?php echo e(__('Total Deposit')); ?></h5>
-                                </div>
-                            </div>
-                            <div class="bottom mt-3">
-                                <div class="widget-content">
-                                    <h2 class="mb-0"><?php echo e(Config::formatter($totalDeposit)); ?></h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-lg-4 col-sm-6">
                     <div class="card mb-4 gr-white gr-white3 rounded-xl link-item widget-hr-effect">
                         <a href="<?php echo e(route('admin.withdraw.filter', 'pending')); ?>" class="link"></a>
@@ -119,30 +96,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
-                    <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
-                        <a href="<?php echo e(route('admin.payment.index')); ?>" class="link"></a>
-                        <div class="widget-icon light-icon-5">
-                            <i class="las la-dollar-sign"></i>
-                        </div>
-                        <div class="widget-content">
-                            <div class="widget-caption text-dark"><?php echo e(__('Online Gateway')); ?></div>
-                            <h3 class="mb-0 mt-1 widget-title text-dark"><?php echo e($totalOnlineGateway); ?></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
-                    <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
-                        <a href="<?php echo e(route('admin.payment.offline')); ?>" class="link"></a>
-                        <div class="widget-icon light-icon-6">
-                            <i class="las la-user-friends"></i>
-                        </div>
-                        <div class="widget-content">
-                            <div class="widget-caption text-dark"><?php echo e(__('Offline Gateway')); ?></div>
-                            <h3 class="mb-0 mt-1 widget-title text-dark"><?php echo e($totalOfflineGateway); ?></h3>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <div class="col-xxl-3 col-md-6">
@@ -177,24 +131,8 @@
                                 <p class="short-card-title"><?php echo e(__('Signals')); ?></p>
                             </div>
                         </div>
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.deposit', 'offline')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-4">
-                                    <i class="fas fa-wallet"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Deposit')); ?></p>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.withdraw.filter', 'pending')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-5">
-                                    <i class="fas fa-hand-holding-usd"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Withdraw')); ?></p>
-                            </div>
-                        </div>
+                        
+                        
                         <div class="col-4 mb-3">
                             <div class="short-card link-item">
                                 <a href="<?php echo e(route('admin.payments.index', 'offline')); ?>" class="link"></a>
@@ -286,9 +224,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               
+
                                 <?php $__empty_1 = true; $__currentLoopData = $investments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $invest): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                
                                     <tr>
                                         <td>
                                             <a href="<?php echo e(route('admin.user.details', optional($invest->user)->id)); ?>">
@@ -325,7 +262,7 @@
 
                     <ul class="browser-status-list mt-4">
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','chrome.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'chrome.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('Chrome')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Chrome')->first())->total ?? 0); ?></span>
@@ -338,7 +275,7 @@
                             </div>
                         </li>
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','firefox.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'firefox.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('Friefox')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Mozilla')->first())->total ?? 0); ?></span>
@@ -350,7 +287,7 @@
                             </div>
                         </li>
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','safari.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'safari.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('Safari')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Safari')->first())->total ?? 0); ?></span>
@@ -362,7 +299,7 @@
                             </div>
                         </li>
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','edge.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'edge.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('Edge')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Edge')->first())->total ?? 0); ?></span>
@@ -375,7 +312,7 @@
                             </div>
                         </li>
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','opera.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'opera.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('Opera')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Opera')->first())->total ?? 0); ?></span>
@@ -387,7 +324,7 @@
                             </div>
                         </li>
                         <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers','uc.svg', true)); ?>"
+                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'uc.svg', true)); ?>"
                                     alt="image"> <?php echo e(__('UC')); ?></span>
                             <span
                                 class="user-amount"><?php echo e(optional($browser->where('browser', 'Uc')->first())->total ?? 0); ?></span>
@@ -410,7 +347,7 @@
             <div class="card">
                 <div class="card-header justify-content-between">
                     <h4 class="card-title"><?php echo e(__('Latest Deposit')); ?></h4>
-                    <a href="<?php echo e(route('admin.deposit', 'offline')); ?>" class="site-color fw-500"><?php echo e(__('View All')); ?></a>
+                    <a href="<?php echo e(route('admin.deposits')); ?>" class="site-color fw-500"><?php echo e(__('View All')); ?></a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -644,7 +581,7 @@
 
         var chart2 = new ApexCharts(document.querySelector("#chart2"), user);
         chart2.render();
-        
+
         var chart5 = new ApexCharts(document.querySelector("#chart5"), user);
         chart5.render();
 

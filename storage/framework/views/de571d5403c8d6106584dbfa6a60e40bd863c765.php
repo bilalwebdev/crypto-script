@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" id="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
     <meta name="description" content="<?php echo e($page->seo_description ?? Config::config()->seo_description); ?>" />
     <meta name="keywords" content="<?php echo e(implode(',', $page->seo_keywords ?? Config::config()->seo_tags)); ?> ">
