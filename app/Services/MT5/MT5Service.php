@@ -146,4 +146,16 @@ class MT5Service
             return $response->json();
         }
     }
+
+    public function deleteAccount($login)
+    {
+
+        $response = Http::get("{$this->baseUrl}/AccountDelete", [
+            'login' => $login,
+        ]);
+
+        if ($response->status() == 200) {
+            return $response->json();
+        }
+    }
 }

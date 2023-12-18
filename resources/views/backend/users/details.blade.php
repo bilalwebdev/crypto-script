@@ -91,7 +91,9 @@
                                                     <span>{{ $acc->investor_pass }}</span>
                                                 </td>
                                                 <td>
-                                                    <button class="btn-sm btn-danger"><i class=""></i>X</button>
+                                                    <a href="{{ url('delete-acc/' . $acc->login) }}"><button
+                                                            class="btn-sm btn-danger"><i
+                                                                class=""></i>&times;</button></a>
                                                 </td>
 
                                             </tr>

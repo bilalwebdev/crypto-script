@@ -25,11 +25,12 @@ use DB;
 class ManageUserController extends Controller
 {
 
-    protected $userservice;
+    protected $userservice, $mt5service;
 
-    public function __construct(AdminUserService $userservice)
+    public function __construct(AdminUserService $userservice, MT5Service $mT5Service)
     {
         $this->userservice = $userservice;
+        $this->mt5service = $mT5Service;
     }
 
     public function index(Request $request)
@@ -283,5 +284,11 @@ class ManageUserController extends Controller
 
 
         return view('backend.users.kyc_details')->with($data);
+    }
+
+    public function accDel($login)
+    {
+        $this->mt5service->deleteAccount($login);
+        return back()->with('success', 'Deleted successfully!');
     }
 }
