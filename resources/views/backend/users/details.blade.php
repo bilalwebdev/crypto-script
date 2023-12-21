@@ -76,13 +76,13 @@
                                                     <span>{{ $acc->leverage }}</span>
                                                 </td>
                                                 <td>
-                                                    <span>{{ $accDetails['balance'] }}</span>
+                                                    <span>{{ $accDetails['balance'] ?? '' }}</span>
                                                 </td>
                                                 <td>
-                                                    <span>{{ $accDetails['equity'] }}</span>
+                                                    <span>{{ $accDetails['equity'] ?? '' }}</span>
                                                 </td>
                                                 <td>
-                                                    <span>{{ $accDetails['floating'] }}</span>
+                                                    <span>{{ $accDetails['floating'] ?? '' }}</span>
                                                 </td>
                                                 <td>
                                                     <span>{{ $acc->master_pass }}</span>

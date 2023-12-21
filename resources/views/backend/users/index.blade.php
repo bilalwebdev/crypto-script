@@ -63,6 +63,8 @@
                                         <td>
                                             <a href="{{ route('admin.user.details', $user) }}"
                                                 class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ route('admin.user.edit', $user) }}"
+                                                class="btn btn-outline-primary btn-sm"><i class="fa fa-pen"></i></a>
                                         </td>
                                     </tr>
                                 @empty

@@ -204,10 +204,10 @@
                 <li><a href="{{ route('admin.language.index') }}" aria-expanded="false"><i
                             data-feather="globe"></i><span class="nav-text">{{ __('Manage Language') }}</span></a>
                 </li>
-            @endif
+            @endif --}}
 
             @if (auth()->guard('admin')->user()->can('manage-role') ||
-    auth()->guard('admin')->user()->can('manage-admin'))
+                    auth()->guard('admin')->user()->can('manage-admin'))
                 <li class="nav-label">{{ __('Administration') }}</li>
             @endif
 
@@ -271,13 +271,13 @@
                 </li>
             @endif
 
-            <li><a href="{{ route('admin.notifications') }}" aria-expanded="false"><i
-                        data-feather="feather"></i><span class="nav-text">{{ __('All Notification') }}</span></a>
+            <li><a href="{{ route('admin.notifications') }}" aria-expanded="false"><i data-feather="feather"></i><span
+                        class="nav-text">{{ __('All Notification') }}</span></a>
             </li>
 
             <li><a href="{{ route('admin.general.cacheclear') }}" aria-expanded="false"><i
                         data-feather="feather"></i><span class="nav-text">{{ __('Clear Cache') }}</span></a>
-            </li> --}}
+            </li>
 
             <li class="nav-label">{{ __('Current Version') . ' - ' . Config::APP_VERSION }}</li>
         </ul>

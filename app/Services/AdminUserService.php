@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\AdminUser;
 use App\Models\Configuration;
 use App\Models\Transaction;
 use App\Models\User;
@@ -13,12 +14,24 @@ class AdminUserService
     {
         $user = User::find($request->user);
 
+
+
         $data = [
             'country' => $request->country,
             'city' => $request->city,
             'zip' => $request->zip,
             'state' => $request->state,
         ];
+
+
+        AdminUser::where('user_id', $user->id)->delete();
+
+        foreach ($request->admins as $key => $value) {
+            AdminUser::create([
+                'admin_id' => $value,
+                'user_id' => $user->id
+            ]);
+        }
 
         $user->phone = $request->phone;
         $user->address = $data;

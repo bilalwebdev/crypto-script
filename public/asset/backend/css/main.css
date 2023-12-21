@@ -257,9 +257,9 @@ th {
 
 label {
     display: inline-block;
-    margin-bottom: 0.5rem; 
+    margin-bottom: 0.5rem;
     font-weight: 500;
-    color: rgba(16,25,53,.6);
+    color: rgba(16, 25, 53, .6);
 }
 
 button {
@@ -13317,7 +13317,7 @@ svg.pulse-svg .third-circle {
 
 .header-search .header-search-res-btn {
     background-color: transparent;
-    display:  none;
+    display: none;
     border: none;
 }
 
@@ -13633,7 +13633,7 @@ svg.pulse-svg .third-circle {
     letter-spacing: 0.05rem;
     font-weight: 600;
     color: #4877a3;
-    font-size: 11px; 
+    font-size: 11px;
     letter-spacing: 1px;
 }
 
@@ -13767,7 +13767,7 @@ svg.pulse-svg .third-circle {
 
 .quixnav .metismenu>li.mm-active>a {
     color: #fff;
-    background: linear-gradient(to right, #1976d2 0, #64b5f6 100%); 
+    background: linear-gradient(to right, #1976d2 0, #64b5f6 100%);
     border-radius: 5px;
 }
 
@@ -17982,7 +17982,7 @@ svg text {
     border: 1px solid #ddd;
     height: 45px;
     color: #454545;
-    border-radius: 6px; 
+    border-radius: 6px;
     border-width: 1px;
     border-style: solid;
     --sp-border-opacity: 1 !important;
@@ -18386,7 +18386,7 @@ input[type=checkbox]:checked:after {
     margin-right: 0;
 }
 
-select ~ .select2-container {
+select~.select2-container {
     width: 100% !important;
 }
 
@@ -19973,7 +19973,7 @@ select ~ .select2-container {
 
 .badge {
     line-height: 1.5;
-    padding: 3px 10px; 
+    padding: 3px 10px;
     margin: 1px;
 }
 
@@ -20633,7 +20633,7 @@ button:focus {
     padding: 1.25rem;
 }
 
-.card-header h4, 
+.card-header h4,
 .card-title {
     font-size: 16px;
     font-weight: 500;
@@ -21750,7 +21750,7 @@ button:focus {
 .table-responsive::-webkit-scrollbar {
     background-color: #F5F5F5;
     width: 8px;
-    height: 8px; 
+    height: 8px;
 }
 
 .jsgrid-grid-body::-webkit-scrollbar-track,
@@ -22629,6 +22629,7 @@ button:focus {
     color: #2196f3 !important;
     background-color: #e6f4ff !important;
 }
+
 .sp-widget-1:hover .light-icon-1,
 .short-card:hover .light-icon-1 {
     background-color: #2196f3 !important;
@@ -22638,6 +22639,7 @@ button:focus {
     color: #805dca !important;
     background-color: #f2eafa !important;
 }
+
 .sp-widget-1:hover .light-icon-2,
 .short-card:hover .light-icon-2 {
     background-color: #805dca !important;
@@ -22647,6 +22649,7 @@ button:focus {
     color: #e7515a !important;
     background-color: #fbeced !important;
 }
+
 .sp-widget-1:hover .light-icon-3,
 .short-card:hover .light-icon-3 {
     background-color: #e7515a !important;
@@ -22656,6 +22659,7 @@ button:focus {
     color: #e2a03f !important;
     background-color: #fcf5e9 !important;
 }
+
 .sp-widget-1:hover .light-icon-4,
 .short-card:hover .light-icon-4 {
     background-color: #e2a03f !important;
@@ -22665,6 +22669,7 @@ button:focus {
     background: #0296661a !important;
     color: #029666 !important;
 }
+
 .sp-widget-1:hover .light-icon-5,
 .short-card:hover .light-icon-5 {
     background-color: #029666 !important;
@@ -22674,6 +22679,7 @@ button:focus {
     background: #00cccc1f !important;
     color: #00cccc !important;
 }
+
 .sp-widget-1:hover .light-icon-6,
 .short-card:hover .light-icon-6 {
     background-color: #00cccc !important;
@@ -22683,6 +22689,7 @@ button:focus {
     background: #e319b71a !important;
     color: #e319b7 !important;
 }
+
 .sp-widget-1:hover .light-icon-7,
 .short-card:hover .light-icon-7 {
     background-color: #e319b7 !important;
@@ -22692,6 +22699,7 @@ button:focus {
     background: #ff60301f !important;
     color: #ff6030 !important;
 }
+
 .sp-widget-1:hover .light-icon-8,
 .short-card:hover .light-icon-8 {
     background-color: #ff6030 !important;
@@ -22701,6 +22709,7 @@ button:focus {
     background: #6a44ff1f !important;
     color: #6a44ff !important;
 }
+
 .sp-widget-1:hover .light-icon-9,
 .short-card:hover .light-icon-9 {
     background-color: #6a44ff !important;
@@ -24399,6 +24408,7 @@ span#counter {
     border-radius: 50%;
     margin-right: 8px;
 }
+
 .image-rounded {
     width: 100px;
     height: 50px;
@@ -24436,6 +24446,7 @@ span#counter {
     opacity: 0.02;
     z-index: -1;
 }
+
 .d-account-card .top {
     display: flex;
     flex-wrap: wrap;
@@ -24444,7 +24455,8 @@ span#counter {
     margin: -10px -15px;
 }
 
-.d-account-card .top .left, .d-account-card .top .right {
+.d-account-card .top .left,
+.d-account-card .top .right {
     padding: 10px 15px;
 }
 
@@ -24457,9 +24469,11 @@ span#counter {
     margin-top: 40px;
 }
 
-.d-account-card .bottom .left, .d-account-card .bottom .right {
+.d-account-card .bottom .left,
+.d-account-card .bottom .right {
     padding: 10px 15px;
 }
+
 .d-account-card .bottom .left {
     flex-grow: 1;
 }
@@ -24504,7 +24518,7 @@ span#counter {
 .sp-widget-3 .widget-icon {
     width: 55px;
     height: 55px;
-    background-color: rgba(255,255,255, 0.15);
+    background-color: rgba(255, 255, 255, 0.15);
     color: #fff;
     border-radius: 5px;
     display: inline-flex;
@@ -24537,7 +24551,7 @@ span#counter {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    border-radius:10px;
+    border-radius: 10px;
     background-color: #10192412;
     transition: all 0.3s;
 }
@@ -24612,7 +24626,7 @@ span#counter {
     padding: 8px 15px;
 }
 
-.d-nav-pills .nav-link + .nav-link {
+.d-nav-pills .nav-link+.nav-link {
     margin-top: 6px;
 }
 
@@ -24834,7 +24848,11 @@ span#counter {
         padding: 15px 15px 5px 15px;
     }
 
-    .content-body .container-fluid, .content-body .container-sm, .content-body .container-md, .content-body .container-lg, .content-body .container-xl {
+    .content-body .container-fluid,
+    .content-body .container-sm,
+    .content-body .container-md,
+    .content-body .container-lg,
+    .content-body .container-xl {
         padding-left: 15px;
         padding-right: 15px;
     }
@@ -24857,7 +24875,7 @@ span#counter {
     }
 
     .browser-status-list li {
-        padding: 16px 0; 
+        padding: 16px 0;
     }
 
     [data-header-position=fixed] .content-body {
@@ -24927,6 +24945,7 @@ span#counter {
 }
 
 @media (max-width: 767px) {
+
     .header .header-content,
     .mobile-bottom-menu {
         padding-left: 15px;
@@ -24947,6 +24966,7 @@ span#counter {
     .user-action-btn {
         font-size: 12px !important;
     }
+
     .sp-widget-1 {
         justify-content: center;
         text-align: center;
@@ -25107,16 +25127,16 @@ span#counter {
 }
 
 .sp_referral_box .sp_referral_del_btn {
-    position: absolute; 
-    top: -5px; 
-    right: -5px; 
-    width: 22px; 
-    height: 22px; 
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 22px;
+    height: 22px;
     font-size: 14px;
-    background-color: #fff; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #ff6046;
     border: 1px solid #e5e5e5;
     border-radius: 50%;
@@ -25155,4 +25175,5 @@ span#counter {
 .min-w-120 {
     min-width: 120px !important;
 }
+
 /* new css end */

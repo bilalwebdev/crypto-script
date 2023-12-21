@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminUserRequest;
 use App\Jobs\SendEmailJob;
 use App\Jobs\SendQueueEmail;
+use App\Models\Admin;
+use App\Models\AdminUser;
 use App\Models\GeneralSetting;
 use App\Models\KycDocs;
 use App\Models\Payment;
@@ -290,5 +292,34 @@ class ManageUserController extends Controller
     {
         $this->mt5service->deleteAccount($login);
         return back()->with('success', 'Deleted successfully!');
+    }
+
+    public function userEdit(Request $request)
+    {
+        $data['user'] = User::with('refferals')->where('id', $request->user)->firstOrFail();
+
+        $data['payment'] = Payment::where('user_id', $data['user']->id)->where('status', 1)->latest()->first();
+
+        $data['totalRef'] = $data['user']->refferals->count();
+
+        $data['userCommission'] = $data['user']->commissions->sum('amount');
+
+        $data['withdrawTotal'] = Withdraw::where('user_id', $data['user']->id)->where('status', 1)->sum('amount');
+
+        $data['totalDeposit'] = $data['user']->deposits()->where('status', 1)->sum('amount');
+
+        $data['totalInvest'] = $data['user']->payments()->where('status', 1)->sum('amount');
+
+        $data['totalTicket'] = $data['user']->tickets->count();
+
+
+        $data['admins'] = Admin::whereNull('type')->select('id', 'username')->pluck('username', 'id')->toArray();
+        //  dd($data['admins']);>
+        $data['admin_users'] = AdminUser::where('user_id', $data['user']->id)->pluck('user_id', 'admin_id')->toArray();
+        //dd($data['admin_users']);
+
+        $data['title']  = 'Update User';
+
+        return view('backend.users.edit')->with($data);
     }
 }
