@@ -26,9 +26,11 @@ class ManageWithdrawController extends Controller
 
         $search = $request->search;
 
-        $data['withdraws'] = Withdraw::when($search, function ($q) use ($search) {
-            $q->where('name', 'LIKE', '%' . $search . '%');
-        })->latest()->paginate(Helper::pagination());
+        $data['withdraws'] = Withdraw::leftJoin('admin_users', 'withdraws.user_id', '=', 'admin_users.user_id')
+            ->where('admin_users.admin_id', '=', session()->get('user_id'))
+            ->select('withdraws.*')->when($search, function ($q) use ($search) {
+                $q->where('name', 'LIKE', '%' . $search . '%');
+            })->latest()->paginate(Helper::pagination());
 
         return view('backend.withdraw.index')->with($data);
     }

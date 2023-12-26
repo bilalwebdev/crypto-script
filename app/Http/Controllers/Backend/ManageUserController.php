@@ -22,7 +22,7 @@ use App\Services\MT5\MT5Service;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
-
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class ManageUserController extends Controller
 {
@@ -39,10 +39,20 @@ class ManageUserController extends Controller
     {
         $data['title'] = 'All Users';
 
-        $user = User::query();
+        $admin  = Admin::find(session()->get('user_id'));
+
+
+        if ($admin->type == 'super') {
+            $users = User::query();
+        } else {
+            $users = User::leftJoin('admin_users', 'users.id', '=', 'admin_users.user_id')
+                ->where('admin_users.admin_id', '=', session()->get('user_id'))
+                ->select('users.*');
+        }
+
 
         if ($request->search) {
-            $user->where(function ($item) use ($request) {
+            $users->where(function ($item) use ($request) {
                 $item->where('username', $request->search)
                     ->orWhere('email', $request->email)
                     ->orWhere('phone', $request->search);
@@ -51,11 +61,13 @@ class ManageUserController extends Controller
 
         if ($request->user_status) {
             $status = $request->user_status === 'user_active' ? 1 : 0;
-            $user->where('status', $status);
+            $users->where('status', $status);
         }
 
 
-        $data['users'] = $user->latest()->paginate(Helper::pagination());
+
+
+        $data['users'] = $users->latest()->paginate(Helper::pagination());
 
         return view('backend.users.index')->with($data);
     }

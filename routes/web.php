@@ -108,7 +108,7 @@ Route::name('user.')->group(function () {
             Route::get('history', [UserController::class, 'history'])->name('history');
             Route::get('history/filter', [UserController::class, 'history'])->name('history.filter');
             Route::get(
-                'history/delete/{id}',
+                'history/delete/{id}/{type}',
                 [UserController::class, 'historyDel']
             )->name('history.delete');
 

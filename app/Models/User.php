@@ -101,4 +101,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(KycDocs::class, 'user_id');
     }
+
+    public function admins()
+    {
+        return $this->hasMany(AdminUser::class, 'user_id');
+    }
 }

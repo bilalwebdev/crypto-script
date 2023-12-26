@@ -49,11 +49,11 @@
             </li>
 
 
-            <?php if(auth()->guard('admin')->user()->can('manage-user')): ?>
-                <li><a href="<?php echo e(route('admin.user.index')); ?>"><i data-feather="user"></i><span
-                            class="nav-text"><?php echo e(__('Manage Users')); ?></span></a>
-                </li>
-            <?php endif; ?>
+
+            <li><a href="<?php echo e(route('admin.user.index')); ?>"><i data-feather="user"></i><span
+                        class="nav-text"><?php echo e(__('Manage Users')); ?></span></a>
+            </li>
+
             <?php if(auth()->guard('admin')->user()->can('manage-gateway')): ?>
                 <li><a href="<?php echo e(route('admin.payment-method.index')); ?>" aria-expanded="false"><i
                             data-feather="credit-card"></i><span

@@ -32,14 +32,12 @@ class UserDashboardService
 
 
 
-
-
         $data['liveAccounts'] = array_map(function ($item1, $item2) {
             return [
                 'balance' => $item2['balance'],
                 'login' => $item2['login'],
-                'currency' => $item1['currency'],
-                'account_type' => $item1['account_type']
+                'currency' => $item1['currency'] ?? '',
+                'account_type' => $item1['account_type'] ?? ''
             ];
         }, $userAcounts, $AccountsDetails);
 

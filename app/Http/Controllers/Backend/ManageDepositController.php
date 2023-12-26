@@ -27,7 +27,9 @@ class ManageDepositController extends Controller
     {
         // $type = $request->status === 'online' ? 1 : 0;
 
-        $deposit = Deposit::query();
+        $deposit = Deposit::leftJoin('admin_users', 'deposits.user_id', '=', 'admin_users.user_id')
+            ->where('admin_users.admin_id', '=', session()->get('user_id'))
+            ->select('deposits.*');
 
         // if($request->search){
         //     $deposit->where('name', $request->search);
@@ -53,6 +55,8 @@ class ManageDepositController extends Controller
             'payment',
             'user'
         )->latest()->paginate(Helper::pagination());
+
+        //    dd($data);
 
         $data['title'] = 'Manage Deposits';
 
