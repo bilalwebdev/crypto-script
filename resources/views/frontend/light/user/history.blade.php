@@ -99,7 +99,7 @@
 
                                         <td>
                                             @if ($req->status == 2)
-                                                <div onclick="cancelTrans('{{ $req->id }}')"
+                                                <div onclick="cancelTrans('{{ $req->id }}', '{{ $type }}')"
                                                     class="cancel cursor-pointer"
                                                     style="font-style:italic;text-decoration:underline;font-size:11px;color:silver; pointer-events:auto;">
                                                     Cancel</div>
@@ -168,19 +168,21 @@
 @push('script')
     <script>
         var hid = '';
+        var t_type = '';
 
-        function cancelTrans(id) {
+        function cancelTrans(id, type) {
 
             const modal = $('#delete');
 
             modal.modal('show');
 
             hid = id;
+            t_type = type;
 
         }
 
         function confirmCancel() {
-            window.location.href = '/history/delete/' + hid;
+            window.location.href = '/history/delete/' + hid + '/' + t_type;
         }
     </script>
 @endpush

@@ -107,7 +107,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('admins/changeStatus/{id}', [AdminController::class, 'changeStatus'])->name('changestatus')->middleware('permission:manage-admin,admin');
 
         // Manage User
-        Route::middleware('permission:manage-user,admin')->prefix('users')->name('user.')->group(function () {
+        Route::prefix('users')->name('user.')->group(function () {
 
             Route::get('/', [ManageUserController::class, 'index'])->name('index');
             Route::get('details/{user}', [ManageUserController::class, 'userDetails'])->name('details');

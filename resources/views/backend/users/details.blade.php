@@ -91,9 +91,8 @@
                                                     <span>{{ $acc->investor_pass }}</span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url('delete-acc/' . $acc->login) }}"><button
-                                                            class="btn-sm btn-danger"><i
-                                                                class=""></i>&times;</button></a>
+                                                    <button class="btn-sm btn-danger del-modal"><i
+                                                            class=""></i>&times;</button>
                                                 </td>
 
                                             </tr>
@@ -371,6 +370,47 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="accept" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <form action="" method="post">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ __('Payment Accept') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <p>{{ __('Are you sure to you want to delete this account') }}?</p>
+
+                            <div class="d-flex" style="gap: 8px">
+                                <div class="">
+                                    <input type="checkbox" name="mt5" id="" class="mr-1"><span>Mt5</span>
+                                </div>
+                                <div class="">
+                                    <input type="checkbox" name="admin_panel" id="" class="mr-1"><span> Admin
+                                        Panel</span>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Accept') }}</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <style>
         a:hover,
         a:focus {
@@ -472,6 +512,14 @@
                     $(this).addClass('active');
                 });
             });
+
+
+            $('.del-modal').on('click', function() {
+                const modal = $('#accept');
+
+                modal.find('form').attr('action', $(this).data('url'));
+                modal.modal('show');
+            })
         </script>
     @endpush
 @endsection

@@ -203,12 +203,17 @@ class UserController extends Controller
 
         return view(Helper::theme() . 'user.history')->with($data);
     }
-    public function historyDel($id)
+    public function historyDel($id, $type)
     {
         $data['title'] = 'History';
 
-
-        Deposit::find($id)->delete();
+        if ($type == 'dep') {
+            Deposit::where('id', $id)->delete();
+            session()->flash('success', 'Deposit request deleted successfully!');
+        } else {
+            Withdraw::where('id', $id)->delete();
+            session()->flash('success', 'Withdraw request deleted successfully!');
+        }
         //  dd($data['deposit_requests']);
 
         return redirect('/history');

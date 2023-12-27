@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Backend;
 use App\Helpers\Helper\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WithdrawRequest;
+use App\Models\Admin;
 use App\Models\Configuration;
 use App\Models\Transaction;
 use App\Models\Withdraw;
 use App\Models\WithdrawGateway;
 use App\Services\MT5\MT5Service;
 use App\Services\WithdrawService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ManageWithdrawController extends Controller
@@ -24,11 +26,31 @@ class ManageWithdrawController extends Controller
     {
         $data['title'] = 'Withdraw Methods';
 
-        $search = $request->search;
+        // $search = $request->search;
 
-        $data['withdraws'] = Withdraw::when($search, function ($q) use ($search) {
-            $q->where('name', 'LIKE', '%' . $search . '%');
-        })->latest()->paginate(Helper::pagination());
+        $admin  = Admin::find(session()->get('user_id'));
+
+        if ($admin->type == 'super') {
+            $withdraw = Withdraw::query();
+        } else {
+            $withdraw = Withdraw::leftJoin('admin_users', 'withdraws.user_id', '=', 'admin_users.user_id')
+                ->where('admin_users.admin_id', '=', session()->get('user_id'))
+                ->select('withdraws.*');
+        }
+
+        if ($request->date) {
+
+            $date = array_map(function ($item) {
+                return Carbon::parse($item);
+            }, explode(' - ', $request->date));
+
+            $withdraw->whereBetween('created_at', $date);
+        }
+
+        $data['withdraws'] = $withdraw->with(
+            'payment',
+            'user'
+        )->latest()->paginate(Helper::pagination());
 
         return view('backend.withdraw.index')->with($data);
     }

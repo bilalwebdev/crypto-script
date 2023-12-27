@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Helpers\Helper\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Configuration;
 use App\Models\Deposit;
 use App\Models\Gateway;
@@ -27,7 +28,15 @@ class ManageDepositController extends Controller
     {
         // $type = $request->status === 'online' ? 1 : 0;
 
-        $deposit = Deposit::query();
+        $admin  = Admin::find(session()->get('user_id'));
+
+        if ($admin->type == 'super') {
+            $deposit = Deposit::query();
+        } else {
+            $deposit = Deposit::leftJoin('admin_users', 'deposits.user_id', '=', 'admin_users.user_id')
+                ->where('admin_users.admin_id', '=', session()->get('user_id'))
+                ->select('deposits.*');
+        }
 
         // if($request->search){
         //     $deposit->where('name', $request->search);
@@ -53,6 +62,8 @@ class ManageDepositController extends Controller
             'payment',
             'user'
         )->latest()->paginate(Helper::pagination());
+
+        //    dd($data);
 
         $data['title'] = 'Manage Deposits';
 

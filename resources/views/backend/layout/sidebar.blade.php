@@ -116,11 +116,11 @@
             </li>
 
 
-            @if (auth()->guard('admin')->user()->can('manage-user'))
-                <li><a href="{{ route('admin.user.index') }}"><i data-feather="user"></i><span
-                            class="nav-text">{{ __('Manage Users') }}</span></a>
-                </li>
-            @endif
+
+            <li><a href="{{ route('admin.user.index') }}"><i data-feather="user"></i><span
+                        class="nav-text">{{ __('Manage Users') }}</span></a>
+            </li>
+
             @if (auth()->guard('admin')->user()->can('manage-gateway'))
                 <li><a href="{{ route('admin.payment-method.index') }}" aria-expanded="false"><i
                             data-feather="credit-card"></i><span

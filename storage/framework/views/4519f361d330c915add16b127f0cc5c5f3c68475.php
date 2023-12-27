@@ -1,7 +1,3 @@
-
-
-
-
 <?php $__env->startSection('element'); ?>
     <div class="card">
         <div class="row">
@@ -94,9 +90,8 @@
                                                     <span><?php echo e($acc->investor_pass); ?></span>
                                                 </td>
                                                 <td>
-                                                    <a href="<?php echo e(url('delete-acc/' . $acc->login)); ?>"><button
-                                                            class="btn-sm btn-danger"><i
-                                                                class=""></i>&times;</button></a>
+                                                    <button class="btn-sm btn-danger del-modal"><i
+                                                            class=""></i>&times;</button>
                                                 </td>
 
                                             </tr>
@@ -382,6 +377,47 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="accept" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <form action="" method="post">
+                <?php echo csrf_field(); ?>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><?php echo e(__('Payment Accept')); ?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <p><?php echo e(__('Are you sure to you want to delete this account')); ?>?</p>
+
+                            <div class="d-flex" style="gap: 8px">
+                                <div class="">
+                                    <input type="checkbox" name="mt5" id="" class="mr-1"><span>Mt5</span>
+                                </div>
+                                <div class="">
+                                    <input type="checkbox" name="admin_panel" id="" class="mr-1"><span> Admin
+                                        Panel</span>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo e(__('Close')); ?></button>
+                        <button type="submit" class="btn btn-primary"><?php echo e(__('Accept')); ?></button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <style>
         a:hover,
         a:focus {
@@ -483,6 +519,14 @@
                     $(this).addClass('active');
                 });
             });
+
+
+            $('.del-modal').on('click', function() {
+                const modal = $('#accept');
+
+                modal.find('form').attr('action', $(this).data('url'));
+                modal.modal('show');
+            })
         </script>
     <?php $__env->stopPush(); ?>
 <?php $__env->stopSection(); ?>

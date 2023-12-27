@@ -14,6 +14,8 @@ class AdminLoginService
 
         $admin = Admin::where('email', $request->email)->orWhere('username', $request->email)->first();
 
+        session()->put('user_id', $admin->id);
+
         if ($admin) {
             if (!$admin->status) {
                 return redirect()->route('admin.login')->with('error', 'Your account is currently disabled');
