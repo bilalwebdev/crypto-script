@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminUserRequest;
 use App\Jobs\SendEmailJob;
 use App\Jobs\SendQueueEmail;
+use App\Models\Account;
 use App\Models\Admin;
 use App\Models\AdminUser;
 use App\Models\GeneralSetting;
@@ -302,9 +303,22 @@ class ManageUserController extends Controller
         return view('backend.users.kyc_details')->with($data);
     }
 
-    public function accDel($login)
+    public function accDel($login, Request $request)
     {
-        $this->mt5service->deleteAccount($login);
+        $request->validate([
+            'type' => 'required'
+        ]);
+        $acc = Account::find($login);
+
+        if ($request->type == 'mt5') {
+            $this->mt5service->deleteAccount($acc->login);
+        } elseif ($request->type == 'admin_panel') {
+            $acc->delete();
+        } else {
+            $this->mt5service->deleteAccount($acc->login);
+            $acc->delete();
+        }
+
         return back()->with('success', 'Deleted successfully!');
     }
 

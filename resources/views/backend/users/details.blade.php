@@ -91,7 +91,8 @@
                                                     <span>{{ $acc->investor_pass }}</span>
                                                 </td>
                                                 <td>
-                                                    <button class="btn-sm btn-danger del-modal"><i
+                                                    <button data-url="{{ route('admin.user.acc-del', $acc->id) }}"
+                                                        class="btn-sm btn-danger del-modal"><i
                                                             class=""></i>&times;</button>
                                                 </td>
 
@@ -379,21 +380,23 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">{{ __('Payment Accept') }}</h5>
+                        <h5 class="modal-title">{{ __('Account Delete') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <p>{{ __('Are you sure to you want to delete this account') }}?</p>
+                            <p>{{ __('Are you sure to you want to delete this account?') }}?</p>
 
-                            <div class="d-flex" style="gap: 8px">
+                            <div class="d-flex" style="gap: 16px">
                                 <div class="">
-                                    <input type="checkbox" name="mt5" id="" class="mr-1"><span>Mt5</span>
+                                    <input type="checkbox" name="type" value="mt5" id=""
+                                        class=""><span>&nbsp;&nbsp; Mt5</span>
                                 </div>
                                 <div class="">
-                                    <input type="checkbox" name="admin_panel" id="" class="mr-1"><span> Admin
+                                    <input type="checkbox" name="type" value="admin_panel" id=""
+                                        class=""><span>&nbsp;&nbsp; From Admin
                                         Panel</span>
                                 </div>
 
@@ -403,8 +406,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('Close') }}</button>
-                        <button type="submit" class="btn btn-primary">{{ __('Accept') }}</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
 
                     </div>
                 </div>

@@ -126,7 +126,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('/kyc-approve', [ManageUserController::class, 'kycStatus'])->name('kyc.approve');
 
             Route::get('login/user/{id}', [ManageUserController::class, 'loginAsUser'])->name('login');
-            Route::get('delete-acc/{login}', [ManageUserController::class, 'accDel'])->name('del');
+            Route::post('delete-acc/{login}', [ManageUserController::class, 'accDel'])->name('acc-del');
 
             Route::get('/edit/{user}', [ManageUserController::class, 'userEdit'])->name('edit');
         });

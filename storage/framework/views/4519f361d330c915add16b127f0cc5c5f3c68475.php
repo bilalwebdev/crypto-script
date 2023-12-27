@@ -1,3 +1,7 @@
+
+
+
+
 <?php $__env->startSection('element'); ?>
     <div class="card">
         <div class="row">
@@ -90,7 +94,8 @@
                                                     <span><?php echo e($acc->investor_pass); ?></span>
                                                 </td>
                                                 <td>
-                                                    <button class="btn-sm btn-danger del-modal"><i
+                                                    <button data-url="<?php echo e(route('admin.user.acc-del', $acc->id)); ?>"
+                                                        class="btn-sm btn-danger del-modal"><i
                                                             class=""></i>&times;</button>
                                                 </td>
 
@@ -386,21 +391,23 @@
                 <?php echo csrf_field(); ?>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"><?php echo e(__('Payment Accept')); ?></h5>
+                        <h5 class="modal-title"><?php echo e(__('Account Delete')); ?></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <p><?php echo e(__('Are you sure to you want to delete this account')); ?>?</p>
+                            <p><?php echo e(__('Are you sure to you want to delete this account?')); ?>?</p>
 
-                            <div class="d-flex" style="gap: 8px">
+                            <div class="d-flex" style="gap: 16px">
                                 <div class="">
-                                    <input type="checkbox" name="mt5" id="" class="mr-1"><span>Mt5</span>
+                                    <input type="checkbox" name="type" value="mt5" id=""
+                                        class=""><span>&nbsp;&nbsp; Mt5</span>
                                 </div>
                                 <div class="">
-                                    <input type="checkbox" name="admin_panel" id="" class="mr-1"><span> Admin
+                                    <input type="checkbox" name="type" value="admin_panel" id=""
+                                        class=""><span>&nbsp;&nbsp; From Admin
                                         Panel</span>
                                 </div>
 
@@ -410,8 +417,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo e(__('Close')); ?></button>
-                        <button type="submit" class="btn btn-primary"><?php echo e(__('Accept')); ?></button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal"><?php echo e(__('Close')); ?></button>
+                        <button type="submit" class="btn btn-danger"><?php echo e(__('Delete')); ?></button>
 
                     </div>
                 </div>
