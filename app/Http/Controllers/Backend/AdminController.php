@@ -95,17 +95,12 @@ class AdminController extends Controller
             'roles' => 'required|array',
             'admin_image' => 'nullable|mimes:jpg,png,jpeg'
         ]);
-
-
-
         $admin->update([
-            'name' => $request->username,
             'username' => $request->username,
             'email' => $request->email,
             'password' => $request->password != null ?  bcrypt($request->password) : $admin->password,
             'image' => $request->has('admin_image') ? Helper::saveImage($request->admin_image, Helper::filePath('admins')) : $admin->image
         ]);
-
 
         $admin->syncRoles($request->roles);
 
@@ -194,6 +189,4 @@ class AdminController extends Controller
 
         return redirect()->route('admin.subscribers')->with('success', 'Successfully Send Mail');
     }
-
-   
 }
