@@ -25,4 +25,9 @@ class Withdraw extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function payment()
+    {
+        return $this->belongsTo(UserPaymentMethod::class, 'payment_method_id');
+    }
 }

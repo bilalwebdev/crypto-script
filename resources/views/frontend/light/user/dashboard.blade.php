@@ -10,7 +10,7 @@
                     <div id="countdownTwo"></div>
                 </div>
                 <div class="row g-sm-4 g-3">
-                    <div class="col-xl-4 col-12">
+                    <div class="col-xl-6 col-12">
                         <div class="d-card">
                             <div>
                                 <h5>{{ __('Start trading with ---') }}</h5>
@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-12">
+                    <div class="col-xl-6 col-12">
                         <div class="d-card">
                             <div>
                                 <h5>{{ __('Top up your trading accounts now') }}</h5>

@@ -20,6 +20,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\SignalController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPaymentMethodsController;
 use App\Http\Controllers\WithdrawController;
 use Illuminate\Support\Facades\Route;
 
@@ -92,12 +93,29 @@ Route::name('user.')->group(function () {
             // new routes
             Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
             Route::get('open-account', [UserController::class, 'openAccount'])->name('open-account');
+            Route::post('open-account', [UserController::class, 'openAccount'])->name('open.account');
+            Route::get('open-account-success', [UserController::class, 'openAccountSuccess'])->name('open.account.success');
 
             Route::get('deposit', [UserController::class, 'deposit'])->name('deposit');
+            Route::post('create/deposit', [UserController::class, 'deposit']);
             Route::post('getAccount', [UserController::class, 'getAccount'])->name('getAccount');
 
             Route::get('withdraw', [UserController::class, 'withdraw'])->name('withdraw');
+            Route::post(
+                'create/withdraw',
+                [UserController::class, 'withdraw']
+            );
             Route::get('history', [UserController::class, 'history'])->name('history');
+            Route::get('history/filter', [UserController::class, 'history'])->name('history.filter');
+            Route::get(
+                'history/delete/{id}/{type}',
+                [UserController::class, 'historyDel']
+            )->name('history.delete');
+
+
+            //kyc file
+
+            Route::post('kyc-file-upload', [UserController::class, 'KYCFileUpload'])->name('kyc');
 
 
             Route::get('profile/setting', [UserController::class, 'profile'])->name('profile');
@@ -128,8 +146,9 @@ Route::name('user.')->group(function () {
 
 
 
+            Route::resource('user-payment-method', UserPaymentMethodsController::class);
+            Route::post('user-payment-method/changeStatus/{id}', [UserPaymentMethodsController::class, 'changeStatus'])->name('user-payment-method.changestatus');
 
-            
             Route::get('withdraw/all', [LogController::class, 'allWithdraw'])->name('withdraw.all');
             Route::get('withdraw/pending', [LogController::class, 'pendingWithdraw'])->name('withdraw.pending');
             Route::get('withdraw/complete', [LogController::class, 'completeWithdraw'])->name('withdraw.complete');
@@ -185,7 +204,7 @@ Route::name('user.')->group(function () {
             Route::get('interest/log', [UserController::class, 'interestLog'])->name('interest.log');
 
 
-           
+
 
             Route::get('deposit/log', [LogController::class, 'depositLog'])->name('deposit.log');
 

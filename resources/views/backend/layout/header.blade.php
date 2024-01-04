@@ -1,6 +1,6 @@
  <!-- Nav header start -->
  <div class="nav-header">
-     <a href="{{route('admin.home')}}" class="brand-logo">
+     <a href="{{ route('admin.home') }}" class="brand-logo">
          <img class="brand-title" src="{{ Config::fetchImage('logo', Config::config()->logo, true) }}" alt="">
      </a>
      <div class="nav-control">
@@ -17,18 +17,20 @@
          <nav class="navbar navbar-expand">
              <div class="collapse navbar-collapse justify-content-between">
                  <div class="header-left">
-                    <button type="button" class="sidebar-open">
+                     <button type="button" class="sidebar-open">
                          <span class="line"></span>
                      </button>
                      <a href="{{ route('admin.home') }}" class="mobile-brand-logo">
-                         <img class="brand-title" src="{{ Config::fetchImage('icon', Config::config()->favicon, true) }}" alt="">
+                         <img class="brand-title"
+                             src="{{ Config::fetchImage('icon', Config::config()->favicon, true) }}" alt="">
                      </a>
                      <div class="header-search d-lg-block d-none">
-                        <button type="button" class="header-search-res-btn">
-                            <i data-feather="search"></i>
-                        </button>
+                         <button type="button" class="header-search-res-btn">
+                             <i data-feather="search"></i>
+                         </button>
                          <div class="form">
-                             <input class="form-control searchNav" type="text" placeholder="Search" aria-label="Search">
+                             <input class="form-control searchNav" type="text" placeholder="Search"
+                                 aria-label="Search">
                              <ul class="search-item">
 
                              </ul>
@@ -38,7 +40,7 @@
                  </div>
 
                  <ul class="navbar-nav header-right">
-                     <li class="nav-item d-md-flex d-none">
+                     {{-- <li class="nav-item d-md-flex d-none">
                          <a href="{{ route('home') }}"
                              class="btn btn-primary btn-sm" target="_blank">{{ __('Visit Frontend') }}</a>
                      </li>
@@ -51,7 +53,7 @@
                                  </option>
                              @endforeach
                          </select>
-                     </li>
+                     </li> --}}
                      <li class="nav-item dropdown notification_dropdown">
                          <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                              <i data-feather="bell"></i>
@@ -71,7 +73,8 @@
                                                  </p>
                                              </a>
                                          </div>
-                                         <span class="notify-time">{{ $notification->created_at->format('h:m A') }}</span>
+                                         <span
+                                             class="notify-time">{{ $notification->created_at->format('h:m A') }}</span>
                                      </li>
                                  @empty
 
@@ -110,18 +113,19 @@
                          </div>
                      </li>
                      <li class="d-lg-none d-flex justify-content-center align-items-center pl-md-0">
-                        <div class="header-search">
-                            <button type="button" class="header-search-res-btn">
-                                <i data-feather="search"></i>
-                            </button>
-                            <div class="form">
-                                <input class="form-control searchNav" type="text" placeholder="Search" aria-label="Search">
-                                <ul class="search-item">
+                         <div class="header-search">
+                             <button type="button" class="header-search-res-btn">
+                                 <i data-feather="search"></i>
+                             </button>
+                             <div class="form">
+                                 <input class="form-control searchNav" type="text" placeholder="Search"
+                                     aria-label="Search">
+                                 <ul class="search-item">
 
-                                </ul>
-                                <button type="search"><i class="las la-search"></i></button>
-                            </div>
-                        </div>
+                                 </ul>
+                                 <button type="search"><i class="las la-search"></i></button>
+                             </div>
+                         </div>
                      </li>
                  </ul>
              </div>
@@ -131,18 +135,18 @@
  <!-- Header end -->
 
 
-<!-- mobile bottom menu start -->
-<div class="mobile-bottom-menu">
-    <a href="{{ route('admin.notifications') }}">
-        <i data-feather="bell"></i>
-        <p>{{ __('Notification') }}</p>
-    </a>
-    <a href="{{ route('admin.profile') }}" class="profile-img">
-        <img src="{{ asset('asset/backend/images/' .auth()->guard('admin')->user()->image) }}" alt="image">
-    </a>
-    <a href="{{ route('home') }}">
-        <i data-feather="globe"></i>
-        <p>{{ __('Visit Frontend') }}</p>
-    </a>
-</div>
-<!-- mobile bottom menu end -->
+ <!-- mobile bottom menu start -->
+ <div class="mobile-bottom-menu">
+     <a href="{{ route('admin.notifications') }}">
+         <i data-feather="bell"></i>
+         <p>{{ __('Notification') }}</p>
+     </a>
+     <a href="{{ route('admin.profile') }}" class="profile-img">
+         <img src="{{ asset('asset/backend/images/' .auth()->guard('admin')->user()->image) }}" alt="image">
+     </a>
+     <a href="{{ route('home') }}">
+         <i data-feather="globe"></i>
+         <p>{{ __('Visit Frontend') }}</p>
+     </a>
+ </div>
+ <!-- mobile bottom menu end -->

@@ -36,8 +36,8 @@ class UserDashboardService
             return [
                 'balance' => $item2['balance'],
                 'login' => $item2['login'],
-                'currency' => $item1['currency'],
-                'account_type' => $item1['account_type']
+                'currency' => $item1['currency'] ?? '',
+                'account_type' => $item1['account_type'] ?? ''
             ];
         }, $userAcounts, $AccountsDetails);
 
@@ -49,5 +49,10 @@ class UserDashboardService
     public function getAccount($login)
     {
         return $this->mt5Service->getAccount($login);
+    }
+    public function openAccount($lev, $inves_pass, $mas_pass)
+    {
+
+        return $this->mt5Service->openAccount($lev, $inves_pass, $mas_pass);
     }
 }

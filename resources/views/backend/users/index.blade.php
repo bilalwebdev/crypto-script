@@ -4,28 +4,29 @@
 @section('element')
     <div class="row">
         <div class="col-md-12">
-            <div class="card mb-4">
+            {{-- <div class="card mb-4">
                 <div class="card-body">
                     @include('backend.users.tab_list')
                 </div>
-            </div>
+            </div> --}}
             <div class="card">
                 <div class="card-header site-card-header justify-content-between align-items-center">
                     <div class="card-header-left">
                         <form action="" method="get">
                             <div class="input-group flex-wrap user-search-area">
-                                <input type="text" class="form-control form-control-sm" placeholder="username or email or phone" name="search">
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="username or email or phone" name="search">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary btn-sm" type="submit"> 
+                                    <button class="btn btn-primary btn-sm" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div  class="card-header-right">
-                        <button class="btn btn-sm btn-primary sendMail"><i class="las la-mail-bulk mr-2"></i>{{ __('Bulk Mail') }}</button>
-                    </div>
+                    {{-- <div  class="card-header-right">
+                            <button class="btn btn-sm btn-primary sendMail"><i class="las la-mail-bulk mr-2"></i>{{ __('Bulk Mail') }}</button>
+                        </div> --}}
                 </div>
 
                 <div class="card-body p-0">
@@ -35,9 +36,10 @@
                                 <tr>
                                     <th>{{ __('Sl') }}</th>
                                     <th>{{ __('Username') }}</th>
+                                    {{-- <th>{{ __('Acc. No') }}</th> --}}
                                     <th>{{ __('Phone') }}</th>
                                     <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Country') }}</th>
+                                    <th>{{ __('Reg. Date') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
@@ -47,9 +49,10 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->username }}</td>
+                                        {{-- <td>{{ $user->id }}</td> --}}
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->address->country ?? 'N/A' }}</td>
+                                        <td>{{ $user->created_at }}</td>
                                         <td>
                                             @if ($user->status)
                                                 <span class='badge badge-success'>{{ __('Active') }}</span>
@@ -58,7 +61,10 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.user.details', $user) }}" class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ route('admin.user.details', $user) }}"
+                                                class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ route('admin.user.edit', $user) }}"
+                                                class="btn btn-outline-primary btn-sm"><i class="fa fa-pen"></i></a>
                                         </td>
                                     </tr>
                                 @empty
@@ -104,7 +110,8 @@
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-sm btn-primary"><i class="las la-envelope"></i>
                             {{ __('Send Mail') }}</button>
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="button" class="btn btn-sm btn-danger"
+                            data-dismiss="modal">{{ __('Close') }}</button>
                     </div>
                 </div>
             </form>

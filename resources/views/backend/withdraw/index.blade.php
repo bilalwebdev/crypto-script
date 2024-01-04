@@ -1,187 +1,160 @@
 @extends('backend.layout.master')
 
+
 @section('element')
-    <div class="row withdraw-row"> 
-        <div class="col-md-12"> 
-            <div class="card"> 
-                <div class="card-header site-card-header justify-content-between">
-                    <div class="card-header-left">
-                        <form method="GET" action="{{ route('admin.withdraw.search') }}">
-                            <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" placeholder="Search" name="search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card-header-right">
-                        <button class="btn btn-sm btn-primary add">
-                            <i class="fa fa-plus mr-2"></i>
-                            {{ __('Add Withdraw Method') }}
-                        </button>
-                    </div>
+    <div class="row">
+
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <form action="" method="get">
+                        <div class="input-group">
+
+                            <input type="text" name="date" class="form-control form-control-sm datepicker"
+                                placeholder="dates" autocomplete="off">
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
                 </div>
+
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table student-data-table m-t-20">
                             <thead>
                                 <tr>
-                                    <th>{{ __('Sl') }}</th>
-                                    <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Charge') }}</th>
-                                    <th>{{ __('Charge Type') }}</th>
-                                    <th>{{ __('Min Withdraw') }}</th>
-                                    <th>{{ __('Max Withdraw') }}</th>
+                                    <th>{{ __('User') }}</th>
+                                    <th>{{ __('Payment Type') }}</th>
+                                    <th>{{ __('A/C No') }}</th>
+                                    <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Trans. Date') }}</th>
+                                    <th>{{ __('Amount') }}</th>
                                     <th>{{ __('status') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($withdraws as $key => $withdraw)
+                                @forelse ($withdraws as $key => $manual)
                                     <tr>
-                                        <td>{{ $key + $withdraws->firstItem() }}</td>
-                                        <td>{{ $withdraw->name }}</td>
-                                        <td>{{ number_format($withdraw->charge, 2) . ' ' . Config::config()->currency }}</td>
-                                        <td>{{ ucwords($withdraw->type) }}</td>
-                                        <td>{{ number_format($withdraw->min_withdraw_amount, 2) . ' ' . Config::config()->currency }}
-                                        </td>
-                                        <td>{{ number_format($withdraw->max_withdraw_amount, 2) . ' ' . Config::config()->currency }}
-                                        </td>
+
                                         <td>
-                                            @if ($withdraw->status)
-                                                <div class="badge badge-success">{{ __('Active') }}</div>
-                                            @else
-                                                <div class="badge badge-danger">{{ __('In Active') }}</div>
+                                            <a href="{{ route('admin.user.details', $manual->user->id) }}">
+                                                <img src="{{ Config::getFile('user', $manual->user->image, true) }}"
+                                                    alt="" class="image-table">
+                                                <span>
+                                                    {{ $manual->user->username }}
+                                                </span>
+                                            </a>
+
+
+                                        </td>
+                                        <td> <span>
+                                                {{ $manual->payment?->name }}
+                                            </span></td>
+                                        <td> <span>
+                                                {{ $manual->login }}
+                                            </span></td>
+                                        <td> <span>
+                                                {{ $manual->user->email }}
+                                            </span></td>
+                                        <td> <span>
+                                                {{ $manual->created_at }}
+                                            </span></td>
+                                        <td>{{ Config::formatter($manual->amount) }}</td>
+
+                                        <td>
+                                            @if ($manual->status == 2)
+                                                <span class="badge badge-warning">{{ __('Pending') }}</span>
+                                            @elseif($manual->status == 1)
+                                                <span class="badge badge-success">{{ __('Approved') }}</span>
+                                            @elseif($manual->status == 3)
+                                                <span class="badge badge-danger">{{ __('Rejected') }}</span>
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.withdraw.log', $withdraw) }}" class="btn btn-sm btn-outline-info">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <button data-href="{{ route('admin.withdraw.update', $withdraw) }}" data-withdraw="{{ $withdraw }}" class="btn btn-sm btn-outline-primary update">
-                                                <i class="fa fa-pen"></i>
-                                            </button>
-                                            <button data-url="{{ route('admin.withdraw.delete', $withdraw) }}" class="btn btn-sm btn-outline-danger delete">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                            {{-- <a class="btn btn-sm btn-outline-primary details"
+                                                href="{{ route('admin.withdraw.details', $manual->id) }}">
+                                                <i class="far fa-eye"></i></a> --}}
+
+
+                                            <a class="btn
+                                                  @if ($manual->status != 2) disabled @endif btn-sm btn-outline-primary accept"
+                                                data-url="{{ route('admin.withdraw.accept', $manual->id) }}"><i
+                                                    class="fas fa-check"></i></a>
+                                            <a class="btn @if ($manual->status != 2) disabled @endif  btn-sm btn-outline-danger reject"
+                                                data-url="{{ route('admin.withdraw.reject', $manual->id) }}"><i
+                                                    class="fas fa-times"></i></a>
+
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td class="text-center" colspan="100%">{{ __('No Data Found') }}</td>
+                                        <td class="text-center" colspan="100%">{{ __('No Data Found') }}
+                                        </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
-                    @if ($withdraws->hasPages())
-                        <div class="card-footer">
-                            {{ $withdraws->links() }}
-                        </div>
-                    @endif
                 </div>
+                @if ($withdraws->hasPages())
+                    {{ $withdraws->links() }}
+                @endif
             </div>
         </div>
     </div>
 
 
     <!-- Modal -->
-    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="accept" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
             <form action="" method="post">
                 @csrf
-
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"></h5>
+                        <h5 class="modal-title">{{ __('Payment Accept') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
-
-                            <div class="form-group col-md-6 col-12">
-                                <label for="">{{ __('Withdraw Method Name') }} <span class="text-danger">*</span>
-                                </label>
-                                <input type="text" name="name" class="form-control">
-                            </div>
-
-                            <div class="form-group col-md-6 col-12">
-                                <label for="">{{ __('Withdraw Method charge Type') }}</label>
-                                <select name="charge_type" class="form-control">
-                                    <option value="fixed">{{ __('Fixed') }}</option>
-                                    <option value="percent">{{ __('Percent') }}</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col-md-6 col-12">
-                                <label for="">{{ __('Withdraw Method charge') }}</label>
-                                <div class="input-group">
-                                    <input type="text" name="charge" class="form-control" required>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            {{ Config::config()->currency }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 col-12">
-                                <label for="">{{ __('Withdraw Min Amount') }}</label>
-                                <input type="text" name="min_amount" class="form-control">
-                            </div>
-
-                            <div class="form-group col-md-6 col-12">
-                                <label for="">{{ __('Withdraw Max Amount') }}</label>
-                                <input type="text" name="max_amount" class="form-control">
-                            </div>
-
-                            <div class="form-group col-md-6 col-12">
-                                <label for="">{{ __('Withdraw Method status') }}</label>
-                                <select name="status" class="form-control">
-                                    <option value="0">{{ __('Inactive') }}</option>
-                                    <option value="1">{{ __('Active') }}</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col-md-12">
-                                <label for="">{{ __('Withdraw Instruction') }}</label>
-                                <textarea name="withdraw_instruction" id="" cols="30" rows="10" class="form-control summernote">{{ old('withdraw_instruction') }}</textarea>
-                            </div>
+                        <div class="container-fluid">
+                            <p>{{ __('Are you sure to Accept this Payment request') }}?</p>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">{{ __('Close') }}</button>
-                        <button type="submit" class="btn btn-sm btn-primary">{{ __('Save') }}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Accept') }}</button>
+
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-
-
     <!-- Modal -->
-    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-        aria-hidden="true">
+    <div class="modal fade" id="reject" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
+
             <form action="" method="post">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">{{ __('Delete Withdraw Method') }}</h5>
+                        <h5 class="modal-title">{{ __('Payment Reject') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>{{ __('Are you sure to delete this method') }}?</p>
+                        <div class="container-fluid">
+                            <p>{{ __('Are you sure to reject this payment') }}?</p>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-secondary text-dark"
-                            data-dismiss="modal">{{ __('Close') }}</button>
-                        <button type="submit" class="btn btn-sm btn-danger">{{ __('Delete') }}</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ __('Reject') }}</button>
+
                     </div>
                 </div>
             </form>
@@ -189,60 +162,51 @@
     </div>
 @endsection
 
+@push('external-style')
+    <link rel="stylesheet" href="{{ Config::cssLib('backend', 'daterangepicker.css') }}">
+@endpush
+
+@push('external-script')
+    <script src="{{ Config::jsLib('backend', 'moment.js') }}"></script>
+    <script src="{{ Config::jsLib('backend', 'daterangepicker.min.js') }}"></script>
+@endpush
+
 
 @push('script')
     <script>
         $(function() {
             'use strict'
 
-            $('.add').on('click', function() {
-                const modal = $('#modelId');
-                modal.find('.modal-title').text("{{ __('Create Withdraw Method') }}")
-                modal.find('input[name=name]').val('')
-                modal.find('input[name=charge]').val('')
-                modal.find('input[name=min_amount]').val('')
-                modal.find('input[name=max_amount]').val('')
-                modal.find('textarea[name=withdraw_instruction]').val('')
-                modal.find('form').attr('action', '');
 
+            $('input[name="date"]').daterangepicker({
 
-                modal.modal('show');
-            })
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
 
-
-            $('.site-currency').on('keyup', function() {
-                $('.append_currency').text($(this).val())
-            })
-
-            $('.append_currency').text($('.site-currency').val())
-
-
-            $('.update').on('click', function() {
-                const modal = $('#modelId');
+            $('input[name="date"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format(
+                    'MM/DD/YYYY'));
+            });
 
 
 
-                modal.find('.modal-title').text("{{ __('Update Withdraw Method') }}")
-                modal.find('input[name=name]').val($(this).data('withdraw').name)
-                modal.find('input[name=charge]').val($(this).data('withdraw').charge)
-                modal.find('input[name=min_amount]').val($(this).data('withdraw').min_withdraw_amount)
-                modal.find('input[name=max_amount]').val($(this).data('withdraw').max_withdraw_amount)
-                modal.find('select[name=status]').val($(this).data('withdraw').status)
-                modal.find('select[name=charge_type]').val($(this).data('withdraw').type)
-                modal.find('textarea[name=withdraw_instruction]').val($(this).data('withdraw')
-                    .instruction)
-                modal.find('form').attr('action', $(this).data('href'));
+            $('.accept').on('click', function() {
+                const modal = $('#accept');
 
-                $('.summernote').summernote('code', $(this).data('withdraw').instruction)
-                modal.modal('show');
-            })
-
-            $('.delete').on('click', function() {
-                const modal = $('#delete');
                 modal.find('form').attr('action', $(this).data('url'));
-
                 modal.modal('show');
             })
+
+            $('.reject').on('click', function() {
+                const modal = $('#reject');
+
+                modal.find('form').attr('action', $(this).data('url'));
+                modal.modal('show');
+            })
+
         })
     </script>
 @endpush

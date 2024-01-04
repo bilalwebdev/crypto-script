@@ -1,6 +1,5 @@
-@import url('./reset.css');
-@import url('./helper.css');
-
+@import url("./reset.css");
+@import url("./helper.css");
 
 .account-item-pin {
     height: 12px;
@@ -9,38 +8,68 @@
     border-radius: 20px;
     margin-right: 10px;
 }
+
 .green {
     background-color: #1ad482;
 }
+
 .yellow {
     background-color: yellow;
 }
+
 .purple {
     background-color: #797ddb;
 }
+
 .red {
     background-color: red;
 }
 
-.account-item-value{
+.account-item-value {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding: 15px 0px;
 }
-.account-item-value label{
+
+.account-item-value label {
     display: block;
     text-transform: uppercase;
 }
-.tdStyle{
-    border-bottom:1px dotted grey;
-    font-style:italic;
+
+.tdStyle {
+    border-bottom: 1px dotted grey;
+    font-style: italic;
 }
-.accounttab{
-    text-align:center;font-weight:bold;border-bottom:1px dotted green;
+
+.acc-no {
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px dotted green;
+}
+
+.depo-info {
+    text-align: center;
+    font-weight: bold;
+}
+
+.amt-txt {
+    font-family: Arial;
+    font-size: 15px;
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 /*
 ==============================
-Preloader css 
+Preloader css
 ==============================
 */
 .preloader-holder {
@@ -393,7 +422,6 @@ Preloader css
     }
 }
 
-
 /*
 ==============================
 Exetend css
@@ -410,7 +438,7 @@ Exetend css
 .sp_pricing_item .package-features li,
 .sp_pricing_item .pricing-header .left .icon,
 .sp_pricing_item.popular,
-.sp_overview_wrapper div[class*=col-],
+.sp_overview_wrapper div[class*="col-"],
 .overview-section,
 .about-section,
 .choose-section,
@@ -435,7 +463,7 @@ body {
 .sp_pricing_item .package-features li::before,
 .sp_pricing_item .pricing-header .left .icon::before,
 .sp_pricing_item.popular::before,
-.sp_overview_wrapper div[class*=col-]::after,
+.sp_overview_wrapper div[class*="col-"]::after,
 .overview-section::after,
 .overview-section::before,
 .about-section .about-el,
@@ -745,8 +773,6 @@ body {
     height: 100%;
 }
 
-
-
 .d-card.d-icon-card,
 .user-sidebar .sidebar-bottom-box,
 .or-text,
@@ -812,7 +838,7 @@ body {
 .sp_testimonial_item .sp_testimonial_thumb_area .slick-arrow,
 .sp_testimonial_item .sp_testimonial_thumb_area img,
 .sp_testimonial_item .sp_testimonial_thumb_area .sp_testimonial_thumb,
-.sp_testimonial_item .sp_testimonial_thumb_area .shape-circle span[class*=dot],
+.sp_testimonial_item .sp_testimonial_thumb_area .shape-circle span[class*="dot"],
 .sp_testimonial_item .sp_testimonial_thumb_area::before,
 .sp_pricing_item .package-features li::before,
 .sp_pricing_item .pricing-header .left .icon::before,
@@ -827,11 +853,10 @@ body {
     -o-border-radius: 50%;
 }
 
-
 /*
-============================== 
-Cookie css 
-============================== 
+==============================
+Cookie css
+==============================
 */
 .cookies-card {
     position: fixed;
@@ -862,7 +887,7 @@ Cookie css
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #DED4CD;
+    background-color: #ded4cd;
     font-size: 32px;
     display: inline-flex;
     justify-content: center;
@@ -897,15 +922,14 @@ Cookie css
 }
 
 .cookies-btn.js-cookie-consent-agree {
-    background-color: #DED4CD;
+    background-color: #ded4cd;
     color: #363636;
 }
 
 .cookies-btn:hover {
-    background-color: #DED4CD;
+    background-color: #ded4cd;
     color: #363636;
 }
-
 
 /*
 ==============================
@@ -980,7 +1004,7 @@ Header css
     padding-right: 0;
 }
 
-.sp_header .sp_site_menu > li > a {
+.sp_header .sp_site_menu>li>a {
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     padding: 1.75rem 0.9375rem 1.75rem 0;
@@ -1033,6 +1057,7 @@ Header css
         border: none;
         padding: 0 0.9375rem;
     }
+
     .sp_header .sp_site_menu li .dropdown-menu.show {
         display: block;
     }
@@ -1157,7 +1182,7 @@ Header css
 @media (max-width: 1199px) {
     .navbar-collapse {
         margin-top: 20px !important;
-        background-color: #150A2A;
+        background-color: #150a2a;
         padding: 0 1.875rem 1.25rem 1.875rem;
     }
 }
@@ -1173,7 +1198,7 @@ Header css
     height: 44px !important;
 }
 
-.tradingview-widget-container .tradingview-widget-copyright{
+.tradingview-widget-container .tradingview-widget-copyright {
     display: none !important;
 }
 
@@ -1301,7 +1326,6 @@ Header css
     }
 }
 
-
 /*
 ==============================
 Footer css
@@ -1312,7 +1336,6 @@ Footer css
 .footer-section i {
     color: #cecece;
 }
-
 
 .sp_brand_wrapper {
     padding: 2.75rem 0;
@@ -1527,7 +1550,6 @@ Footer css
     color: #fff;
 }
 
-
 /*
 ==============================
 Banner css
@@ -1570,6 +1592,7 @@ Banner css
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(359deg);
     }
@@ -1646,7 +1669,6 @@ Page Banner css
     right: -0.1875rem;
 }
 
-
 /*
 ==============================
 Choose section css
@@ -1658,7 +1680,9 @@ Choose section css
     left: -18%;
     width: 35%;
     height: 100%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.015));
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0),
+            rgba(0, 0, 0, 0.015));
     border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -1683,7 +1707,6 @@ Choose section css
     padding-left: 25px;
 }
 
-
 /*
 ==============================
 About css
@@ -1695,7 +1718,9 @@ About css
     right: -18%;
     width: 35%;
     height: 100%;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.015));
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.015));
     border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -1724,7 +1749,6 @@ About css
     max-height: 100%;
 }
 
-
 /*
 ==============================
 Benefit css
@@ -1746,7 +1770,6 @@ Benefit css
 .sp_benefit_item+.sp_benefit_item {
     margin-top: 40px;
 }
-
 
 /*
 ==============================
@@ -1785,7 +1808,7 @@ Overview css
 
 .overview-el .map-dot::before {
     position: absolute;
-    content: '';
+    content: "";
     top: -3px;
     left: -3px;
     width: calc(100% + 6px);
@@ -1801,18 +1824,22 @@ Overview css
         transform: scale(1, 1);
         /* opacity: 0.25; */
     }
+
     25% {
         transform: scale(1.15, 1.15);
         /* opacity: 0.15; */
     }
+
     50% {
         transform: scale(1.35, 1.35);
         /* opacity: 0; */
     }
+
     75% {
         transform: scale(1.15, 1.15);
         /* opacity: 0.15; */
     }
+
     100% {
         transform: scale(1, 1);
         /* opacity: 0.25; */
@@ -1888,7 +1915,6 @@ Overview css
     }
 }
 
-
 /*
 ==============================
 Trade section css
@@ -1901,7 +1927,7 @@ Trade section css
     overflow: hidden;
 }
 
-.trade-section  .trading-el {
+.trade-section .trading-el {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -1909,7 +1935,7 @@ Trade section css
     z-index: -1;
 }
 
-.trade-section  .trading-el img {
+.trade-section .trading-el img {
     width: 100%;
 }
 
@@ -1917,8 +1943,6 @@ Trade section css
     background-color: #fff;
     border: 1px solid #e5e5e5;
 }
-
-
 
 /*
 ==============================
@@ -2049,7 +2073,6 @@ Plan section css
     color: #fff;
 }
 
-
 /*
 ==============================
 Work section css
@@ -2102,7 +2125,9 @@ Team section css
     right: -18%;
     width: 35%;
     height: 100%;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.025));
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.025));
     border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -2140,26 +2165,26 @@ Team section css
 
 .sp_team_thumb::before {
     position: absolute;
-    content: '';
+    content: "";
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: #fff;
     z-index: -2;
-    border-radius: 50%;  
+    border-radius: 50%;
     border: 1px solid #e5e5e5;
 }
 
 .sp_team_thumb::after {
     position: absolute;
-    content: '';
+    content: "";
     top: 0;
     left: 0;
     width: 100%;
     height: 50%;
     background-color: #fff;
-    z-index: -1;  
+    z-index: -1;
 }
 
 .sp_team_thumb img {
@@ -2181,7 +2206,9 @@ Team section css
 .sp_team_content ul {
     display: flex;
     align-items: center;
-    background: linear-gradient(to bottom, var(--clr-main), rgba(0,0,0, 0.85));
+    background: linear-gradient(to bottom,
+            var(--clr-main),
+            rgba(0, 0, 0, 0.85));
     margin-top: 15px;
     border-radius: 8px;
 }
@@ -2195,7 +2222,7 @@ Team section css
 
 .sp_team_content ul li::after {
     position: absolute;
-    content: '';
+    content: "";
     top: 50%;
     right: 0;
     width: 1px;
@@ -2238,7 +2265,7 @@ Testimonial section css
 
 .sp_testimonial_item .sp_testimonial_icon {
     position: absolute;
-    content: '';
+    content: "";
     top: 25px;
     right: 15px;
     color: var(--clr-main);
@@ -2326,7 +2353,7 @@ Referral section css
 
 .sp_referral_item .sp_referral_item_title::before {
     position: absolute;
-    content: '';
+    content: "";
     top: 6px;
     left: 0;
     width: 15px;
@@ -2334,8 +2361,6 @@ Referral section css
     background-color: var(--clr-main);
     border-radius: 50%;
 }
-
-
 
 /*
 ==============================
@@ -2389,7 +2414,7 @@ Blog section css
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.sp_blog_list_post_box .sp_blog_list_post + .sp_blog_list_post {
+.sp_blog_list_post_box .sp_blog_list_post+.sp_blog_list_post {
     margin-top: 35px;
 }
 
@@ -2459,13 +2484,13 @@ Blog section css
     .sp_blog_list_post .sp_blog_list_post_thumb {
         width: 100%;
     }
+
     .sp_blog_list_post .sp_blog_list_post_content {
         width: 100%;
         padding-left: 0;
         padding-top: 15px;
     }
 }
-
 
 /*
 ==============================
@@ -2532,7 +2557,6 @@ Blog details section css
     margin: -0.1875rem -0.4375rem;
 }
 
-
 /*
 ==============================
 Contact section css
@@ -2564,7 +2588,6 @@ Contact section css
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
     border: 1px solid #e5e5e5;
 }
-
 
 /*
 ==============================
@@ -2716,14 +2739,13 @@ Account Page css
     margin-right: 0.3125rem;
 }
 
-.other-login-btns .other-login-btn i[class*=fa-facebook] {
+.other-login-btns .other-login-btn i[class*="fa-facebook"] {
     color: #3868cd;
 }
 
-.other-login-btns .other-login-btn i[class*=fa-google] {
+.other-login-btns .other-login-btn i[class*="fa-google"] {
     color: #db3236;
 }
-
 
 /*
 ==============================
@@ -2994,20 +3016,20 @@ Dashboard css
 
 .user-sidebar .countdown-wrapper {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     margin-top: 10px;
 }
 
 .user-sidebar .countdown-wrapper .countdown-single {
-    width: 45px; 
-    height: 40px; 
-    background-color: var(--clr-main); 
-    border-radius: 3px; 
-    margin: 3px; 
+    width: 45px;
+    height: 40px;
+    background-color: var(--clr-main);
+    border-radius: 3px;
+    margin: 3px;
     text-align: center;
-    line-height: 40px; 
-    font-size: 14px; 
-    font-weight: 500; 
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 500;
     color: #fff;
 }
 
@@ -3312,7 +3334,7 @@ Dashboard css
 }
 
 .d-left-countdown #countdownTwo .upgrade-text {
-   font-size: 14px; 
+    font-size: 14px;
 }
 
 .d-left-countdown #countdownTwo .upgrade-text i {
@@ -3326,25 +3348,27 @@ Dashboard css
 }
 
 .d-left-countdown .countdown-wrapper .countdown-single {
-    width: 45px; 
-    height: 40px; 
-    background-color: #f2f5f9; 
-    border-radius: 3px; 
-    margin: 3px 5px; 
+    width: 45px;
+    height: 40px;
+    background-color: #f2f5f9;
+    border-radius: 3px;
+    margin: 3px 5px;
     text-align: center;
-    line-height: 40px; 
-    font-size: 14px; 
-    font-weight: 500; 
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 @media (max-width: 575px) {
     .d-left-countdown #countdownTwo {
         justify-content: center;
     }
+
     .d-left-countdown .countdown-wrapper {
         width: 100%;
         margin-top: 7px;
     }
+
     .d-left-countdown .countdown-wrapper .countdown-single {
         background-color: #fff;
     }
@@ -3393,7 +3417,7 @@ Dashboard css
 }
 
 .payment-box {
-    background-color: #150A2A;
+    background-color: #150a2a;
 }
 
 .payment-box .payment-box-thumb {
@@ -3705,7 +3729,7 @@ Dashboard css
     .overview-el {
         width: 620px;
     }
-    
+
     .overview-el .map-dot {
         width: 10px;
         height: 10px;
@@ -3849,6 +3873,37 @@ Dashboard css
     .sp_referral_item p {
         font-size: 14px;
     }
+
 }
 
 /* resposnsive css end */
+
+.file-upload {
+    margin-top: 31px;
+    padding: 15% 25%;
+    border: dashed 1px var(--clr-main);
+    border-radius: 5px;
+}
+
+.status-btn {
+    display: flex;
+    padding: 4px 8px;
+    color: white;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-btn-success {
+    background: linear-gradient(135deg, #17a13e 0, #023b1e 100%) !important;
+
+}
+
+.status-btn-danger {
+    background: linear-gradient(135deg, #db094f 0, #830011 100%) !important;
+}
+
+.status-btn-warning {
+    background: linear-gradient(135deg, #56afe6 0, #003f83 100%) !important;
+}

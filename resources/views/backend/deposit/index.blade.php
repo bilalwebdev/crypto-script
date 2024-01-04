@@ -10,8 +10,9 @@
                 <div class="card-header">
                     <form action="" method="get">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control form-control-sm" placeholder="transaction id">
-                            <input type="text" name="date" class="form-control form-control-sm datepicker" placeholder="dates" autocomplete="off">
+
+                            <input type="text" name="date" class="form-control form-control-sm datepicker"
+                                placeholder="dates" autocomplete="off">
                             <button class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
                         </div>
                     </form>
@@ -22,10 +23,12 @@
                         <table class="table student-data-table m-t-20">
                             <thead>
                                 <tr>
-                                    <th>{{ __('TRX') }}</th>
                                     <th>{{ __('User') }}</th>
+                                    <th>{{ __('Payment Type') }}</th>
+                                    <th>{{ __('A/C No') }}</th>
+                                    <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Trans. Date') }}</th>
                                     <th>{{ __('Amount') }}</th>
-                                    <th>{{ __('Charge') }}</th>
                                     <th>{{ __('status') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
@@ -33,7 +36,7 @@
                             <tbody>
                                 @forelse ($deposits as $key => $manual)
                                     <tr>
-                                        <td>{{ $manual->trx }}</td>
+
                                         <td>
                                             <a href="{{ route('admin.user.details', $manual->user->id) }}">
                                                 <img src="{{ Config::getFile('user', $manual->user->image, true) }}"
@@ -43,12 +46,22 @@
                                                 </span>
                                             </a>
 
-                                           
+
                                         </td>
-                                        <td>{{ Config::formatter($manual->amount)}}</td>
-                                        <td>
-                                            {{ Config::formatter($manual->charge)}}
-                                        </td>
+                                        <td> <span>
+                                                {{ $manual->payment->name }}
+                                            </span></td>
+                                        <td> <span>
+                                                {{ $manual->login }}
+                                            </span></td>
+                                        <td> <span>
+                                                {{ $manual->user->email }}
+                                            </span></td>
+                                        <td> <span>
+                                                {{ $manual->created_at }}
+                                            </span></td>
+                                        <td>{{ Config::formatter($manual->amount) }}</td>
+
                                         <td>
                                             @if ($manual->status == 2)
                                                 <span class="badge badge-warning">{{ __('Pending') }}</span>
@@ -59,16 +72,17 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-outline-primary details"
-                                                href="{{ route('admin.deposit.details', $manual->trx) }}">
-                                                <i class="far fa-eye"></i></a>
+                                            {{-- <a class="btn btn-sm btn-outline-primary details"
+                                                href="{{ route('admin.deposit.details', $manual->id) }}">
+                                                <i class="far fa-eye"></i></a> --}}
 
-                                            @if ($manual->status == 2)
-                                                <a class="btn  btn-sm btn-outline-primary accept"
-                                                    data-url="{{ route('admin.deposit.accept', $manual->trx) }}"><i class="fas fa-check"></i></a>
-                                                <a class="btn  btn-sm btn-outline-danger reject"
-                                                    data-url="{{ route('admin.deposit.reject', $manual->trx) }}"><i class="fas fa-times"></i></a>
-                                            @endif
+                                            <a class="btn
+                                                  @if ($manual->status != 2) disabled @endif btn-sm btn-outline-primary accept"
+                                                data-url="{{ route('admin.deposit.accept', $manual->id) }}"><i
+                                                    class="fas fa-check"></i></a>
+                                            <a class="btn @if ($manual->status != 2) disabled @endif  btn-sm btn-outline-danger reject"
+                                                data-url="{{ route('admin.deposit.reject', $manual->id) }}"><i
+                                                    class="fas fa-times"></i></a>
                                         </td>
                                     </tr>
                                 @empty
@@ -136,8 +150,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
-                        <button type="submit" class="btn btn-danger">{{ __('Reject') }}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="submit" class="btn btn-success">{{ __('Reject') }}</button>
 
                     </div>
                 </div>
@@ -175,7 +189,7 @@
                     'MM/DD/YYYY'));
             });
 
-          
+
 
             $('.accept').on('click', function() {
                 const modal = $('#accept');

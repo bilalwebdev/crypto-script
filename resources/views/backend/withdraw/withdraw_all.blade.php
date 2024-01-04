@@ -23,12 +23,12 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('User') }}</th>
-                                    <th>{{ __('Trx') }}</th>
+                                    {{-- <th>{{ __('Trx') }}</th> --}}
                                     <th>{{ __('Withdraw Amount') }}</th>
-                                    <th>{{ __('Charge') }}</th>
+                                    {{-- <th>{{ __('Charge') }}</th>
                                     <th>{{ __('User Will Get') }}</th>
-                                    <th>{{ __('Charge Type') }}</th>
-                                    <th>{{ __('Withdraw Date') }}</th>
+                                    <th>{{ __('Charge Type') }}</th>--}}
+                                    <th>{{ __('Withdraw Date') }}</th> 
                                     <th>{{ __('status') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
@@ -45,11 +45,11 @@
                                                 </a>
                                             </span>
                                         </td>
-                                        <td>{{ $withdrawlog->trx }}</td>
+                                        {{-- <td>{{ $withdrawlog->trx }}</td> --}}
                                         <td>
-                                            {{ Config::formatter($withdrawlog->withdraw_amount) }}
+                                            {{ Config::formatter($withdrawlog->amount) }}
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             {{ Config::formatter($withdrawlog->withdraw_charge) }}
                                         </td>
                                         <td>
@@ -58,7 +58,7 @@
                                         </td>
                                         <td>
                                             {{ ucwords($withdrawlog->withdrawMethod->type) }}
-                                        </td>
+                                        </td> --}}
 
                                         <td>
                                             {{ $withdrawlog->created_at->format('d , M Y') }}
@@ -68,9 +68,9 @@
                                             @if ($withdrawlog->status == 1)
                                                 <span class="badge badge-success">{{ __('Success') }}</span>
                                             @elseif($withdrawlog->status == 2)
-                                                <span class="badge badge-danger">{{ __('Rejected') }}</span>
+                                                <span class="badge badge-danger">{{ __('Pending') }}</span>
                                             @else
-                                                <span class="badge badge-warning">{{ __('Pending') }}</span>
+                                                <span class="badge badge-warning">{{ __('Rejected') }}</span>
                                             @endif
                                         </td>
                                         <td>

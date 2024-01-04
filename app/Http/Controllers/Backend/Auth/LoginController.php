@@ -17,7 +17,6 @@ class LoginController extends Controller
         $this->login = $login;
 
         $this->middleware('admin.guest')->except('logout');
-
     }
 
     public function loginPage()
@@ -30,20 +29,22 @@ class LoginController extends Controller
 
     public function login(AdminLoginRequest $request)
     {
-        
+
         [$data, $remember] = $this->login->validateData($request);
 
-        if(auth()->guard('admin')->attempt($data, $remember)){
-            return redirect()->route('admin.home')->with('success','Login Successful');
+        if (auth()->guard('admin')->attempt($data, $remember)) {
+            return redirect()->route('admin.home')->with('success', 'Login Successful');
         }
 
-        return redirect()->route('admin.login')->with('error','Invalid Credentials');
+        return redirect()->route('admin.login')->with('error', 'Invalid Credentials');
     }
 
     public function logout()
     {
         auth()->guard('admin')->logout();
 
-        return redirect()->route('admin.login')->with('success','Logout Successful');
+        session()->forget('user_id');
+
+        return redirect()->route('admin.login')->with('success', 'Logout Successful');
     }
 }

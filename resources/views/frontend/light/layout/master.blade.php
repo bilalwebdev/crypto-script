@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
 
     <meta name="description" content="{{ $page->seo_description ?? Config::config()->seo_description }}" />
     <meta name="keywords" content="{{ implode(',', $page->seo_keywords ?? Config::config()->seo_tags) }} ">
@@ -41,7 +42,7 @@
 
     <style>
         :root {
-            --clr-main: <?= Config::config()->color[Config::config()->theme] ?? '#F2062F' ?>;
+            --clr-main: <?=Config::config()->color[Config::config()->theme] ?? '#F2062F' ?>;
             --h-font: <?=$heading ?>;
             --p-font: <?=$paragraph ?>;
         }
@@ -60,7 +61,16 @@
     @if (Config::config()->preloader_status)
         <div class="preloader-holder">
             <div class="preloader">
-                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </div>
     @endif
@@ -191,14 +201,14 @@
             var url = "{{ route('change-language') }}";
 
             $(".changeLang").on('change', function() {
-               
+
                 if ($(this).val() == '') {
                     return false;
                 }
                 window.location.href = url + "?lang=" + $(this).val();
             });
 
-        })
+        });
     </script>
 
 

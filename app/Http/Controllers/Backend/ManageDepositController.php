@@ -4,54 +4,84 @@ namespace App\Http\Controllers\Backend;
 
 use App\Helpers\Helper\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Configuration;
 use App\Models\Deposit;
 use App\Models\Gateway;
 use App\Models\Template;
 use App\Models\Transaction;
+use App\Services\MT5\MT5Service;
+use App\Services\UserDashboardService;
+use App\Services\UserProfileService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ManageDepositController extends Controller
 {
+
+    protected $mt5service;
+    public function __construct(MT5Service $mt5service)
+    {
+        $this->mt5service = $mt5service;
+    }
     public function index(Request $request)
     {
-        $type = $request->status === 'online' ? 1 : 0;
+        // $type = $request->status === 'online' ? 1 : 0;
 
-        $deposit = Deposit::query();
+        $admin  = Admin::find(session()->get('user_id'));
 
-        if($request->search){
-            $deposit->search($request->search);
+        if ($admin->type == 'super') {
+            $deposit = Deposit::query();
+        } else {
+            $deposit = Deposit::leftJoin('admin_users', 'deposits.user_id', '=', 'admin_users.user_id')
+                ->where('admin_users.admin_id', '=', session()->get('user_id'))
+                ->select('deposits.*');
         }
 
-        if($request->date){
+        // if($request->search){
+        //     $deposit->where('name', $request->search);
+        // }
 
-            $date = array_map(function($item){
+        if ($request->date) {
+
+            $date = array_map(function ($item) {
                 return Carbon::parse($item);
-            },explode(' - ', $request->date));
+            }, explode(' - ', $request->date));
 
             $deposit->whereBetween('created_at', $date);
         }
 
 
-        if($type == 1){
-            $deposit->where('status',1);
-        }else{
-            $deposit->where('type', $type);
-        }
+        // if($type == 1){
+        //     $deposit->where('status',1);
+        // }else{
+        //     $deposit->where('type', $type);
+        // }
 
-        $data['deposits'] = $deposit->with('gateway','user')->latest()->paginate( Helper::pagination());
+        $data['deposits'] = $deposit->with(
+            'payment',
+            'user'
+        )->latest()->paginate(Helper::pagination());
+
+        //    dd($data);
 
         $data['title'] = 'Manage Deposits';
 
         return view('backend.deposit.index')->with($data);
-
     }
 
+    // public function index()
+    // {
+    //     $data['title'] = 'Manage Deposits';
 
-    public function details($trx)
+    //     $data['deposits'] = Deposit::latest()->paginate(Helper::pagination());
+
+    //     return view('backend.deposit.index')->with($data);
+    // }
+
+    public function details($id)
     {
-        $data['deposit'] = Deposit::where('trx', $trx)->firstOrFail();
+        $data['deposit'] = Deposit::where('id', $id)->firstOrFail();
 
         $data['title'] = 'Deposit Details';
 
@@ -60,14 +90,13 @@ class ManageDepositController extends Controller
     }
 
     public function accept(Request $request)
-    { 
-        
-        $deposit = Deposit::where('trx', $request->trx)->firstOrFail();
-        
+    {
+
+        $deposit = Deposit::where('id', $request->id)->firstOrFail();
 
         $general = Configuration::first();
 
-        $gateway = Gateway::find($deposit->gateway_id);
+        // $gateway = Gateway::find($deposit->gateway_id);
 
         $deposit->status = 1;
         $deposit->save();
@@ -77,44 +106,46 @@ class ManageDepositController extends Controller
 
         $deposit->user->save();
 
+        $this->mt5service->deposit($deposit->login, $deposit->amount, 'false');
+
+
+
 
         Transaction::create([
-            'trx' => $deposit->trx,
             'amount' => $deposit->amount,
             'details' => 'Deposit Successfull',
-            'charge' => $gateway->charge,
+            // 'charge' => $gateway->charge,
             'type' => '+',
             'user_id' => $deposit->user_id
         ]);
 
 
-        $template = Template::where('name','payment_confirmed')->where('status',1)->first();
+        // $template = Template::where('name', 'payment_confirmed')->where('status', 1)->first();
 
-        if($template){
+        // if ($template) {
 
-            $data = [
-                'username' => $deposit->user->username,
-                'email' => $deposit->user->email,
-                'app_name' => $general->appname,
-                'trx' => $deposit->trx, 
-                'amount' => $deposit->amount, 
-                'charge' => number_format($gateway->charge, 4), 
-                'plan' => '', 
-                'currency' => $general->currency
-            ];
+        //     $data = [
+        //         'username' => $deposit->user->username,
+        //         'email' => $deposit->user->email,
+        //         'app_name' => $general->appname,
+        //         'id' => $deposit->id,
+        //         'amount' => $deposit->amount,
+        //         // 'charge' => number_format($gateway->charge, 4),
+        //         'plan' => '',
+        //         'currency' => $general->currency
+        //     ];
 
-            Helper::fireMail($data, $template);
-        }
+        //     Helper::fireMail($data, $template);
+        // }
 
         return redirect()->back()->with('success', "Payment Confirmed Successfully");
-        
     }
 
     public function reject(Request $request)
-    { 
-        
-        $deposit = Deposit::where('trx', $request->trx)->firstOrFail();
-        
+    {
+
+        $deposit = Deposit::where('id', $request->id)->firstOrFail();
+
         $general = Configuration::first();
 
         $gateway = Gateway::find($deposit->gateway_id);
@@ -123,18 +154,18 @@ class ManageDepositController extends Controller
         $deposit->save();
 
 
-        $template = Template::where('name','payment_rejected')->where('status',1)->first();
+        $template = Template::where('name', 'payment_rejected')->where('status', 1)->first();
 
-        if($template){
+        if ($template) {
 
             $data = [
                 'username' => $deposit->user->username,
                 'email' => $deposit->user->email,
                 'app_name' => $general->appname,
-                'trx' => $deposit->trx, 
-                'amount' => $deposit->amount, 
-                'charge' => number_format($gateway->charge, 4), 
-                'plan' => '', 
+                'id' => $deposit->id,
+                'amount' => $deposit->amount,
+                'charge' => number_format($gateway->charge, 4),
+                'plan' => '',
                 'currency' => $general->currency
             ];
 
@@ -143,6 +174,5 @@ class ManageDepositController extends Controller
 
 
         return back()->with('success', "Payment Rejected Successfully");
-        
     }
 }

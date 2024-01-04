@@ -24,13 +24,15 @@ use App\Http\Controllers\Backend\{
     MarketController,
     PagesController,
     PaymentController,
+    PaymentMethodController,
     PlanController,
     ReferralController,
     RoleController,
     SignalController,
     SignalCurrencyPairController,
     SignalTimeFrameController,
-    TicketController
+    TicketController,
+    TransactionController
 };
 
 
@@ -70,7 +72,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
-        Route::get('language/ajax',[LanguageController::class ,'languageAjax'])->name('cms-builder');
+        Route::get('language/ajax', [LanguageController::class, 'languageAjax'])->name('cms-builder');
 
 
         // Plan
@@ -105,7 +107,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('admins/changeStatus/{id}', [AdminController::class, 'changeStatus'])->name('changestatus')->middleware('permission:manage-admin,admin');
 
         // Manage User
-        Route::middleware('permission:manage-user,admin')->prefix('users')->name('user.')->group(function () {
+        Route::prefix('users')->name('user.')->group(function () {
 
             Route::get('/', [ManageUserController::class, 'index'])->name('index');
             Route::get('details/{user}', [ManageUserController::class, 'userDetails'])->name('details');
@@ -117,13 +119,28 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::post('bulk/mail', [ManageUserController::class, 'bulkMail'])->name('bulk');
 
+            Route::get('doc/{user}', [ManageUserController::class, 'kycDoc'])->name('doc');
+
             Route::get('kyc/request', [ManageUserController::class, 'kycAll'])->name('kyc.req');
             Route::get('kyc/request/{id}', [ManageUserController::class, 'kycDetails'])->name('kyc.details');
-            Route::post('kyc/{status}/{id}', [ManageUserController::class, 'kycStatus'])->name('kyc.status');
+            Route::post('/kyc-approve', [ManageUserController::class, 'kycStatus'])->name('kyc.approve');
 
             Route::get('login/user/{id}', [ManageUserController::class, 'loginAsUser'])->name('login');
+            Route::post('delete-acc/{login}', [ManageUserController::class, 'accDel'])->name('acc-del');
+
+            Route::get('/edit/{user}', [ManageUserController::class, 'userEdit'])->name('edit');
         });
         // End User
+
+        //payment method
+
+        Route::middleware('permission:manage-gateway,admin')->group(function () {
+
+            Route::resource('payment-method', PaymentMethodController::class);
+            Route::post('payment-method/changeStatus/{id}', [PaymentMethodController::class, 'changeStatus'])->name('payment-method.changestatus');
+        });
+
+
 
 
         // General Settings
@@ -167,18 +184,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
 
-        Route::middleware('permission:manage-gateway,admin')->prefix('gateway')->name('payment.')->group(function () {
-            Route::get('online', [ManageGatewayController::class, 'online'])->name('index');
-            Route::get('offline', [ManageGatewayController::class, 'offline'])->name('offline');
-            Route::get('/{name}', [ManageGatewayController::class, 'loadView'])->name('gateway');
-            Route::post('status/{id}', [ManageGatewayController::class, 'status'])->name('status');
-            Route::post('update/online/{id}', [ManageGatewayController::class, 'updateOnlinePaymentGateway'])->name('update.online');
-            Route::post('gourl', [ManageGatewayController::class, 'gourlUpdate'])->name('update.gourl');
-            Route::get('offline-gateway/create', [ManageGatewayController::class, 'offlineCreate'])->name('offline.create');
-            Route::post('offline-gateway/create', [ManageGatewayController::class, 'offlineStore']);
-            Route::get('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineEdit'])->name('offline.edit');
-            Route::post('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineUpdate']);
-        });
+        // Route::middleware('permission:manage-gateway,admin')->prefix('gateway')->name('payment.')->group(function () {
+        //     Route::get('online', [ManageGatewayController::class, 'online'])->name('index');
+        //     Route::get('offline', [ManageGatewayController::class, 'offline'])->name('offline');
+        //     Route::get('/{name}', [ManageGatewayController::class, 'loadView'])->name('gateway');
+        //     Route::post('status/{id}', [ManageGatewayController::class, 'status'])->name('status');
+        //     Route::post('update/online/{id}', [ManageGatewayController::class, 'updateOnlinePaymentGateway'])->name('update.online');
+        //     Route::post('gourl', [ManageGatewayController::class, 'gourlUpdate'])->name('update.gourl');
+        //     Route::get('offline-gateway/create', [ManageGatewayController::class, 'offlineCreate'])->name('offline.create');
+        //     Route::post('offline-gateway/create', [ManageGatewayController::class, 'offlineStore']);
+        //     Route::get('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineEdit'])->name('offline.edit');
+        //     Route::post('offline-gateway/edit/{id}', [ManageGatewayController::class, 'offlineUpdate']);
+        // });
 
 
         Route::middleware('permission:manage-language,admin')->prefix('language')->name('language.')->group(function () {
@@ -193,8 +210,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::post('translator/ajax/update/{lang}', [LanguageController::class, 'ajaxUpdate'])->name('ajax');
             Route::post('translator/delete/{lang}', [LanguageController::class, 'deleteKey'])->name('key.delete');
-
-
         });
 
 
@@ -245,19 +260,36 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('delete/{name}/element/{element}', [ManageSectionController::class, 'deleteElement'])->name('frontend.element.delete');
 
 
-            Route::get('frontend/translate/{name}/{element}', [ManageSectionController::class,'translate'])->name('frontend.translate');
-            Route::post('frontend/translate/{name}/{element}', [ManageSectionController::class,'translateUpdate']);
+            Route::get('frontend/translate/{name}/{element}', [ManageSectionController::class, 'translate'])->name('frontend.translate');
+            Route::post('frontend/translate/{name}/{element}', [ManageSectionController::class, 'translateUpdate']);
+        });
 
+        Route::middleware('permission:manage-deposit,admin')->group(function () {
 
-            
+            Route::get('deposits', [ManageDepositController::class, 'index'])->name('deposits');
+            Route::get('deposit/{id}/details', [ManageDepositController::class, 'details'])->name('deposit.details');
+            Route::post('deposit/{id}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
+            Route::post('deposit/{id}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
+        });
+        Route::middleware('permission:manage-deposit,admin')->group(function () {
+
+            Route::get('/transac', [TransactionController::class, 'trans'])->name('transac');
+            Route::post('/transac/store', [TransactionController::class, 'storeTrans'])->name('transac.store');
+        });
+
+        Route::middleware('permission:manage-withdraw,admin')->group(function () {
+            Route::get('withdraws', [ManageWithdrawController::class, 'index'])->name('withdraws');
+            Route::get('withdraw/{id}/details', [ManageWithdrawController::class, 'details'])->name('withdraw.details');
+            Route::post('withdraw/{id}/accept', [ManageWithdrawController::class, 'accept'])->name('withdraw.accept');
+            Route::post('withdraw/{id}/reject', [ManageWithdrawController::class, 'reject'])->name('withdraw.reject');
         });
 
         Route::middleware('permission:manage-deposit,admin')->group(function () {
             Route::get('deposit/log/{user?}', [LogController::class, 'depositLog'])->name('deposit.log');
-            Route::get('deposit/{status}', [ManageDepositController::class, 'index'])->name('deposit');
-            Route::post('deposit/{trx}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
-            Route::post('deposit/{trx}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
-            Route::get('deposit/{trx}/details', [ManageDepositController::class, 'details'])->name('deposit.details');
+            // Route::get('deposit/{status}', [ManageDepositController::class, 'index'])->name('deposit');
+            // Route::post('deposit/{trx}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
+            // Route::post('deposit/{trx}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
+            // Route::get('deposit/{trx}/details', [ManageDepositController::class, 'details'])->name('deposit.details');
         });
 
 

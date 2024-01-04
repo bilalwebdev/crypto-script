@@ -35,7 +35,9 @@ class MT5Service
 
     public function getToken()
     {
-        $token = Cache::get('mt5_token');
+        ///  $token = Cache::get('mt5_token');
+
+        $token = 'abcX2123nb6po!7';
 
         if (!$token) {
             $token = $this->connectToMT5();
@@ -44,6 +46,26 @@ class MT5Service
             }
         }
         return $token;
+    }
+
+
+    public function openAccount($leverage, $inves_pass, $mas_pass)
+    {
+
+        $id = $this->getToken();
+
+        $url = $this->baseUrl . '/AccountCreate?id=' . $id . '&master_pass=' . $mas_pass . '
+        &investor_pass=' . $inves_pass . '&enabled=true&Group=Active%20Broker%5CTrade%20Global&Leverage='
+            . $leverage . '&firstName=' . Auth::user()->username . '&lastName=Test T';
+
+
+        $response = Http::get($url);
+
+
+
+        if ($response->status() === 200) {
+            return $response->json();
+        }
     }
 
     public function getAccount($login)
@@ -72,6 +94,8 @@ class MT5Service
 
         $response = Http::get("{$this->baseUrl}/AccountDetailsMany?id=$id$arr");
 
+        // dd($response->json());
+
         if ($response->status() === 200) {
             return $response->json();
         }
@@ -90,6 +114,50 @@ class MT5Service
                 $AccountsSummary[$login] = $account;
             }
             return $AccountsSummary;
+        }
+    }
+
+
+    public function deposit($login, $amount, $status)
+    {
+        $status =  $status == 'false' ? false : true;
+
+
+        if ($status == false) {
+            $amount = '+' . $amount;
+        } else {
+            $amount = '-' . $amount;
+        }
+
+
+
+
+        $id = $this->getToken();
+
+        $response = Http::get("{$this->baseUrl}/Deposit", [
+            'id' => $id,
+            'login' => $login,
+            'amount' => $amount,
+            'comment' => 'transaction',
+            'credit' => $status,
+        ]);
+
+        //  dd($response->json());
+
+        if ($response->status() == 200) {
+            return $response->json();
+        }
+    }
+
+    public function deleteAccount($login)
+    {
+
+        $response = Http::get("{$this->baseUrl}/AccountDelete", [
+            'login' => $login,
+        ]);
+
+        if ($response->status() == 200) {
+            return $response->json();
         }
     }
 }

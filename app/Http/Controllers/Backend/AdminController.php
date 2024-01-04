@@ -8,6 +8,7 @@ use App\Jobs\SendEmailJob;
 use App\Jobs\SendSubscriberEmail;
 use App\Jobs\SendSubscriberMail;
 use App\Models\Admin;
+use App\Models\Deposit;
 use App\Models\Subscriber;
 use App\Models\Template;
 use App\Notifications\DepositNotification;
@@ -94,17 +95,12 @@ class AdminController extends Controller
             'roles' => 'required|array',
             'admin_image' => 'nullable|mimes:jpg,png,jpeg'
         ]);
-
-
-
         $admin->update([
-            'name' => $request->username,
             'username' => $request->username,
             'email' => $request->email,
             'password' => $request->password != null ?  bcrypt($request->password) : $admin->password,
             'image' => $request->has('admin_image') ? Helper::saveImage($request->admin_image, Helper::filePath('admins')) : $admin->image
         ]);
-
 
         $admin->syncRoles($request->roles);
 

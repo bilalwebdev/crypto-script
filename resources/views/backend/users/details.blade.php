@@ -1,568 +1,550 @@
 @extends('backend.layout.master')
 
+
+
 @section('element')
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tab" role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="tab-xx active"><a href="#acc" aria-controls="home" role="tab"
+                                data-toggle="tab">Live Accounts</a></li>
+                        <li role="presentation" class="tab-xx"><a href="#details" aria-controls="profile" role="tab"
+                                data-toggle="tab">Personal Details</a></li>
+                        <li role="presentation" class="tab-xx"><a href="#bankdetails" aria-controls="profile" role="tab"
+                                data-toggle="tab">Bank Details</a></li>
+                        <li role="presentation" class="tab-xx"><a href="#docs" aria-controls="messages" role="tab"
+                                data-toggle="tab">Documents</a></li>
+                        <li role="presentation" class="tab-xx"><a href="#dep" aria-controls="messages" role="tab"
+                                data-toggle="tab">Deposit</a></li>
+                        <li role="presentation" class="tab-xx"><a href="#with" aria-controls="messages" role="tab"
+                                data-toggle="tab">Withdraw</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" class="tab-pane fade  active show" id="acc">
+                            <h3>LIVE ACCOUNTS</h3>
+                            <div class="table-responsive">
+                                <table class="table student-data-table m-t-20">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ __('Sr. No') }}</th>
+                                            <th>{{ __('MT5 A/C No') }}</th>
+                                            <th>{{ __('Reg. Data') }}</th>
+                                            <th>{{ __('Currency') }}</th>
+                                            <th>{{ __('A/C Type') }}</th>
+                                            <th>{{ __('Leverage') }}</th>
+                                            <th>{{ __('Balance') }}</th>
+                                            <th>{{ __('Equity') }}</th>
+                                            <th>{{ __('Floating P/L') }}</th>
+                                            <th>{{ __('Password') }}</th>
+                                            <th>{{ __('Investor Password') }}</th>
+                                            <th>{{ __('Delete') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($user->accounts as $key => $acc)
+                                            <tr>
 
-    <div class="row gy-4">
-        <div class="col-lg-9">
-            <div class="p-4 bg-white rounded-lg">
-                <h5>{{ $user->username }}</h5>
-                <p>{{ $user->email }}</p>
-                <div class="row pb-1">
-                    <div class="col-xxl-2 col-md-4 col-sm-6 mb-xxl-0 mb-4">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-1">
-                                <i class="las la-hand-holding-usd"></i>
+                                                @php
+                                                    $accDetails = $mt5->getAccount($acc->login);
+                                                @endphp
+
+                                                <td>
+                                                    <span>{{ $key + 1 }}</span>
+                                                </td>
+                                                <td> <span>
+                                                        {{ $acc->login }}
+                                                    </span></td>
+                                                <td> <span>
+                                                        {{ $acc->created_at }}
+                                                    </span></td>
+                                                <td> <span>
+                                                        {{ strtoupper($acc->currency) }}
+                                                    </span></td>
+                                                <td> <span>
+                                                        @if ($acc->account_type == 1)
+                                                            Standard Account
+                                                        @elseif($acc->account_type == 2)
+                                                            Premium Account
+                                                        @else
+                                                            VIP Account
+                                                        @endif
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ $acc->leverage }}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ $accDetails['balance'] ?? '' }}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ $accDetails['equity'] ?? '' }}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ $accDetails['floating'] ?? '' }}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ $acc->master_pass }}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{ $acc->investor_pass }}</span>
+                                                </td>
+                                                <td>
+                                                    <button data-url="{{ route('admin.user.acc-del', $acc->id) }}"
+                                                        class="btn-sm btn-danger del-modal"><i
+                                                            class=""></i>&times;</button>
+                                                </td>
+
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td class="text-center" colspan="100%">{{ __('No Data Found') }}
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1"> {{ $user->currentplan->first() ?  $user->currentplan->first()->plan->name : 'N/A'}}</h4>
-                                <p>{{ __('Current Plan') }}</p>
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="details">
+                            <h3>USER DETAILS</h3>
+                            <ul class="list-group col-md-6">
+
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span>{{ __('First Name') }}</span>
+                                    <span>{{ $user->username }}</span>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span>{{ __('Last Name') }}</span>
+                                    <span>{{ $user->username }}</span>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span>{{ __('Email') }}</span>
+                                    <span>{{ $user->email }}</span>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span>{{ __('Phone') }}</span>
+                                    <span>{{ $user->phone }}</span>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span>{{ __('Address') }}</span>
+                                    <span>{{ $user->address->city . ', ' . $user->address->city . ', ' . $user->address->city }}</span>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span>{{ __('Country') }}</span>
+                                    <span>{{ $user->address->country }}</span>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span>{{ __('Reg. Date') }}</span>
+                                    <span>{{ $user->created_at }}</span>
+
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="bankdetails">
+                            <h3>USER DETAILS</h3>
+                            <ul class="list-group col-md-6">
+
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span>{{ __('Payment Method Name') }}</span>
+                                    <span>{{ $user->payment?->name }}</span>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span>{{ __('Wallet Address') }}</span>
+                                    <span>{{ $user->payment?->wallet_address }}</span>
+
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="docs">
+                            <div class="tab-pane active col-md-12" id="DOCUMENT">
+                                <h3>DOCUMENT</h3>
+                                <form action="{{ url('admin/users/kyc-approve') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="user_id" value="{{ $user->id }}" />
+                                    <table class="table table-bordered table-striped datatable ">
+                                        <thead>
+                                            <tr>
+                                                <th>Document Type</th>
+                                                <th>Document</th>
+                                                <th>Verify</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($user->kycinfo as $key => $doc)
+                                                <tr>
+                                                    <td>
+                                                        @if ($doc->type == 'proof_id1')
+                                                            Proof of ID 1
+                                                        @elseif ($doc->type == 'proof_id2')
+                                                            Proof of ID 2
+                                                        @elseif ($doc->type == 'proof_address1')
+                                                            Proof of Address 1
+                                                        @else
+                                                            Proof of Address 2
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <img src="{{ Config::getFile('kyc', $doc->file, true) }}"
+                                                            alt="" class=""
+                                                            style="width:50px; height:50px; margin-right:8px">
+                                                        <!-- Replace "path/to/your/image.jpg" with the actual path or URL of your image -->
+                                                        <a href="{{ Config::getFile('kyc', $doc->file, true) }}"
+                                                            class="btn-sm btn-primary" download>
+                                                            Download
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="docs[]" name="docs[]"
+                                                            @if ($doc->status == 1) checked @endif
+                                                            value="{{ $doc->id }}">
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td class="text-center" colspan="100%">{{ __('No Data Found') }}
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="3" align="center">
+                                                    <button class="btn-sm btn-primary" type="submit">verify</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xxl-2 col-md-4 col-sm-6 mb-xxl-0 mb-4">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-2">
-                                <i class="las la-users"></i>
+                        <div role="tabpanel" class="tab-pane fade" id="dep">
+                            <h3>DEPOSITS</h3>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table student-data-table m-t-20">
+                                        <thead>
+                                            <tr>
+
+                                                <th>{{ __('Payment Type') }}</th>
+                                                <th>{{ __('A/C No') }}</th>
+                                                <th>{{ __('Email') }}</th>
+                                                <th>{{ __('Trans. Date') }}</th>
+                                                <th>{{ __('Amount') }}</th>
+                                                <th>{{ __('status') }}</th>
+                                                <th>{{ __('Action') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($user->deposits as $key => $manual)
+                                                <tr>
+
+
+                                                    <td> <span>
+                                                            {{ $manual->payment->name }}
+                                                        </span></td>
+                                                    <td> <span>
+                                                            {{ $manual->login }}
+                                                        </span></td>
+                                                    <td> <span>
+                                                            {{ $manual->user->email }}
+                                                        </span></td>
+                                                    <td> <span>
+                                                            {{ $manual->created_at }}
+                                                        </span></td>
+                                                    <td>{{ Config::formatter($manual->amount) }}</td>
+
+                                                    <td>
+                                                        @if ($manual->status == 2)
+                                                            <span class="badge badge-warning">{{ __('Pending') }}</span>
+                                                        @elseif($manual->status == 1)
+                                                            <span class="badge badge-success">{{ __('Approved') }}</span>
+                                                        @elseif($manual->status == 3)
+                                                            <span class="badge badge-danger">{{ __('Rejected') }}</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        {{-- <a class="btn btn-sm btn-outline-primary details"
+                                                        href="{{ route('admin.deposit.details', $manual->id) }}">
+                                                        <i class="far fa-eye"></i></a> --}}
+
+                                                        <a class="btn
+                                                          @if ($manual->status != 2) disabled @endif btn-sm btn-outline-primary accept"
+                                                            data-url="{{ route('admin.deposit.accept', $manual->id) }}"><i
+                                                                class="fas fa-check"></i></a>
+                                                        <a class="btn @if ($manual->status != 2) disabled @endif  btn-sm btn-outline-danger reject"
+                                                            data-url="{{ route('admin.deposit.reject', $manual->id) }}"><i
+                                                                class="fas fa-times"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td class="text-center" colspan="100%">{{ __('No Data Found') }}
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1">{{ $totalRef }}</h4>
-                                <p>{{ __('Total Refferal') }}</p>
-                            </div>
+
                         </div>
-                    </div>
-                    <div class="col-xxl-2 col-md-4 col-sm-6 mb-xxl-0 mb-4">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-3">
-                                <i class="las la-dollar-sign"></i>
+                        <div role="tabpanel" class="tab-pane fade" id="with">
+                            <h3>WITHDRAWS</h3>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table student-data-table m-t-20">
+                                        <thead>
+                                            <tr>
+
+                                                <th>{{ __('Payment Type') }}</th>
+                                                <th>{{ __('A/C No') }}</th>
+                                                <th>{{ __('Email') }}</th>
+                                                <th>{{ __('Trans. Date') }}</th>
+                                                <th>{{ __('Amount') }}</th>
+                                                <th>{{ __('status') }}</th>
+                                                <th>{{ __('Action') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($user->withdraws as $key => $manual)
+                                                <tr>
+
+
+                                                    <td> <span>
+                                                            {{ $manual->payment?->name }}
+                                                        </span></td>
+                                                    <td> <span>
+                                                            {{ $manual->login }}
+                                                        </span></td>
+                                                    <td> <span>
+                                                            {{ $manual->user->email }}
+                                                        </span></td>
+                                                    <td> <span>
+                                                            {{ $manual->created_at }}
+                                                        </span></td>
+                                                    <td>{{ Config::formatter($manual->amount) }}</td>
+
+                                                    <td>
+                                                        @if ($manual->status == 2)
+                                                            <span class="badge badge-warning">{{ __('Pending') }}</span>
+                                                        @elseif($manual->status == 1)
+                                                            <span class="badge badge-success">{{ __('Approved') }}</span>
+                                                        @elseif($manual->status == 3)
+                                                            <span class="badge badge-danger">{{ __('Rejected') }}</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        {{-- <a class="btn btn-sm btn-outline-primary details"
+                                                            href="{{ route('admin.withdraw.details', $manual->id) }}">
+                                                            <i class="far fa-eye"></i></a> --}}
+
+
+                                                        <a class="btn
+                                                              @if ($manual->status != 2) disabled @endif btn-sm btn-outline-primary accept"
+                                                            data-url="{{ route('admin.withdraw.accept', $manual->id) }}"><i
+                                                                class="fas fa-check"></i></a>
+                                                        <a class="btn @if ($manual->status != 2) disabled @endif  btn-sm btn-outline-danger reject"
+                                                            data-url="{{ route('admin.withdraw.reject', $manual->id) }}"><i
+                                                                class="fas fa-times"></i></a>
+
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td class="text-center" colspan="100%">{{ __('No Data Found') }}
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1"> {{ Config::formatter($userCommission)}}</h4>
-                                <p>{{ __('Total Commission') }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-md-4 col-sm-6 mb-sm-0 mb-4">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-4">
-                                <i class="las la-hand-holding-usd"></i>
-                            </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1"> {{ Config::formatter($withdrawTotal)}}</h4>
-                                <p>{{ __('Total Withdraw') }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-md-4 col-sm-6 mb-sm-0 mb-4">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-5">
-                                <i class="las la-credit-card"></i>
-                            </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1"> {{ Config::formatter($totalDeposit)}}</h4>
-                                <p>{{ __('Total Deposit') }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-md-4 col-sm-6">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-6">
-                                <i class="las la-credit-card"></i>
-                            </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1"> {{ Config::formatter($totalInvest)}}</h4>
-                                <p>{{ __('Total Invest amount') }}</p>
-                            </div>
+
+
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="p-4 mt-4 bg-white rounded-lg">
-                <h4 class="mb-3">{{ __('User Profile Settings') }}</h4>
-                <form action="{{ route('admin.user.update', $user->id) }}" method="post">
-                    @csrf
-                    <div class="row">
-
-                        <div class="form-group col-sm-6 mb-3 ">
-                            <label>{{ __('Phone') }}</label>
-                            <input type="text" name="phone" class="form-control" value="{{ $user->phone }}">
-                        </div>
-                        <div class="form-group col-sm-6 mb-3 ">
-                            <label>{{ __('Country') }}</label>
-                            <input type="text" name="country" class="form-control"
-                                value="{{ optional($user->address)->country }}">
-                        </div>
-
-                        <div class="col-sm-6 mb-3">
-
-                            <label>{{ __('city') }}</label>
-                            <input type="text" name="city" class="form-control form_control"
-                                value="{{ optional($user->address)->city }}">
-                        </div>
-
-                        <div class="col-sm-6 mb-3">
-
-                            <label>{{ __('zip') }}</label>
-                            <input type="text" name="zip" class="form-control form_control"
-                                value="{{ optional($user->address)->zip }}">
-                        </div>
-
-                        <div class="col-md-12 mb-3">
-                            <label>{{ __('state') }}</label>
-                            <input type="text" name="state" class="form-control form_control"
-                                value="{{ optional($user->address)->state }}">
-                        </div>
-
-                        <div class="col-md-12 mb-3">
-                            <div class="row">
-                                <div class="col-xl-3 col-6 mb-2">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" {{ $user->is_email_verified ? 'checked' : '' }} name="email_status"
-                                            class="custom-control-input" id="useCheck1">
-                                        <label class="custom-control-label"
-                                            for="useCheck1">{{ __('Email Verified') }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-6 mb-2">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" name="sms_status" {{ $user->is_sms_verified ? 'checked' : '' }}
-                                            class="custom-control-input" id="useCheck2">
-                                        <label class="custom-control-label"
-                                            for="useCheck2">{{ __('SMS Verified') }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-6 mb-2">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" name="kyc_status" {{ $user->is_kyc_verified ? 'checked' : '' }}
-                                            class="custom-control-input" id="useCheck3">
-                                        <label class="custom-control-label"
-                                            for="useCheck3">{{ __('KYC Verified') }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-6 mb-2">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" name="status" {{ $user->status ? 'checked' : '' }}
-                                            class="custom-control-input" id="useCheck4">
-                                        <label class="custom-control-label"
-                                            for="useCheck4">{{ __('Status') }}</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xxl-3 col-xl-4 mt-2">
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="fas fa-sync-alt"></i>
-                                {{ 'Update User' }}
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="p-4 bg-white rounded-lg">
-                <div class="sp-widget-user-thumb">
-                    <img src="{{ Config::getFile('user', $user->image,true) }}">
-                </div>
-                <div class="text-center mt-3">
-                    <div>{{ __('Total Balance') }}</div>
-                    <h2 class="mb-0 mt-1 sp_d_user_balance"> {{ Config::formatter($user->balance)}}</h2>
-                </div>
-
-                <div class="sp_balance_btns mt-4">
-                    <button type="button" id="addBtn" class="btn btn-sm py-2 btn-success">{{ __('Add Balance') }}</button>
-                    <button type="button" id="subBtn" class="btn btn-sm py-2 btn-danger">{{ __('Subtract Balance') }}</button>
-                </div>
-
-                <form action="{{ route('admin.user.balance.update', $user->id) }}" method="post" id="addBalance" class="mt-3">
-                    @csrf
-                    <div class="input-group mb-3">
-                        <input type="hidden" class="form-control" name="user_id" value="{{ $user->id }}">
-                        <input type="hidden" class="form-control" name="type" value="add">
-                        <input type="number" class="form-control" name="balance" min="1"
-                            placeholder="add balance">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </form>
-                <form action="{{ route('admin.user.balance.update', $user->id) }}" method="post" id="subBalance" class="mt-3">
-                    @csrf
-                    <div class="input-group mb-3">
-                        <input type="hidden" class="form-control" name="user_id" value="{{ $user->id }}">
-                        <input type="hidden" class="form-control" name="type" value="minus">
-                        <input type="number" class="form-control" name="balance" min="1"
-                            placeholder="Subtract Balance">
-                        <button class="btn btn-danger" type="submit">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="mt-4 p-4 bg-white rounded-lg">
-                <h4 class="mb-3">{{ __('Quick Links') }}</h4>
-                <ul class="user-action-list pb-2">
-                    <li>
-                        <a href="#" class="user-action-btn sendMail">
-                            <i class="fas fa-envelope mr-2"></i>
-                            {{ __('Send Email') }} 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.user.login', $user->id) }}" target="_blank"
-                        class="user-action-btn">
-                            <i class="fas fa-user-alt mr-2"></i>
-                            {{ __('Login As User') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.commision', $user) }}" class="user-action-btn">
-                            <i class="fas fa-percentage mr-2"></i>
-                            {{ __('Commission Log') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.deposit.log', $user) }}" class="user-action-btn">
-                            <i class="fas fa-file-alt mr-2"></i>
-                            {{ __('Deposit Log') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.payment.report', $user) }}" class="user-action-btn">
-                            <i class="fas fa-file-invoice-dollar mr-2"></i>
-                            {{ __('Payment Log') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.withdraw.report', $user) }}" class="user-action-btn">
-                            <i class="fas fa-file-alt mr-2"></i>
-                            {{ __('Withdraw Log') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.ticket.index', ['user' => $user->id]) }}"
-                        class="user-action-btn">
-                            <i class="fas fa-life-ring mr-2"></i>
-                            {{ __('User Ticket') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.transaction', $user) }}" class="user-action-btn">
-                            <i class="fas fa-exchange-alt mr-2"></i>
-                            {{ __('User Transactions') }}
-                        </a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
-    @php
-        $reference = $user
-            ->refferals()
-            ->with('refferals')
-            ->get();
-    @endphp
-
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">{{ __('Reference Tree') }}</h5>
-                </div>
-                <div class="card-body">
-                    @if ($reference->count() > 0)
-                        <ul class="sp-referral">
-                            <li class="single-child root-child">
-                                <p>
-                                    <img src="{{ Config::getFile('user', $user->image, true) }}">
-                                    <span class="mb-0">{{ $user->username }}</span>
-                                </p>
-                                <ul class="sub-child-list step-2">
-                                    @foreach ($reference as $us)
-                                        <li class="single-child">
-                                            <p>
-                                                <img src="{{ Config::getFile('user', $user->image, true) }}">
-                                                <span class="mb-0">{{ $us->username }}</span>
-                                            </p>
-
-                                            <ul class="sub-child-list step-3">
-                                                @foreach ($us->refferals()->with('refferals')->get() as $ref)
-                                                    <li class="single-child">
-                                                        <p>
-                                                            <img src="{{ Config::getFile('user', $ref->image, true) }}">
-                                                            <span class="mb-0">{{ $ref->username }}</span>
-                                                        </p>
-
-                                                        <ul class="sub-child-list step-4">
-                                                            @foreach ($ref->refferals as $ref2)
-                                                                <li class="single-child">
-                                                                    <p>
-                                                                        <img src="{{ Config::getFile('user', $ref2->image) }}">
-                                                                        <span class="mb-0">{{ $ref2->username }}</span>
-                                                                    </p>
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        </ul>
-                    @else
-                        <div class="col-md-12 text-center mt-5">
-                            <i class="las la-envelope-open display-1"></i>
-                            <p class="mt-2">
-                                {{ __('No Reference User Found') }}
-                            </p>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class="modal fade" tabindex="-1" role="dialog" id="mail">
-        <div class="modal-dialog modal-lg" role="document">
-            <form action="{{ route('admin.user.mail', $user->id) }}" method="post">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{ __('Send Mail to user') }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="">{{ __('Subject') }}</label>
-                            <input type="text" name="subject" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="">{{ __('Message') }}</label>
-                            <textarea name="message" id="" cols="30" rows="10" class="form-control summernote"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary text-dark"
-                            data-dismiss="modal">{{ __('Close') }}</button>
-                        <button type="submit" class="btn btn-primary"><i class="las la-envelope"></i>
-                            {{ __('Send Mail') }}</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal fade" id="confirmation" tabindex="-1" role="dialog">
+    <!-- Modal -->
+    <div class="modal fade" id="accept" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
+
             <form action="" method="post">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">{{ __('Confirmation') }}</h5>
+                        <h5 class="modal-title">{{ __('Account Delete') }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" class="form-control" name="user_id" value="{{ $user->id }}">
-                        <input type="hidden" class="form-control" name="type" value="">
-                        <input type="hidden" class="form-control" name="balance" value="">
-                        <p>{{ __('Are you sure to perform this action') }} ?</p>
+                        <div class="container-fluid">
+                            <p>{{ __('Are you sure to you want to delete this account?') }}?</p>
+
+                            <div class="d-flex" style="gap: 16px">
+                                <div class="">
+                                    <input type="checkbox" name="type" value="mt5" id=""
+                                        class=""><span>&nbsp;&nbsp; Mt5</span>
+                                </div>
+                                <div class="">
+                                    <input type="checkbox" name="type" value="admin_panel" id=""
+                                        class=""><span>&nbsp;&nbsp; From Admin
+                                        Panel</span>
+                                </div>
+
+
+                            </div>
+                        </div>
                     </div>
+
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
-                        <button type="button" class="btn btn-secondary"
-                            data-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
+
                     </div>
                 </div>
             </form>
         </div>
     </div>
-
-@endsection
-
-@push('external-style')
-    <link rel="stylesheet" href="{{ Config::cssLib('backend', 'toogle.min.css') }}">
-@endpush
-
-@push('external-script')
-    <script src="{{ Config::jsLib('backend', 'toogle.min.js') }}"></script>
-@endpush
-
-@push('style')
     <style>
-        .sp-referral {
-            padding: 0;
-            margin: 0;
-            list-style: none;
+        a:hover,
+        a:focus {
+            outline: none;
+            text-decoration: none;
         }
 
-        .sp-referral .single-child {
-            padding: 6px 10px;
-            border-radius: 5px;
+        .tab .nav-tabs {
+            border-bottom: 2px solid #e8e8e8;
         }
 
-        .sp-referral .single-child+.single-child {
-            margin-top: 15px;
-        }
-
-        .sp-referral .single-child p {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0;
-        }
-
-        .sp-referral .single-child p img {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            object-fit: cover;
-            -o-object-fit: cover;
-            border: 2px solid #e5e5e5;
-        }
-
-        .sp-referral .single-child p span {
-            width: calc(100% - 35px);
+        .tab .nav-tabs li a {
+            display: block;
+            padding: 10px 20px;
+            margin: 0 5px 1px 0;
+            background: #fff;
             font-size: 14px;
-            padding-left: 10px;
-        }
-
-        .sub-child-list {
+            font-weight: 700;
+            color: #112529;
+            text-align: center;
+            border: none;
+            border-radius: 0;
+            z-index: 2;
             position: relative;
-            padding-left: 35px;
-            list-style: none;
-            margin-bottom: 0
+            transition: all 0.3s ease 0s;
         }
 
-        .sub-child-list::before {
+        .tab .nav-tabs li a:hover,
+        .tab .nav-tabs li.active a {
+            color: #198df8;
+            border: none;
+        }
+
+        .tab .nav-tabs li.active a:before {
+            content: "";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            font-size: 25px;
+            font-weight: 700;
+            color: #198df8;
+            margin: 0 auto;
             position: absolute;
-            content: '';
-            top: 0;
-            left: 17px;
-            width: 1px;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.2);
+            bottom: -30px;
+            left: 0;
+            right: 0;
         }
 
-        .sp-referral>.single-child.root-child>p img {
-            border: 2px solid #5463ff;
-        }
-
-        .sub-child-list>.single-child {
-            position: relative;
-        }
-
-        .sub-child-list>.single-child::before {
+        .tab .nav-tabs li.active a:after {
+            content: "";
+            width: 100%;
+            height: 3px;
+            background: #198df8;
             position: absolute;
-            content: '';
-            left: -18px;
-            top: 21px;
-            width: 30px;
-            height: 5px;
-            border-left: 1px solid rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-            border-radius: 0 0 0 5px;
+            bottom: -1px;
+            left: 0;
+            z-index: -1;
+            transition: all 0.3s ease 0s;
         }
 
-        .sub-child-list.step-2>.single-child>p img {
-            border: 2px solid #0aa27c;
+        .tab .tab-content {
+            padding: 30px 20px 20px;
+            margin-top: 0;
+            background: #fff;
+            font-size: 15px;
+            color: #7a9181;
+            line-height: 30px;
+            border-radius: 0 0 5px 5px;
         }
 
-        .sub-child-list.step-3>.single-child>p img {
-            border: 2px solid #a20a0a;
+        .tab .tab-content h3 {
+            font-size: 24px;
+            margin-top: 0;
         }
 
-        .sub-child-list.step-4>.single-child>p img {
-            border: 2px solid #f562e6;
-        }
+        @media only screen and (max-width: 479px) {
+            .tab .nav-tabs li {
+                width: 100%;
+                text-align: center;
+            }
 
-        .sub-child-list.step-5>.single-child>p img {
-            border: 2px solid #a20a0a;
-        }
-
-        #user_action_slider {
-            display: none;
+            .tab .nav-tabs li.active a:before {
+                content: "\f105";
+                bottom: 15%;
+                left: 0;
+                right: auto;
+            }
         }
     </style>
-@endpush
+    @push('script')
+        <script>
+            $(document).ready(function() {
+                // Add click event listener to tabs
+                $('.tab-xx').click(function() {
 
+                    // Remove "active" class from all tabs
+                    $('.tab-xx').removeClass('active');
 
-@push('script')
-    <script>
-        
-        
-        $(function() {
-            'use strict'
-
-            let addBalance = $("#addBalance");
-            let subBalance = $("#subBalance");
-
-            addBalance.addClass('d-none');
-            subBalance.addClass('d-none');
-
-            $("#addBtn").on('click', function(){
-                addBalance.toggleClass('d-none');
-                if(subBalance.hasClass('d-none')) {
-                    return true;
-                } else {
-                    subBalance.addClass('d-none');
-                }
+                    // Add "active" class to the clicked tab
+                    $(this).addClass('active');
+                });
             });
 
-            $("#subBtn").on('click', function(){
-                subBalance.toggleClass('d-none');
-                if(addBalance.hasClass('d-none')) {
-                    return true;
-                } else {
-                    addBalance.addClass('d-none');
-                }
-            });
-            
-            $('#addBalance').on('submit', function(e) {
-                e.preventDefault();
 
-                let formData = $(this).serializeArray();
+            $('.del-modal').on('click', function() {
+                const modal = $('#accept');
 
-                const modal = $('#confirmation');
-
-                modal.find('input[name=type]').val(formData[2].value)
-                modal.find('input[name=balance]').val(formData[3].value)
-
-                modal.find('form').attr('action', $(this).attr('action'))
-
-                modal.modal('show')
-            })
-
-
-            $('#subBalance').on('submit', function(e) {
-                e.preventDefault();
-
-                let formData = $(this).serializeArray();
-
-                const modal = $('#confirmation');
-
-                modal.find('input[name=type]').val(formData[2].value)
-                modal.find('input[name=balance]').val(formData[3].value)
-
-                modal.find('form').attr('action', $(this).attr('action'))
-
-                modal.modal('show')
-
-            })
-
-            $('.sendMail').on('click', function(e) {
-                e.preventDefault();
-
-                const modal = $('#mail');
-
+                modal.find('form').attr('action', $(this).data('url'));
                 modal.modal('show');
             })
-        })
-    </script>
-@endpush
+        </script>
+    @endpush
+@endsection

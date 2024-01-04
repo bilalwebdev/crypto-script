@@ -9,12 +9,12 @@
 
                 <div class="card-body text-center">
                     <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between">
+                        {{-- <li class="list-group-item d-flex justify-content-between">
 
                             <span>{{ __('Transaction Id') }}</span>
-                            <span>{{ $deposit->trx }}</span>
+                            <span>{{ $deposit->id }}</span>
 
-                        </li>
+                        </li> --}}
 
                         <li class="list-group-item d-flex justify-content-between">
 
@@ -22,7 +22,33 @@
                             <span>{{ $deposit->created_at->format('d F Y') }}</span>
 
                         </li>
-                        @if ($deposit->payment_proof != null)
+                        <li class="list-group-item d-flex justify-content-between">
+
+                            <span>{{ __('Payment Amount') }}</span>
+                            <span>{{ $deposit->amount }}</span>
+
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+
+                            <span>{{ __('Payment Method') }}</span>
+                            <span>{{ $deposit->payment->name }}</span>
+
+                        </li>
+                          <li class="list-group-item d-flex justify-content-between">
+
+                            <span>{{ __('Payment Status') }}</span>
+                          
+                                @if ($deposit->status == 2)
+                                <span class="badge badge-warning">{{ __('Pending') }}</span>
+                                @elseif($deposit->status == 1)
+                                    <span class="badge badge-success">{{ __('Approved') }}</span>
+                                @elseif($deposit->status == 3)
+                                    <span class="badge badge-danger">{{ __('Rejected') }}</span>
+                                @endif
+                                
+
+                        </li>
+                        {{-- @if ($deposit->payment_proof != null)
                             @foreach ($deposit->payment_proof as $key => $proof)
                                 @if (is_array($proof))
                                     <li class="list-group-item d-flex justify-content-between">
@@ -43,7 +69,7 @@
 
                                 </li>
                             @endforeach
-                        @endif
+                        @endif --}}
 
                     </ul>
 
