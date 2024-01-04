@@ -2,9 +2,9 @@
 
 @section('element')
     <div class="row">
-        <div class="col-xxl-9">
+        <div class="col-12">
             <div class="row">
-                <div class="col-lg-4 col-sm-6">
+                {{-- <div class="col-lg-4 col-sm-6">
                     <div class="card mb-4 gr-white rounded-xl link-item widget-hr-effect">
                         <a href="{{ route('admin.payments.index', 'offline') }}" class="link"></a>
                         <div class="sp-widget-2 card-body">
@@ -23,6 +23,18 @@
                                     <h2 class="mb-0">{{ Config::formatter($subscriptionAmount) }}</h2>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="col-lg-3 col-sm-6 col-3 mb-4">
+                    <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
+                        <a href="{{ route('admin.user.index') }}" class="link"></a>
+                        <div class="widget-icon light-icon-1">
+                            <i class="las la-users"></i>
+                        </div>
+                        <div class="widget-content">
+                            <div class="widget-caption text-dark">{{ __('Total Accounts') }}</div>
+                            <h3 class="mb-0 mt-1 widget-title text-dark">{{ $totalAccounts }}</h3>
                         </div>
                     </div>
                 </div>
@@ -48,7 +60,7 @@
                         </div>
                     </div>
                 </div> --}}
-                <div class="col-lg-4 col-sm-6">
+                {{-- <div class="col-lg-4 col-sm-6">
                     <div class="card mb-4 gr-white gr-white3 rounded-xl link-item widget-hr-effect">
                         <a href="{{ route('admin.withdraw.filter', 'pending') }}" class="link"></a>
                         <div class="sp-widget-2 card-body">
@@ -69,9 +81,22 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
+
+                <div class="col-lg-3 col-sm-6 col-3 mb-4">
+                    <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
+                        <a href="{{ route('admin.user.index') }}" class="link"></a>
+                        <div class="widget-icon light-icon-1">
+                            <i class="las la-user"></i>
+                        </div>
+                        <div class="widget-content">
+                            <div class="widget-caption text-dark">{{ __('Total Deposits') }}</div>
+                            <h3 class="mb-0 mt-1 widget-title text-dark">{{ Config::formatter($totalDeposit) }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 col-3 mb-4">
                     <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
                         <a href="{{ route('admin.user.index') }}" class="link"></a>
                         <div class="widget-icon light-icon-1">
@@ -83,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
+                {{-- <div class="col-lg-4 col-sm-6 col-4 mb-4">
                     <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
                         <a href="{{ route('admin.user.filter', 'deactive') }}" class="link"></a>
                         <div class="widget-icon light-icon-2">
@@ -94,8 +119,8 @@
                             <h3 class="mb-0 mt-1 widget-title text-dark">{{ $pendingUser }}</h3>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
+                </div> --}}
+                <div class="col-lg-3 col-sm-6 col-3 mb-4">
                     <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
                         <a href="{{ route('admin.ticket.index') }}" class="link"></a>
                         <div class="widget-icon light-icon-3">
@@ -107,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
+                {{-- <div class="col-lg-4 col-sm-6 col-4 mb-4">
                     <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
                         <a href="{{ route('admin.ticket.status', 'pending') }}" class="link"></a>
                         <div class="widget-icon  light-icon-4">
@@ -118,7 +143,7 @@
                             <h3 class="mb-0 mt-1 widget-title text-dark">{{ $pendingTicket }}</h3>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 {{-- <div class="col-lg-4 col-sm-6 col-4 mb-4">
                     <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
                         <a href="{{ route('admin.payment.index') }}" class="link"></a>
@@ -145,7 +170,7 @@
                 </div> --}}
             </div>
         </div>
-        <div class="col-xxl-3 col-md-6">
+        {{-- <div class="col-xxl-3 col-md-6">
             <div class="card">
                 <div class="card-body pb-1">
                     <h4 class="mb-3">{{ __('Quick Links') }}</h4>
@@ -176,8 +201,8 @@
                                 </div>
                                 <p class="short-card-title">{{ __('Signals') }}</p>
                             </div>
-                        </div>
-                        {{-- <div class="col-4 mb-3">
+                        </div> --}}
+        {{-- <div class="col-4 mb-3">
                             <div class="short-card link-item">
                                 <a href="{{ route('admin.deposits, 'offline') }}" class="link"></a>
                                 <div class="short-card-icon light-icon-4">
@@ -186,7 +211,7 @@
                                 <p class="short-card-title">{{ __('Deposit') }}</p>
                             </div>
                         </div> --}}
-                        {{-- <div class="col-4 mb-3">
+        {{-- <div class="col-4 mb-3">
                             <div class="short-card link-item">
                                 <a href="{{ route('admin.withdraw.filter', 'pending') }}" class="link"></a>
                                 <div class="short-card-icon light-icon-5">
@@ -195,7 +220,7 @@
                                 <p class="short-card-title">{{ __('Withdraw') }}</p>
                             </div>
                         </div> --}}
-                        <div class="col-4 mb-3">
+        {{-- <div class="col-4 mb-3">
                             <div class="short-card link-item">
                                 <a href="{{ route('admin.payments.index', 'offline') }}" class="link"></a>
                                 <div class="short-card-icon light-icon-6">
@@ -234,18 +259,18 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 d-xxl-none d-block">
+        </div> --}}
+        {{-- <div class="col-md-6 d-xxl-none d-block">
             <div class="card">
                 <div class="card-body">
                     <h4>{{ __('Users Status') }}</h4>
                     <div id="chart5" class="d-flex justify-content-center"></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xxl-9">
             <div class="card">
                 <div class="card-header">
@@ -264,9 +289,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xxl-9 col-lg-8">
             <div class="card">
                 <div class="card-header justify-content-between">
@@ -401,9 +426,59 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+      <div class="row">
+        <div class="col-xxl-9 col-lg-8">
+            <div class="card">
+                <div class="card-header justify-content-between">
+                    <h4 class="card-title">{{ __('Latest Registerations') }}</h4>
+                    <a href="{{ route('admin.user.index') }}"
+                        class="site-color fw-500">{{ __('View All') }}</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>{{ __('Name') }}</th>
+                                    <th>{{ __('Email') }}</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @forelse($latestUsers as $key => $user)
+                                    <tr>
+                                        {{-- <td>
+                                            <a href="{{ route('admin.user.details', optional($invest->user)->id) }}">
+                                                <img src="{{ Config::getFile('user', optional($invest->user)->image, true) }}"
+                                                    alt="" class="image-table">
+                                                <span>
+                                                    {{ optional($invest->user)->username }}
+                                                </span>
+                                            </a>
+                                        </td> --}}
+                                        <td>{{ $user->username }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        {{-- <td>{{ Config::formatter($invest->amount) }}</td> --}}
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="100%" class="text-center">{{ __('No user Found') }}</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="row">
+     {{--<div class="row">
         <div class="col-xxl-6">
             <div class="card">
                 <div class="card-header justify-content-between">
@@ -521,7 +596,7 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @push('script')

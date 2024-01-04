@@ -80,12 +80,12 @@
                 <ul aria-expanded="false">
                     @if (auth()->guard('admin')->user()->can('manage-deposit'))
                         <li><a class="" href="{{ route('admin.transac') }}"
-                                aria-expanded="false">{{ __('Transaction into account') }}</a>
+                                aria-expanded="false">{{ __('Deposit/Withdrawal into account') }}</a>
                         </li>
                     @endif
-                    @if (auth()->guard('admin')->user()->can('manage-withdraw'))
-                        <li><a class="" href="{{ route('admin.withdraws') }}"
-                                aria-expanded="false">{{ __('Manage Withdraw') }}</a>
+                    @if (auth()->guard('admin')->user()->can('manage-deposit'))
+                        <li><a class="" href="{{ route('admin.deposits') }}"
+                                aria-expanded="false">{{ __('Deposits') }}</a>
                             {{-- <ul aria-expanded="false">
                         {{-- <li><a href="{{ route('admin.withdraw.index') }}">{{ __('Withdraw Methods') }}</a></li>
                         <li><a href="{{ route('admin.withdraw.filter') }}">{{ __('All Withdraw') }}</a></li>
@@ -100,9 +100,9 @@
                     </ul> --}}
                         </li>
                     @endif
-                    @if (auth()->guard('admin')->user()->can('manage-deposit'))
-                        <li><a class="" href="{{ route('admin.deposits') }}"
-                                aria-expanded="false">{{ __('Manage Deposit') }}</a>
+                    @if (auth()->guard('admin')->user()->can('manage-withdraw'))
+                        <li><a class="" href="{{ route('admin.withdraws') }}"
+                                aria-expanded="false">{{ __('Withdraws') }}</a>
                             {{-- <ul aria-expanded="false">
 
                         <li><a href="{{ route('admin.deposit', 'online') }}">{{ __('Online Deposit') }}</a></li>
@@ -116,10 +116,15 @@
             </li>
 
 
-
-            <li><a href="{{ route('admin.user.index') }}"><i data-feather="user"></i><span
-                        class="nav-text">{{ __('Manage Users') }}</span></a>
+            <li> <a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="user"></i><span
+                        class="nav-text">{{ __('Wallets/Leads') }}</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('admin.user.index') }}"><span
+                                class="nav-text">{{ __('Wallets/Leads') }}</span></a>
+                    </li>
+                </ul>
             </li>
+
 
             @if (auth()->guard('admin')->user()->can('manage-gateway'))
                 <li><a href="{{ route('admin.payment-method.index') }}" aria-expanded="false"><i
@@ -206,49 +211,54 @@
                 </li>
             @endif --}}
 
-            @if (auth()->guard('admin')->user()->can('manage-role') ||
-                    auth()->guard('admin')->user()->can('manage-admin'))
+            {{-- @if (auth()->guard('admin')->user()->can('manage-role') ||
+    auth()->guard('admin')->user()->can('manage-admin'))
                 <li class="nav-label">{{ __('Administration') }}</li>
-            @endif
+            @endif --}}
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="settings"></i><span
+                        class="nav-text">{{ __('Settings') }}</span></a>
+                <ul aria-expanded="false">
+                    @if (auth()->guard('admin')->user()->can('manage-role'))
+                        <li>
+                            <a href="{{ route('admin.roles.index') }}" aria-expanded="false">
 
-            @if (auth()->guard('admin')->user()->can('manage-role'))
-                <li>
-                    <a href="{{ route('admin.roles.index') }}" aria-expanded="false">
-                        <i data-feather="users"></i>
-                        <span class="nav-text">{{ __('Manage Roles') }}</span>
-                    </a>
-                </li>
-            @endif
+                                <span class="nav-text">{{ __('User Roles') }}</span>
+                            </a>
+                        </li>
+                    @endif
 
-            @if (auth()->guard('admin')->user()->can('manage-admin'))
-                <li>
-                    <a href="{{ route('admin.admins.index') }}" aria-expanded="false">
-                        <i data-feather="user-check"></i>
-                        <span class="nav-text">{{ __('Manage Admins') }}</span>
-                    </a>
-                </li>
-            @endif
+                    @if (auth()->guard('admin')->user()->can('manage-admin'))
+                        <li>
+                            <a href="{{ route('admin.admins.index') }}" aria-expanded="false">
+
+                                <span class="nav-text">{{ __('Add User') }}</span>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
 
 
 
-            <li class="nav-label">{{ __('Others') }}</li>
-            @if (auth()->guard('admin')->user()->can('manage-logs'))
+            {{-- <li class="nav-label">{{ __('Others') }}</li> --}}
+            {{-- @if (auth()->guard('admin')->user()->can('manage-logs'))
                 <li>
                     <a href="{{ route('admin.transaction') }}" aria-expanded="false">
                         <i data-feather="file-text"></i>
                         <span class="nav-text">{{ __('Manage Logs') }}</span>
                     </a>
                 </li>
-            @endif
+            @endif --}}
+
 
             @if (auth()->guard('admin')->user()->can('manage-ticket'))
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                            data-feather="inbox"></i><span class="nav-text">{{ __('Support Ticket') }}</span></a>
+                            data-feather="inbox"></i><span class="nav-text">{{ __('Suppor Center') }}</span></a>
                     <ul aria-expanded="false">
 
-                        <li><a href="{{ route('admin.ticket.index') }}">{{ __('All Tickets') }}</a></li>
+                        <li><a href="{{ route('admin.ticket.index') }}">{{ __('Tickets') }}</a></li>
 
-                        <li><a href="{{ route('admin.ticket.status', 'pending') }}">{{ __('Pending Ticket') }}
+                        {{-- <li><a href="{{ route('admin.ticket.status', 'pending') }}">{{ __('Pending Ticket') }}
                                 @if (Config::sidebarData()['pendingTicket'] > 0)
                                     <span class="noti-count">{{ Config::sidebarData()['pendingTicket'] }}</span>
                                 @endif
@@ -258,20 +268,20 @@
                         </li>
 
                         <li><a href="{{ route('admin.ticket.status', 'closed') }}">{{ __('Closed Ticket') }}</a>
-                        </li>
+                        </li> --}}
 
 
                     </ul>
                 </li>
             @endif
 
-            @if (auth()->guard('admin')->user()->can('manage-subscriber'))
+            {{-- @if (auth()->guard('admin')->user()->can('manage-subscriber'))
                 <li><a href="{{ route('admin.subscribers') }}" aria-expanded="false"><i
                             data-feather="at-sign"></i><span class="nav-text">{{ __('Subscribers') }}</span></a>
                 </li>
-            @endif
+            @endif --}}
 
-            <li><a href="{{ route('admin.notifications') }}" aria-expanded="false"><i data-feather="feather"></i><span
+            {{-- <li><a href="{{ route('admin.notifications') }}" aria-expanded="false"><i data-feather="feather"></i><span
                         class="nav-text">{{ __('All Notification') }}</span></a>
             </li>
 
@@ -279,7 +289,7 @@
                         data-feather="feather"></i><span class="nav-text">{{ __('Clear Cache') }}</span></a>
             </li>
 
-            <li class="nav-label">{{ __('Current Version') . ' - ' . Config::APP_VERSION }}</li>
+            <li class="nav-label">{{ __('Current Version') . ' - ' . Config::APP_VERSION }}</li> --}}
         </ul>
     </div>
 </div>

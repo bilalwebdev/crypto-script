@@ -2,55 +2,38 @@
 
 <?php $__env->startSection('element'); ?>
     <div class="row">
-        <div class="col-xxl-9">
+        <div class="col-12">
             <div class="row">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="card mb-4 gr-white rounded-xl link-item widget-hr-effect">
-                        <a href="<?php echo e(route('admin.payments.index', 'offline')); ?>" class="link"></a>
-                        <div class="sp-widget-2 card-body">
-                            <a href="<?php echo e(route('admin.payments.index', 'offline')); ?>" class="widget-link-arrow"><i
-                                    class="las la-arrow-right"></i></a>
-                            <div class="top">
-                                <div class="widget-icon">
-                                    <i class="las la-dollar-sign"></i>
-                                </div>
-                                <div class="widget-content">
-                                    <h5 class="mb-0"><?php echo e(__('Total Payments')); ?></h5>
-                                </div>
-                            </div>
-                            <div class="bottom mt-3">
-                                <div class="widget-content">
-                                    <h2 class="mb-0"><?php echo e(Config::formatter($subscriptionAmount)); ?></h2>
-                                </div>
-                            </div>
+                
+                <div class="col-lg-3 col-sm-6 col-3 mb-4">
+                    <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
+                        <a href="<?php echo e(route('admin.user.index')); ?>" class="link"></a>
+                        <div class="widget-icon light-icon-1">
+                            <i class="las la-users"></i>
+                        </div>
+                        <div class="widget-content">
+                            <div class="widget-caption text-dark"><?php echo e(__('Total Accounts')); ?></div>
+                            <h3 class="mb-0 mt-1 widget-title text-dark"><?php echo e($totalAccounts); ?></h3>
                         </div>
                     </div>
                 </div>
                 
-                <div class="col-lg-4 col-sm-6">
-                    <div class="card mb-4 gr-white gr-white3 rounded-xl link-item widget-hr-effect">
-                        <a href="<?php echo e(route('admin.withdraw.filter', 'pending')); ?>" class="link"></a>
-                        <div class="sp-widget-2 card-body">
-                            <a href="<?php echo e(route('admin.withdraw.filter', 'pending')); ?>" class="widget-link-arrow"><i
-                                    class="las la-arrow-right"></i></a>
-                            <div class="top">
-                                <div class="widget-icon">
-                                    <i class="las la-hourglass-start"></i>
-                                </div>
-                                <div class="widget-content">
-                                    <h5 class="mb-0"><?php echo e(__('Total Withdraw')); ?></h5>
-                                </div>
-                            </div>
-                            <div class="bottom mt-3">
-                                <div class="widget-content">
-                                    <h2 class="mb-0"><?php echo e(Config::formatter($totalWithdraw)); ?></h2>
-                                </div>
-                            </div>
+                
+
+
+                <div class="col-lg-3 col-sm-6 col-3 mb-4">
+                    <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
+                        <a href="<?php echo e(route('admin.user.index')); ?>" class="link"></a>
+                        <div class="widget-icon light-icon-1">
+                            <i class="las la-user"></i>
+                        </div>
+                        <div class="widget-content">
+                            <div class="widget-caption text-dark"><?php echo e(__('Total Deposits')); ?></div>
+                            <h3 class="mb-0 mt-1 widget-title text-dark"><?php echo e(Config::formatter($totalDeposit)); ?></h3>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
+                <div class="col-lg-3 col-sm-6 col-3 mb-4">
                     <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
                         <a href="<?php echo e(route('admin.user.index')); ?>" class="link"></a>
                         <div class="widget-icon light-icon-1">
@@ -62,19 +45,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
-                    <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
-                        <a href="<?php echo e(route('admin.user.filter', 'deactive')); ?>" class="link"></a>
-                        <div class="widget-icon light-icon-2">
-                            <i class="las la-user-friends"></i>
-                        </div>
-                        <div class="widget-content">
-                            <div class="widget-caption text-dark"><?php echo e(__('Deactive user')); ?></div>
-                            <h3 class="mb-0 mt-1 widget-title text-dark"><?php echo e($pendingUser); ?></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
+                
+                <div class="col-lg-3 col-sm-6 col-3 mb-4">
                     <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
                         <a href="<?php echo e(route('admin.ticket.index')); ?>" class="link"></a>
                         <div class="widget-icon light-icon-3">
@@ -86,132 +58,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-6 col-4 mb-4">
-                    <div class="sp-widget-1 bg-white rounded-xl link-item widget-hr-effect">
-                        <a href="<?php echo e(route('admin.ticket.status', 'pending')); ?>" class="link"></a>
-                        <div class="widget-icon  light-icon-4">
-                            <i class="las la-link"></i>
-                        </div>
-                        <div class="widget-content">
-                            <div class="widget-caption text-dark"><?php echo e(__('Pending Ticket')); ?></div>
-                            <h3 class="mb-0 mt-1 widget-title text-dark"><?php echo e($pendingTicket); ?></h3>
-                        </div>
-                    </div>
-                </div>
+                
                 
             </div>
         </div>
-        <div class="col-xxl-3 col-md-6">
-            <div class="card">
-                <div class="card-body pb-1">
-                    <h4 class="mb-3"><?php echo e(__('Quick Links')); ?></h4>
-                    <div class="row quick-links-wrapper">
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.user.index')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-1">
-                                    <i class="fas fa-exchange-alt"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Users')); ?></p>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.plan.index')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-2">
-                                    <i class="fas fa-file-alt"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Plans')); ?></p>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.signals.index')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-3">
-                                    <i class="fas fa-link"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Signals')); ?></p>
-                            </div>
-                        </div>
-                        
-                        
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.payments.index', 'offline')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-6">
-                                    <i class="fas fa-ticket-alt"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Payments')); ?></p>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.transaction')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-7">
-                                    <i class="fas fa-exchange-alt"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Reports')); ?></p>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.ticket.index')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-8">
-                                    <i class="fas fa-file-alt"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Tickets')); ?></p>
-                            </div>
-                        </div>
-                        <div class="col-4 mb-3">
-                            <div class="short-card link-item">
-                                <a href="<?php echo e(route('admin.general.index')); ?>" class="link"></a>
-                                <div class="short-card-icon light-icon-9">
-                                    <i class="fas fa-link"></i>
-                                </div>
-                                <p class="short-card-title"><?php echo e(__('Settings')); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 d-xxl-none d-block">
-            <div class="card">
-                <div class="card-body">
-                    <h4><?php echo e(__('Users Status')); ?></h4>
-                    <div id="chart5" class="d-flex justify-content-center"></div>
-                </div>
-            </div>
-        </div>
+        
+        
+        
+        
+        
     </div>
 
-    <div class="row">
-        <div class="col-xxl-9">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title"><?php echo e(__('Payment Chart')); ?></h4>
-                </div>
-                <div class="card-body">
-                    <div id="profit-chart"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 d-xxl-block d-none">
-            <div class="card">
-                <div class="card-body">
-                    <h4><?php echo e(__('Users Status')); ?></h4>
-                    <div id="chart2" class="d-flex justify-content-center"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
-    <div class="row">
+    
+
+      <div class="row">
         <div class="col-xxl-9 col-lg-8">
             <div class="card">
                 <div class="card-header justify-content-between">
-                    <h4 class="card-title"><?php echo e(__('Latest Subscription List')); ?></h4>
-                    <a href="<?php echo e(route('admin.payments.index', 'offline')); ?>"
+                    <h4 class="card-title"><?php echo e(__('Latest Registerations')); ?></h4>
+                    <a href="<?php echo e(route('admin.user.index')); ?>"
                         class="site-color fw-500"><?php echo e(__('View All')); ?></a>
                 </div>
                 <div class="card-body p-0">
@@ -219,29 +86,19 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th><?php echo e(__('User')); ?></th>
-                                    <th><?php echo e(__('Plan')); ?></th>
-                                    <th><?php echo e(__('TRX')); ?></th>
-                                    <th><?php echo e(__('Amount')); ?></th>
+                                    <th><?php echo e(__('Name')); ?></th>
+                                    <th><?php echo e(__('Email')); ?></th>
+
                                 </tr>
                             </thead>
                             <tbody>
 
-                                <?php $__empty_1 = true; $__currentLoopData = $investments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $invest): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <?php $__empty_1 = true; $__currentLoopData = $latestUsers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr>
-                                        <td>
-                                            <a href="<?php echo e(route('admin.user.details', optional($invest->user)->id)); ?>">
-                                                <img src="<?php echo e(Config::getFile('user', optional($invest->user)->image, true)); ?>"
-                                                    alt="" class="image-table">
-                                                <span>
-                                                    <?php echo e(optional($invest->user)->username); ?>
-
-                                                </span>
-                                            </a>
-                                        </td>
-                                        <td><?php echo e(optional($invest->plan)->name); ?></td>
-                                        <td><?php echo e($invest->trx); ?></td>
-                                        <td><?php echo e(Config::formatter($invest->amount)); ?></td>
+                                        
+                                        <td><?php echo e($user->username); ?></td>
+                                        <td><?php echo e($user->email); ?></td>
+                                        
                                     </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                     <tr>
@@ -255,217 +112,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-xxl-3 col-lg-4">
-            <div class="card">
-                <div class="card-body user-status-card">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between">
-                        <h4><?php echo e(__('Browser Statistics')); ?></h4>
-                    </div>
 
-                    <ul class="browser-status-list mt-4">
-                        <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'chrome.svg', true)); ?>"
-                                    alt="image"> <?php echo e(__('Chrome')); ?></span>
-                            <span
-                                class="user-amount"><?php echo e(optional($browser->where('browser', 'Chrome')->first())->total ?? 0); ?></span>
-                            <div class="user-progressbar">
-                                <?php
-                                    $count = (100 * (optional($browser->where('browser', 'Chrome')->first())->total ?? 0)) / ($logTotal == 0 ? 1 : $logTotal);
-                                ?>
-                                <div class="user-progressbar-inner bg-success" style="width: <?php echo e($count); ?>%;">
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'firefox.svg', true)); ?>"
-                                    alt="image"> <?php echo e(__('Friefox')); ?></span>
-                            <span
-                                class="user-amount"><?php echo e(optional($browser->where('browser', 'Mozilla')->first())->total ?? 0); ?></span>
-                            <div class="user-progressbar">
-                                <?php
-                                    $count = (100 * (optional($browser->where('browser', 'Mozilla')->first())->total ?? 0)) / ($logTotal == 0 ? 1 : $logTotal);
-                                ?>
-                                <div class="user-progressbar-inner bg-danger" style="width: <?php echo e($count); ?>%;"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'safari.svg', true)); ?>"
-                                    alt="image"> <?php echo e(__('Safari')); ?></span>
-                            <span
-                                class="user-amount"><?php echo e(optional($browser->where('browser', 'Safari')->first())->total ?? 0); ?></span>
-                            <div class="user-progressbar">
-                                <?php
-                                    $count = (100 * (optional($browser->where('browser', 'Safari')->first())->total ?? 0)) / ($logTotal == 0 ? 1 : $logTotal);
-                                ?>
-                                <div class="user-progressbar-inner bg-info" style="width: <?php echo e($count); ?>%;"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'edge.svg', true)); ?>"
-                                    alt="image"> <?php echo e(__('Edge')); ?></span>
-                            <span
-                                class="user-amount"><?php echo e(optional($browser->where('browser', 'Edge')->first())->total ?? 0); ?></span>
-                            <div class="user-progressbar">
-                                <?php
-                                    $count = (100 * (optional($browser->where('browser', 'Edge')->first())->total ?? 0)) / ($logTotal == 0 ? 1 : $logTotal);
-                                ?>
-
-                                <div class="user-progressbar-inner bg-info" style="width: <?php echo e($count); ?>%;"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'opera.svg', true)); ?>"
-                                    alt="image"> <?php echo e(__('Opera')); ?></span>
-                            <span
-                                class="user-amount"><?php echo e(optional($browser->where('browser', 'Opera')->first())->total ?? 0); ?></span>
-                            <div class="user-progressbar">
-                                <?php
-                                    $count = (100 * (optional($browser->where('browser', 'Opera')->first())->total ?? 0)) / ($logTotal == 0 ? 1 : $logTotal);
-                                ?>
-                                <div class="user-progressbar-inner bg-danger" style="width: <?php echo e($count); ?>%;"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="caption"><img src="<?php echo e(Config::getFile('browsers', 'uc.svg', true)); ?>"
-                                    alt="image"> <?php echo e(__('UC')); ?></span>
-                            <span
-                                class="user-amount"><?php echo e(optional($browser->where('browser', 'Uc')->first())->total ?? 0); ?></span>
-                            <div class="user-progressbar">
-                                <?php
-                                    $count = (100 * (optional($browser->where('browser', 'Uc')->first())->total ?? 0)) / ($logTotal == 0 ? 1 : $logTotal);
-                                ?>
-                                <div class="user-progressbar-inner bg-warning" style="width: <?php echo e($count); ?>%;">
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
 
-    <div class="row">
-        <div class="col-xxl-6">
-            <div class="card">
-                <div class="card-header justify-content-between">
-                    <h4 class="card-title"><?php echo e(__('Latest Deposit')); ?></h4>
-                    <a href="<?php echo e(route('admin.deposits')); ?>" class="site-color fw-500"><?php echo e(__('View All')); ?></a>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th><?php echo e(__('User')); ?></th>
-
-                                    <th><?php echo e(__('TRX')); ?></th>
-                                    <th><?php echo e(__('Amount')); ?></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $__empty_1 = true; $__currentLoopData = $deposits; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $deposit): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                    <tr>
-                                        <td>
-                                            <a href="<?php echo e(route('admin.user.details', $deposit->user->id)); ?>">
-                                                <img src="<?php echo e(Config::getFile('user', $deposit->user->image, true)); ?>"
-                                                    alt="" class="image-table">
-                                                <span>
-                                                    <?php echo e($deposit->user->username); ?>
-
-                                                </span>
-                                            </a>
-                                        </td>
-
-                                        <td><?php echo e($deposit->trx); ?></td>
-                                        <td><?php echo e(Config::formatter($deposit->amount)); ?></td>
-                                    </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                    <tr>
-                                        <td colspan="100%" class="text-center"><?php echo e(__('No user Found')); ?></td>
-                                    </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-6">
-            <div class="card">
-                <div class="card-header justify-content-between">
-                    <h4 class="card-title"><?php echo e(__('Latest Withdraw')); ?></h4>
-                    <a href="<?php echo e(route('admin.withdraw.filter')); ?>" class="site-color fw-500"><?php echo e(__('View All')); ?></a>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th><?php echo e(__('User')); ?></th>
-                                    <th><?php echo e(__('Method')); ?></th>
-                                    <th><?php echo e(__('TRX')); ?></th>
-                                    <th><?php echo e(__('Amount')); ?></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $__empty_1 = true; $__currentLoopData = $withdraws; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $withdraw): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                    <tr>
-                                        <td>
-                                            <a href="<?php echo e(route('admin.user.details', $withdraw->user->id)); ?>">
-                                                <img src="<?php echo e(Config::getFile('user', $withdraw->user->image, true)); ?>"
-                                                    alt="" class="image-table">
-                                                <span>
-                                                    <?php echo e($withdraw->user->username); ?>
-
-                                                </span>
-                                            </a>
-                                        </td>
-                                        <td><?php echo e($withdraw->withdrawMethod->name); ?></td>
-                                        <td><?php echo e($withdraw->trx); ?></td>
-                                        <td><?php echo e(Config::formatter($withdraw->total)); ?></td>
-                                    </tr>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                    <tr>
-                                        <td colspan="100%" class="text-center"><?php echo e(__('No user Found')); ?></td>
-                                    </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="cron" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"><?php echo e(__('Cron Settings Instruction')); ?></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        <?php echo e(__('Please set cron job to your server otherwise user can not get Bulk Mail')); ?>
-
-                    </p>
-                    <div class="input-group">
-                        <input type="text" name="" class="form-control copy-text"
-                            value="curl -s <?php echo e(route('fire')); ?>">
-                        <div class="input-group-append">
-                            <button class="input-group-text gr-bg-1 text-white copy" type="button"
-                                id="button-addon2"><?php echo e(__('Copy')); ?></button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
+     
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('script'); ?>

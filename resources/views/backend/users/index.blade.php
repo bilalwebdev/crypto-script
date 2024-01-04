@@ -4,11 +4,11 @@
 @section('element')
     <div class="row">
         <div class="col-md-12">
-            <div class="card mb-4">
+            {{-- <div class="card mb-4">
                 <div class="card-body">
                     @include('backend.users.tab_list')
                 </div>
-            </div>
+            </div> --}}
             <div class="card">
                 <div class="card-header site-card-header justify-content-between align-items-center">
                     <div class="card-header-left">

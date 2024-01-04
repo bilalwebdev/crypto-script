@@ -106,4 +106,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(AdminUser::class, 'user_id');
     }
+    public function payment()
+    {
+        return $this->belongsTo(UserPaymentMethod::class, 'user_id');
+    }
 }

@@ -13,6 +13,8 @@
                                 data-toggle="tab">Live Accounts</a></li>
                         <li role="presentation" class="tab-xx"><a href="#details" aria-controls="profile" role="tab"
                                 data-toggle="tab">Personal Details</a></li>
+                        <li role="presentation" class="tab-xx"><a href="#bankdetails" aria-controls="profile" role="tab"
+                                data-toggle="tab">Bank Details</a></li>
                         <li role="presentation" class="tab-xx"><a href="#docs" aria-controls="messages" role="tab"
                                 data-toggle="tab">Documents</a></li>
                         <li role="presentation" class="tab-xx"><a href="#dep" aria-controls="messages" role="tab"
@@ -156,6 +158,26 @@
 
                                     <span><?php echo e(__('Reg. Date')); ?></span>
                                     <span><?php echo e($user->created_at); ?></span>
+
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="bankdetails">
+                            <h3>USER DETAILS</h3>
+                            <ul class="list-group col-md-6">
+
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span><?php echo e(__('Payment Method Name')); ?></span>
+                                    <span><?php echo e($user->payment?->name); ?></span>
+
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+
+                                    <span><?php echo e(__('Wallet Address')); ?></span>
+                                    <span><?php echo e($user->payment?->wallet_address); ?></span>
 
                                 </li>
 

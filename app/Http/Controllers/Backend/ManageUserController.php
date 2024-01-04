@@ -38,7 +38,7 @@ class ManageUserController extends Controller
 
     public function index(Request $request)
     {
-        $data['title'] = 'All Users';
+        $data['title'] = 'Wallets/Leads';
 
         $admin  = Admin::find(session()->get('user_id'));
 
@@ -70,7 +70,8 @@ class ManageUserController extends Controller
 
 
 
-        $data['users'] = $users->latest()->paginate(Helper::pagination());
+        $data['users'] = $users->with('payment')->latest()->paginate(Helper::pagination());
+      //  dd($data);
 
         return view('backend.users.index')->with($data);
     }
@@ -96,7 +97,7 @@ class ManageUserController extends Controller
 
         // $data['totalTicket'] = $data['user']->tickets->count();
 
-        $data['title'] = "User Details";
+        $data['title'] = "Wallet Details";
 
         $data['mt5'] = new MT5Service();
 

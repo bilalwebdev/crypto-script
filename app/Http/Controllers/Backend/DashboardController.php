@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Helpers\Helper\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\Admin;
 use App\Models\Deposit;
 use App\Models\Gateway;
@@ -125,10 +126,10 @@ class DashboardController extends Controller
 
 
 
-        $data['investments'] = Payment::when($request->trx, function ($item) use ($request) {
+        // $data['investments'] = Payment::when($request->trx, function ($item) use ($request) {
 
-            $item->where('transaction_id', $request->trx);
-        })->where('status', 1)->latest()->with('user', 'plan')->limit(4)->get();
+        //     $item->where('transaction_id', $request->trx);
+        // })->where('status', 1)->latest()->with('user', 'plan')->limit(4)->get();
 
 
 
@@ -137,6 +138,8 @@ class DashboardController extends Controller
 
 
 
+        $data['totalAccounts'] = Account::count();
+        $data['latestUsers'] = User::take(5)->latest()->get();
 
         return view('backend.dashboard')->with($data);
     }
