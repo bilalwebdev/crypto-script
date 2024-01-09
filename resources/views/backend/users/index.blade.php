@@ -27,90 +27,91 @@
                     <div class="card-header-right">
                         <form action="{{ route('admin.user.assign-admin') }}" method="post">
                             @csrf
-                            <div class="row d-flex ga-4">
-                                {{-- <div class="form-group ">
-                                    <select name="admin" class="form-control">
+                            <div class="row d-flex" style="gap:5px">
+                                <div class="form-group" style="height: 20px">
+                                    <select name="admin" class="form-control" style="height: 34px">
                                         <option value="-">Select Admin</option>
                                         @foreach (@$admins as $key => $admin)
                                             <option value="{{ $key }}">
                                                 {{ $admin }}</option>
                                         @endforeach
-                                    </select> --}}
+                                    </select>
+                                </div>
+                                <input type="text" id="checkedUsers" class="form-control d-none" name="checkedUsers">
+                                <div class="">
+                                    <button class="btn btn-sm btn-primary">{{ __('Submit') }}</button>
+                                </div>
                             </div>
-                            <input type="text" id="checkedUsers" class="form-control d-none" name="checkedUsers">
-                            <div class="">
-                                <button class="btn btn-sm btn-primary">{{ __('Submit') }}</button>
-                            </div>
+
+                        </form>
                     </div>
 
-                    </form>
-                </div>
 
-
-                {{-- <div  class="card-header-right">
+                    {{-- <div  class="card-header-right">
                             <button class="btn btn-sm btn-primary sendMail"><i class="las la-mail-bulk mr-2"></i>{{ __('Bulk Mail') }}</button>
                         </div> --}}
-            </div>
+                </div>
 
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table student-data-table m-t-20">
-                        <thead>
-                            <tr>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table student-data-table m-t-20">
+                            <thead>
+                                <tr>
 
-                                <th>{{ __('Sl') }}</th>
-                                <th>{{ __('Username') }}</th>
-                                {{-- <th>{{ __('Acc. No') }}</th> --}}
-                                <th>{{ __('Phone') }}</th>
-                                <th>{{ __('Email') }}</th>
-                                <th>{{ __('Reg. Date') }}</th>
-                                <th>{{ __('Status') }}</th>
-                                <th>{{ __('Action') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($users as $key => $user)
-                                <tr onclick="rowSelected({{ $user->id }})" id="user_{{ $user->id }}">
-                                    {{-- <td><input type="checkbox" name="user" id="usercheck_{{ $user->id }}"
+                                    <th>{{ __('Sl') }}</th>
+                                    <th>{{ __('Username') }}</th>
+                                    {{-- <th>{{ __('Acc. No') }}</th> --}}
+                                    <th>{{ __('Phone') }}</th>
+                                    <th>{{ __('Email') }}</th>
+                                    <th>{{ __('Reg. Date') }}</th>
+                                    <th>{{ __('Status') }}</th>
+                                    <th>{{ __('Action') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($users as $key => $user)
+                                    <tr onclick="rowSelected({{ $user->id }})" id="user_{{ $user->id }}">
+                                        {{-- <td><input type="checkbox" name="user" id="usercheck_{{ $user->id }}"
                                                 class="d-none form-input user_check">
                                         </td> --}}
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->username }}</td>
-                                    {{-- <td>{{ $user->id }}</td> --}}
-                                    <td>{{ $user->phone }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->created_at }}</td>
-                                    <td>
-                                        @if ($user->status)
-                                            <span class='badge badge-success'>{{ __('Active') }}</span>
-                                        @else
-                                            <span class='badge badge-danger'>{{ __('Inactive') }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.user.details', $user) }}"
-                                            class="btn btn-sm btn-primary">View</a>
-                                        <a href="" class="btn btn-info btn-sm">Uplaod Kyc</a>
-                                        <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td class="text-center" colspan="100%">{{ __('No Data Found') }}</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->username }}</td>
+                                        {{-- <td>{{ $user->id }}</td> --}}
+                                        <td>{{ $user->phone }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->created_at }}</td>
+                                        <td>
+                                            @if ($user->status)
+                                                <span class='badge badge-success'>{{ __('Active') }}</span>
+                                            @else
+                                                <span class='badge badge-danger'>{{ __('Inactive') }}</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.user.details', $user) }}"
+                                                class="btn btn-sm btn-primary">View</a>
+                                            <a href="{{ route('admin.admin-upload-kyc', $user) }}"
+                                                class="btn btn-info btn-sm">Uplaod Kyc</a>
+                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td class="text-center" colspan="100%">{{ __('No Data Found') }}</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
 
-            @if ($users->hasPages())
-                <div class="card-footer">
-                    {{ $users->links() }}
-                </div>
-            @endif
+                @if ($users->hasPages())
+                    <div class="card-footer">
+                        {{ $users->links() }}
+                    </div>
+                @endif
+            </div>
         </div>
-    </div>
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="mail">
@@ -149,7 +150,7 @@
 @push('style')
     <style>
         .bg-blue {
-            background-color: rgb(84, 126, 165);
+            background-color: #b0bed9;
         }
     </style>
 @endpush

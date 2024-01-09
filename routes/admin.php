@@ -105,9 +105,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('admins', AdminController::class)->middleware('permission:manage-admin,admin');
     Route::post('admins/changeStatus/{id}', [AdminController::class, 'changeStatus'])->name('changestatus')->middleware('permission:manage-admin,admin');
-    Route::get('user/admin-upload-kyc', [ManageUserController::class, 'adminKycUpload'])->name('admin-upload-kyc');
+    Route::get('user/upload-kyc/{user}', [ManageUserController::class, 'adminKycUpload'])->name('admin-upload-kyc');
+    Route::post('user/upload-kyc-store', [ManageUserController::class, 'adminKycUpload'])->name('admin-kyc-store');
     // Manage User
-    Route::prefix('user')->name('user.')->group(function () {
+    Route::prefix('users')->name('user.')->group(function () {
         Route::get('/', [ManageUserController::class, 'index'])->name('index');
         Route::get('details/{user}', [ManageUserController::class, 'userDetails'])->name('details');
         Route::post('update/{user}', [ManageUserController::class, 'userUpdate'])->name('update');
@@ -125,7 +126,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/edit/{user}', [ManageUserController::class, 'userEdit'])->name('edit');
 
 
-        Route::get('/add', [ManageUserController::class, 'userCreate'])->name('addss');
+        // Route::get('/add', [ManageUserController::class, 'userCreate'])->name('addss');
 
         Route::post('/assign-admin', [ManageUserController::class, 'assignAdmin'])->name('assign-admin');
 

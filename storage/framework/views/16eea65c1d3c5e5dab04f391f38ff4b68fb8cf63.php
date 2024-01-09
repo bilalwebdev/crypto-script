@@ -23,80 +23,88 @@
                     <div class="card-header-right">
                         <form action="<?php echo e(route('admin.user.assign-admin')); ?>" method="post">
                             <?php echo csrf_field(); ?>
-                            <div class="row d-flex ga-4">
-                                
+                            <div class="row d-flex" style="gap:5px">
+                                <div class="form-group" style="height: 20px">
+                                    <select name="admin" class="form-control" style="height: 34px">
+                                        <option value="-">Select Admin</option>
+                                        <?php $__currentLoopData = @$admins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $admin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($key); ?>">
+                                                <?php echo e($admin); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                </div>
+                                <input type="text" id="checkedUsers" class="form-control d-none" name="checkedUsers">
+                                <div class="">
+                                    <button class="btn btn-sm btn-primary"><?php echo e(__('Submit')); ?></button>
+                                </div>
                             </div>
-                            <input type="text" id="checkedUsers" class="form-control d-none" name="checkedUsers">
-                            <div class="">
-                                <button class="btn btn-sm btn-primary"><?php echo e(__('Submit')); ?></button>
-                            </div>
+
+                        </form>
                     </div>
 
-                    </form>
+
+                    
                 </div>
 
-
-                
-            </div>
-
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table student-data-table m-t-20">
-                        <thead>
-                            <tr>
-
-                                <th><?php echo e(__('Sl')); ?></th>
-                                <th><?php echo e(__('Username')); ?></th>
-                                
-                                <th><?php echo e(__('Phone')); ?></th>
-                                <th><?php echo e(__('Email')); ?></th>
-                                <th><?php echo e(__('Reg. Date')); ?></th>
-                                <th><?php echo e(__('Status')); ?></th>
-                                <th><?php echo e(__('Action')); ?></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $__empty_1 = true; $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <tr onclick="rowSelected(<?php echo e($user->id); ?>)" id="user_<?php echo e($user->id); ?>">
-                                    
-                                    <td><?php echo e($loop->iteration); ?></td>
-                                    <td><?php echo e($user->username); ?></td>
-                                    
-                                    <td><?php echo e($user->phone); ?></td>
-                                    <td><?php echo e($user->email); ?></td>
-                                    <td><?php echo e($user->created_at); ?></td>
-                                    <td>
-                                        <?php if($user->status): ?>
-                                            <span class='badge badge-success'><?php echo e(__('Active')); ?></span>
-                                        <?php else: ?>
-                                            <span class='badge badge-danger'><?php echo e(__('Inactive')); ?></span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <a href="<?php echo e(route('admin.user.details', $user)); ?>"
-                                            class="btn btn-sm btn-primary">View</a>
-                                        <a href="" class="btn btn-info btn-sm">Uplaod Kyc</a>
-                                        <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table student-data-table m-t-20">
+                            <thead>
                                 <tr>
-                                    <td class="text-center" colspan="100%"><?php echo e(__('No Data Found')); ?></td>
+
+                                    <th><?php echo e(__('Sl')); ?></th>
+                                    <th><?php echo e(__('Username')); ?></th>
+                                    
+                                    <th><?php echo e(__('Phone')); ?></th>
+                                    <th><?php echo e(__('Email')); ?></th>
+                                    <th><?php echo e(__('Reg. Date')); ?></th>
+                                    <th><?php echo e(__('Status')); ?></th>
+                                    <th><?php echo e(__('Action')); ?></th>
                                 </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php $__empty_1 = true; $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                    <tr onclick="rowSelected(<?php echo e($user->id); ?>)" id="user_<?php echo e($user->id); ?>">
+                                        
+                                        <td><?php echo e($loop->iteration); ?></td>
+                                        <td><?php echo e($user->username); ?></td>
+                                        
+                                        <td><?php echo e($user->phone); ?></td>
+                                        <td><?php echo e($user->email); ?></td>
+                                        <td><?php echo e($user->created_at); ?></td>
+                                        <td>
+                                            <?php if($user->status): ?>
+                                                <span class='badge badge-success'><?php echo e(__('Active')); ?></span>
+                                            <?php else: ?>
+                                                <span class='badge badge-danger'><?php echo e(__('Inactive')); ?></span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <a href="<?php echo e(route('admin.user.details', $user)); ?>"
+                                                class="btn btn-sm btn-primary">View</a>
+                                            <a href="<?php echo e(route('admin.admin-upload-kyc', $user)); ?>"
+                                                class="btn btn-info btn-sm">Uplaod Kyc</a>
+                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                    <tr>
+                                        <td class="text-center" colspan="100%"><?php echo e(__('No Data Found')); ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
+                <?php if($users->hasPages()): ?>
+                    <div class="card-footer">
+                        <?php echo e($users->links()); ?>
+
+                    </div>
+                <?php endif; ?>
             </div>
-
-            <?php if($users->hasPages()): ?>
-                <div class="card-footer">
-                    <?php echo e($users->links()); ?>
-
-                </div>
-            <?php endif; ?>
         </div>
-    </div>
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="mail">
@@ -135,7 +143,7 @@
 <?php $__env->startPush('style'); ?>
     <style>
         .bg-blue {
-            background-color: rgb(84, 126, 165);
+            background-color: #b0bed9;
         }
     </style>
 <?php $__env->stopPush(); ?>
