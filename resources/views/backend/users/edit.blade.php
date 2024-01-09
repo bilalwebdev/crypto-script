@@ -1,12 +1,9 @@
 @extends('backend.layout.master')
 
 @section('element')
-
-
-
     <div class="row gy-4">
         <div class="col-lg-9">
-            <div class="p-4 bg-white rounded-lg">
+            {{-- <div class="p-4 bg-white rounded-lg">
                 <h5>{{ $user->username }}</h5>
                 <p>{{ $user->email }}</p>
                 <div class="row pb-1">
@@ -79,16 +76,24 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="p-4 mt-4 bg-white rounded-lg">
-                <h4 class="mb-3">{{ __('User Profile Settings') }}</h4>
+            </div> --}}
+            <div class="p-4  bg-white rounded-lg">
                 <form action="{{ route('admin.user.update', $user->id) }}" method="post">
                     @csrf
                     <div class="row">
-
+                        <div class="form-group col-sm-6 mb-3 ">
+                            <label>{{ __('Name') }}</label>
+                            <input type="text" name="username" value="{{ $user->username }}" class="form-control"
+                                value="">
+                        </div>
                         <div class="form-group col-sm-6 mb-3 ">
                             <label>{{ __('Phone') }}</label>
                             <input type="text" name="phone" class="form-control" value="{{ $user->phone }}">
+                        </div>
+                        <div class="form-group col-sm-6 mb-3 ">
+                            <label>{{ __('Email') }}</label>
+                            <input type="text" name="email" value="{{ $user->email }}" class="form-control"
+                                value="">
                         </div>
                         <div class="form-group col-sm-6 mb-3 ">
                             <label>{{ __('Country') }}</label>
@@ -96,7 +101,7 @@
                                 value="{{ optional($user->address)->country }}">
                         </div>
 
-                        <div class="col-sm-6 mb-3">
+                        {{-- <div class="col-sm-6 mb-3">
 
                             <label>{{ __('city') }}</label>
                             <input type="text" name="city" class="form-control form_control"
@@ -108,23 +113,32 @@
                             <label>{{ __('zip') }}</label>
                             <input type="text" name="zip" class="form-control form_control"
                                 value="{{ optional($user->address)->zip }}">
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-6 mb-3">
+                        {{-- <div class="col-md-6 mb-3">
                             <label>{{ __('state') }}</label>
                             <input type="text" name="state" class="form-control form_control"
                                 value="{{ optional($user->address)->state }}">
-                        </div>
+                        </div> --}}
 
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="">{{ __('Admins') }}</label>
-                            <select name="admins[]" class="form-control js-example-tokenizer" multiple>
+                            <select name="admins[]" class="form-control js-example-tokenizer">
                                 @foreach ($admins as $key => $admin)
                                     <option @if (array_key_exists($key, $admin_users)) selected @endif value="{{ $key }}">
                                         {{ $admin }}</option>
                                 @endforeach
                             </select>
 
+                        </div> --}}
+
+                        <div class="col-md-6 mb-3">
+                            <label>{{ __('Password') }}</label>
+                            <input type="password" name="password" class="form-control form_control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>{{ __('Confirm Password') }}</label>
+                            <input type="password" name="password_confirmation" class="form-control form_control">
                         </div>
 
                         <div class="col-md-12 mb-3">
@@ -169,14 +183,14 @@
                         <div class="col-xxl-3 col-xl-4 mt-2">
                             <button type="submit" class="btn btn-primary w-100">
                                 <i class="fas fa-sync-alt"></i>
-                                {{ 'Update User' }}
+                                {{ 'Update Wallet' }}
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="col-lg-3">
+        {{-- <div class="col-lg-3">
             <div class="p-4 bg-white rounded-lg">
                 <div class="sp-widget-user-thumb">
                     <img src="{{ Config::getFile('user', $user->image, true) }}">
@@ -273,17 +287,17 @@
                     </li>
 
                 </ul>
-            </div> --}}
-        </div>
+            </div>
+        </div> --}}
     </div>
-    @php
+    {{-- @php
         $reference = $user
             ->refferals()
             ->with('refferals')
             ->get();
-    @endphp
+    @endphp --}}
 
-    <div class="row mt-4">
+    {{-- <div class="row mt-4">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
@@ -343,10 +357,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="mail">
+    {{-- <div class="modal fade" tabindex="-1" role="dialog" id="mail">
         <div class="modal-dialog modal-lg" role="document">
             <form action="{{ route('admin.user.mail', $user->id) }}" method="post">
                 @csrf
@@ -403,8 +417,7 @@
                 </div>
             </form>
         </div>
-    </div>
-
+    </div> --}}
 @endsection
 
 @push('external-style')

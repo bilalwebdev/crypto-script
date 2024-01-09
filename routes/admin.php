@@ -130,6 +130,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
             Route::get('/edit/{user}', [ManageUserController::class, 'userEdit'])->name('edit');
         });
+
+        Route::get('user/create', [ManageUserController::class, 'userCreate'])->name('user.create');
+        Route::post('user/submit', [ManageUserController::class, 'userSubmit'])->name('user.submit');
         // End User
 
         //payment method

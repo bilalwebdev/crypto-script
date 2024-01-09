@@ -6,6 +6,7 @@ use App\Models\AdminUser;
 use App\Models\Configuration;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class AdminUserService
@@ -15,26 +16,34 @@ class AdminUserService
         $user = User::find($request->user);
 
 
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'required|min:8|confirmed',
+            'country' => 'required'
+        ]);
+
 
         $data = [
             'country' => $request->country,
-            'city' => $request->city,
-            'zip' => $request->zip,
-            'state' => $request->state,
         ];
 
 
-        AdminUser::where('user_id', $user->id)->delete();
+        // AdminUser::where('user_id', $user->id)->delete();
 
-        foreach ($request->admins as $key => $value) {
-            AdminUser::create([
-                'admin_id' => $value,
-                'user_id' => $user->id
-            ]);
-        }
+        // foreach ($request->admins as $key => $value) {
+        //     AdminUser::create([
+        //         'admin_id' => $value,
+        //         'user_id' => $user->id
+        //     ]);
+        // }
 
+
+        $user->username = $request->username;
+        $user->email = $request->email;
         $user->phone = $request->phone;
         $user->address = $data;
+        $user->password = $request->password;
         $user->status = $request->status == 'on' ? 1 : 0;
         $user->is_email_verified = $request->email_status == 'on' ? 1 : 0;
         $user->is_sms_verified = $request->sms_status == 'on' ? 1 : 0;
@@ -46,6 +55,28 @@ class AdminUserService
         return ['type' => 'success', 'message' => 'Successfully Updated User Profile'];
     }
 
+    public function create($request)
+    {
+
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'required|min:8|confirmed',
+            'country' => 'required'
+        ]);
+
+        $data = [
+            'country' => $request->country,
+        ];
+
+        User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => $request->password,
+            'address' => $data,
+            'phone' => $request->phone
+        ]);
+    }
     public function updateBalance($request)
     {
         $user = User::findOrFail($request->user_id);

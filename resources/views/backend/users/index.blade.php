@@ -11,18 +11,25 @@
             </div> --}}
             <div class="card">
                 <div class="card-header site-card-header justify-content-between align-items-center">
-                    <div class="card-header-left">
-                        <form action="" method="get">
-                            <div class="input-group flex-wrap user-search-area">
-                                <input type="text" class="form-control form-control-sm"
-                                    placeholder="username or email or phone" name="search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary btn-sm" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
+                    <div class="card-header-left ">
+                        <div class="row gap-2">
+                            <form action="" method="get">
+                                <div class="input-group flex-wrap user-search-area">
+                                    <input type="text" class="form-control form-control-sm"
+                                        placeholder="username or email or phone" name="search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary btn-sm" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
+                            </form>
+                            <div class="m-1">
+                                <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-sm"><i
+                                        class="fas fa-plus"></i> Add Wallet</a>
                             </div>
-                        </form>
+                        </div>
+
                     </div>
                     {{-- <div  class="card-header-right">
                             <button class="btn btn-sm btn-primary sendMail"><i class="las la-mail-bulk mr-2"></i>{{ __('Bulk Mail') }}</button>
@@ -36,7 +43,7 @@
                                 <tr>
                                     <th>{{ __('Sl') }}</th>
                                     <th>{{ __('Username') }}</th>
-                                    {{-- <th>{{ __('Acc. No') }}</th> --}}
+                                    <th>{{ __('Country') }}</th>
                                     <th>{{ __('Phone') }}</th>
                                     <th>{{ __('Email') }}</th>
                                     <th>{{ __('Reg. Date') }}</th>
@@ -49,7 +56,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->username }}</td>
-                                        {{-- <td>{{ $user->id }}</td> --}}
+                                        <td>{{ $user->address->country }}</td>
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->created_at }}</td>
@@ -62,9 +69,8 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.user.details', $user) }}"
-                                                class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i></a>
-                                            <a href="{{ route('admin.user.edit', $user) }}"
-                                                class="btn btn-outline-primary btn-sm"><i class="fa fa-pen"></i></a>
+                                                class="btn btn-sm btn-primary">View</a>
+
                                         </td>
                                     </tr>
                                 @empty

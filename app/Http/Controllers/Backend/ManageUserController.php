@@ -71,7 +71,7 @@ class ManageUserController extends Controller
 
 
         $data['users'] = $users->with('payment')->latest()->paginate(Helper::pagination());
-      //  dd($data);
+        //  dd($data);
 
         return view('backend.users.index')->with($data);
     }
@@ -347,8 +347,23 @@ class ManageUserController extends Controller
         $data['admin_users'] = AdminUser::where('user_id', $data['user']->id)->pluck('user_id', 'admin_id')->toArray();
         //dd($data['admin_users']);
 
-        $data['title']  = 'Update User';
+        $data['title']  = 'Update Wallet';
 
         return view('backend.users.edit')->with($data);
+    }
+
+
+    public function userCreate()
+    {
+        $data['title']  = 'Add Wallet';
+        $data['admins'] = Admin::whereNull('type')->select('id', 'username')->pluck('username', 'id')->toArray();
+        return view('backend.users.create')->with($data);
+    }
+
+    public function userSubmit(Request $request)
+    {
+        $this->userservice->create($request);
+
+        return back()->with('success', 'User Created successfully!');
     }
 }

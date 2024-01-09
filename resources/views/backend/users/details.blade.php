@@ -138,12 +138,12 @@
                                     <span>{{ $user->phone }}</span>
 
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between">
+                                {{-- <li class="list-group-item d-flex justify-content-between">
 
                                     <span>{{ __('Address') }}</span>
                                     <span>{{ $user->address->city . ', ' . $user->address->city . ', ' . $user->address->city }}</span>
 
-                                </li>
+                                </li> --}}
                                 <li class="list-group-item d-flex justify-content-between">
 
                                     <span>{{ __('Country') }}</span>
@@ -159,6 +159,8 @@
 
 
                             </ul>
+                            <a href="{{ route('admin.user.edit', $user) }}" class="btn btn-outline-info btn-sm mt-2">Update
+                                Information</a>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="bankdetails">
                             <h3>USER DETAILS</h3>

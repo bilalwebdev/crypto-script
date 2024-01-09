@@ -1,7 +1,3 @@
-
-
-
-
 <?php $__env->startSection('element'); ?>
     <div class="card">
         <div class="row">
@@ -142,12 +138,7 @@
                                     <span><?php echo e($user->phone); ?></span>
 
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between">
-
-                                    <span><?php echo e(__('Address')); ?></span>
-                                    <span><?php echo e($user->address->city . ', ' . $user->address->city . ', ' . $user->address->city); ?></span>
-
-                                </li>
+                                
                                 <li class="list-group-item d-flex justify-content-between">
 
                                     <span><?php echo e(__('Country')); ?></span>
@@ -163,6 +154,8 @@
 
 
                             </ul>
+                            <a href="<?php echo e(route('admin.user.edit', $user)); ?>" class="btn btn-outline-info btn-sm mt-2">Update
+                                Information</a>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="bankdetails">
                             <h3>USER DETAILS</h3>

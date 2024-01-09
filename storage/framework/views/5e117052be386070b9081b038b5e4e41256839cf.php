@@ -1,95 +1,24 @@
-
-
 <?php $__env->startSection('element'); ?>
-
-
-
     <div class="row gy-4">
         <div class="col-lg-9">
-            <div class="p-4 bg-white rounded-lg">
-                <h5><?php echo e($user->username); ?></h5>
-                <p><?php echo e($user->email); ?></p>
-                <div class="row pb-1">
-                    <div class="col-xxl-2 col-md-4 col-sm-6 mb-xxl-0 mb-4">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-1">
-                                <i class="las la-hand-holding-usd"></i>
-                            </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1">
-                                    <?php echo e($user->currentplan->first() ? $user->currentplan->first()->plan->name : 'N/A'); ?>
-
-                                </h4>
-                                <p><?php echo e(__('Current Plan')); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-md-4 col-sm-6 mb-xxl-0 mb-4">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-2">
-                                <i class="las la-users"></i>
-                            </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1"><?php echo e($totalRef); ?></h4>
-                                <p><?php echo e(__('Total Refferal')); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-md-4 col-sm-6 mb-xxl-0 mb-4">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-3">
-                                <i class="las la-dollar-sign"></i>
-                            </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1"> <?php echo e(Config::formatter($userCommission)); ?></h4>
-                                <p><?php echo e(__('Total Commission')); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-md-4 col-sm-6 mb-sm-0 mb-4">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-4">
-                                <i class="las la-hand-holding-usd"></i>
-                            </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1"> <?php echo e(Config::formatter($withdrawTotal)); ?></h4>
-                                <p><?php echo e(__('Total Withdraw')); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-md-4 col-sm-6 mb-sm-0 mb-4">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-5">
-                                <i class="las la-credit-card"></i>
-                            </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1"> <?php echo e(Config::formatter($totalDeposit)); ?></h4>
-                                <p><?php echo e(__('Total Deposit')); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-md-4 col-sm-6">
-                        <div class="sp-user-box">
-                            <div class="sp-user-box_icon gr-bg-6">
-                                <i class="las la-credit-card"></i>
-                            </div>
-                            <div class="sp-user-box_content">
-                                <h4 class="mb-1"> <?php echo e(Config::formatter($totalInvest)); ?></h4>
-                                <p><?php echo e(__('Total Invest amount')); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="p-4 mt-4 bg-white rounded-lg">
-                <h4 class="mb-3"><?php echo e(__('User Profile Settings')); ?></h4>
+            
+            <div class="p-4  bg-white rounded-lg">
                 <form action="<?php echo e(route('admin.user.update', $user->id)); ?>" method="post">
                     <?php echo csrf_field(); ?>
                     <div class="row">
-
+                        <div class="form-group col-sm-6 mb-3 ">
+                            <label><?php echo e(__('Name')); ?></label>
+                            <input type="text" name="username" value="<?php echo e($user->username); ?>" class="form-control"
+                                value="">
+                        </div>
                         <div class="form-group col-sm-6 mb-3 ">
                             <label><?php echo e(__('Phone')); ?></label>
                             <input type="text" name="phone" class="form-control" value="<?php echo e($user->phone); ?>">
+                        </div>
+                        <div class="form-group col-sm-6 mb-3 ">
+                            <label><?php echo e(__('Email')); ?></label>
+                            <input type="text" name="email" value="<?php echo e($user->email); ?>" class="form-control"
+                                value="">
                         </div>
                         <div class="form-group col-sm-6 mb-3 ">
                             <label><?php echo e(__('Country')); ?></label>
@@ -97,35 +26,19 @@
                                 value="<?php echo e(optional($user->address)->country); ?>">
                         </div>
 
-                        <div class="col-sm-6 mb-3">
+                        
 
-                            <label><?php echo e(__('city')); ?></label>
-                            <input type="text" name="city" class="form-control form_control"
-                                value="<?php echo e(optional($user->address)->city); ?>">
-                        </div>
+                        
 
-                        <div class="col-sm-6 mb-3">
-
-                            <label><?php echo e(__('zip')); ?></label>
-                            <input type="text" name="zip" class="form-control form_control"
-                                value="<?php echo e(optional($user->address)->zip); ?>">
-                        </div>
+                        
 
                         <div class="col-md-6 mb-3">
-                            <label><?php echo e(__('state')); ?></label>
-                            <input type="text" name="state" class="form-control form_control"
-                                value="<?php echo e(optional($user->address)->state); ?>">
+                            <label><?php echo e(__('Password')); ?></label>
+                            <input type="password" name="password" class="form-control form_control">
                         </div>
-
-                        <div class="form-group col-md-6">
-                            <label for=""><?php echo e(__('Admins')); ?></label>
-                            <select name="admins[]" class="form-control js-example-tokenizer" multiple>
-                                <?php $__currentLoopData = $admins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $admin): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option <?php if(array_key_exists($key, $admin_users)): ?> selected <?php endif; ?> value="<?php echo e($key); ?>">
-                                        <?php echo e($admin); ?></option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </select>
-
+                        <div class="col-md-6 mb-3">
+                            <label><?php echo e(__('Confirm Password')); ?></label>
+                            <input type="password" name="password_confirmation" class="form-control form_control">
                         </div>
 
                         <div class="col-md-12 mb-3">
@@ -172,7 +85,7 @@
                         <div class="col-xxl-3 col-xl-4 mt-2">
                             <button type="submit" class="btn btn-primary w-100">
                                 <i class="fas fa-sync-alt"></i>
-                                <?php echo e('Update User'); ?>
+                                <?php echo e('Update Wallet'); ?>
 
                             </button>
                         </div>
@@ -180,183 +93,14 @@
                 </form>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="p-4 bg-white rounded-lg">
-                <div class="sp-widget-user-thumb">
-                    <img src="<?php echo e(Config::getFile('user', $user->image, true)); ?>">
-                </div>
-                <div class="text-center mt-3">
-                    <div><?php echo e(__('Total Balance')); ?></div>
-                    <h2 class="mb-0 mt-1 sp_d_user_balance"> <?php echo e(Config::formatter($user->balance)); ?></h2>
-                </div>
-
-                <div class="sp_balance_btns mt-4">
-                    <button type="button" id="addBtn"
-                        class="btn btn-sm py-2 btn-success"><?php echo e(__('Add Balance')); ?></button>
-                    <button type="button" id="subBtn"
-                        class="btn btn-sm py-2 btn-danger"><?php echo e(__('Subtract Balance')); ?></button>
-                </div>
-
-                <form action="<?php echo e(route('admin.user.balance.update', $user->id)); ?>" method="post" id="addBalance"
-                    class="mt-3">
-                    <?php echo csrf_field(); ?>
-                    <div class="input-group mb-3">
-                        <input type="hidden" class="form-control" name="user_id" value="<?php echo e($user->id); ?>">
-                        <input type="hidden" class="form-control" name="type" value="add">
-                        <input type="number" class="form-control" name="balance" min="1"
-                            placeholder="add balance">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </form>
-                <form action="<?php echo e(route('admin.user.balance.update', $user->id)); ?>" method="post" id="subBalance"
-                    class="mt-3">
-                    <?php echo csrf_field(); ?>
-                    <div class="input-group mb-3">
-                        <input type="hidden" class="form-control" name="user_id" value="<?php echo e($user->id); ?>">
-                        <input type="hidden" class="form-control" name="type" value="minus">
-                        <input type="number" class="form-control" name="balance" min="1"
-                            placeholder="Subtract Balance">
-                        <button class="btn btn-danger" type="submit">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            
-        </div>
+        
     </div>
-    <?php
-        $reference = $user
-            ->refferals()
-            ->with('refferals')
-            ->get();
-    ?>
+    
 
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0"><?php echo e(__('Reference Tree')); ?></h5>
-                </div>
-                <div class="card-body">
-                    <?php if($reference->count() > 0): ?>
-                        <ul class="sp-referral">
-                            <li class="single-child root-child">
-                                <p>
-                                    <img src="<?php echo e(Config::getFile('user', $user->image, true)); ?>">
-                                    <span class="mb-0"><?php echo e($user->username); ?></span>
-                                </p>
-                                <ul class="sub-child-list step-2">
-                                    <?php $__currentLoopData = $reference; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $us): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <li class="single-child">
-                                            <p>
-                                                <img src="<?php echo e(Config::getFile('user', $user->image, true)); ?>">
-                                                <span class="mb-0"><?php echo e($us->username); ?></span>
-                                            </p>
-
-                                            <ul class="sub-child-list step-3">
-                                                <?php $__currentLoopData = $us->refferals()->with('refferals')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ref): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <li class="single-child">
-                                                        <p>
-                                                            <img src="<?php echo e(Config::getFile('user', $ref->image, true)); ?>">
-                                                            <span class="mb-0"><?php echo e($ref->username); ?></span>
-                                                        </p>
-
-                                                        <ul class="sub-child-list step-4">
-                                                            <?php $__currentLoopData = $ref->refferals; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ref2): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                <li class="single-child">
-                                                                    <p>
-                                                                        <img
-                                                                            src="<?php echo e(Config::getFile('user', $ref2->image)); ?>">
-                                                                        <span class="mb-0"><?php echo e($ref2->username); ?></span>
-                                                                    </p>
-                                                                </li>
-                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                        </ul>
-                                                    </li>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </ul>
-                                        </li>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </ul>
-                            </li>
-                        </ul>
-                    <?php else: ?>
-                        <div class="col-md-12 text-center mt-5">
-                            <i class="las la-envelope-open display-1"></i>
-                            <p class="mt-2">
-                                <?php echo e(__('No Reference User Found')); ?>
-
-                            </p>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="mail">
-        <div class="modal-dialog modal-lg" role="document">
-            <form action="<?php echo e(route('admin.user.mail', $user->id)); ?>" method="post">
-                <?php echo csrf_field(); ?>
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"><?php echo e(__('Send Mail to user')); ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for=""><?php echo e(__('Subject')); ?></label>
-                            <input type="text" name="subject" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for=""><?php echo e(__('Message')); ?></label>
-                            <textarea name="message" id="" cols="30" rows="10" class="form-control summernote"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary text-dark"
-                            data-dismiss="modal"><?php echo e(__('Close')); ?></button>
-                        <button type="submit" class="btn btn-primary"><i class="las la-envelope"></i>
-                            <?php echo e(__('Send Mail')); ?></button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal fade" id="confirmation" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <form action="" method="post">
-                <?php echo csrf_field(); ?>
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"><?php echo e(__('Confirmation')); ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" class="form-control" name="user_id" value="<?php echo e($user->id); ?>">
-                        <input type="hidden" class="form-control" name="type" value="">
-                        <input type="hidden" class="form-control" name="balance" value="">
-                        <p><?php echo e(__('Are you sure to perform this action')); ?> ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary"><?php echo e(__('Update')); ?></button>
-                        <button type="button" class="btn btn-secondary"
-                            data-dismiss="modal"><?php echo e(__('Close')); ?></button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
+    
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('external-style'); ?>
