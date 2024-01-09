@@ -38,6 +38,7 @@ class ManageUserController extends Controller
 
     public function index(Request $request)
     {
+
         $data['title'] = 'Wallets/Leads';
 
         $admin  = Admin::find(session()->get('user_id'));
@@ -71,7 +72,9 @@ class ManageUserController extends Controller
 
 
         $data['users'] = $users->with('payment')->latest()->paginate(Helper::pagination());
-      //  dd($data);
+        //  dd($data);
+        $data['admins'] = Admin::whereNull('type')->select('id', 'username')->pluck('username', 'id')->toArray();
+
 
         return view('backend.users.index')->with($data);
     }
@@ -347,8 +350,44 @@ class ManageUserController extends Controller
         $data['admin_users'] = AdminUser::where('user_id', $data['user']->id)->pluck('user_id', 'admin_id')->toArray();
         //dd($data['admin_users']);
 
-        $data['title']  = 'Update User';
+        $data['title']  = 'Update Wallet';
 
         return view('backend.users.edit')->with($data);
+    }
+
+    public function userCreate()
+    {
+        dd('here');
+        $data['admins'] = Admin::whereNull('type')->select('id', 'username')->pluck('username', 'id')->toArray();
+        $data['title']  = 'Add Wallet';
+
+        return view('backend.users.create')->with($data);
+    }
+
+    public function assignAdmin(Request $request)
+    {
+        $users = explode(",", $request->checkedUsers);
+
+        foreach ($users as $user) {
+            $adminUser = AdminUser::where('admin_id', $request->admin)
+                ->where('user_id', $user)
+                ->first();
+
+            if ($adminUser) {
+                continue;
+            } else {
+                AdminUser::create([
+                    'admin_id' => $request->admin,
+                    'user_id' => $user
+                ]);
+            }
+        }
+        return back()->with('success', 'Admin Assigned successfully!');
+    }
+
+    public function adminKycUpload()
+    {
+        $data['title']  = 'Upload KYC';
+        return view('backend.users.upload-kyc')->with($data);
     }
 }

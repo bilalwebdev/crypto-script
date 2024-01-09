@@ -1,12 +1,9 @@
 @extends('backend.layout.master')
 
 @section('element')
-
-
-
     <div class="row gy-4">
         <div class="col-lg-9">
-            <div class="p-4 bg-white rounded-lg">
+            {{-- <div class="p-4 bg-white rounded-lg">
                 <h5>{{ $user->username }}</h5>
                 <p>{{ $user->email }}</p>
                 <div class="row pb-1">
@@ -79,9 +76,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="p-4 mt-4 bg-white rounded-lg">
-                <h4 class="mb-3">{{ __('User Profile Settings') }}</h4>
+                {{-- <h4 class="mb-3">{{ __('User Profile Settings') }}</h4> --}}
                 <form action="{{ route('admin.user.update', $user->id) }}" method="post">
                     @csrf
                     <div class="row">
@@ -176,7 +173,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-lg-3">
+        {{-- <div class="col-lg-3">
             <div class="p-4 bg-white rounded-lg">
                 <div class="sp-widget-user-thumb">
                     <img src="{{ Config::getFile('user', $user->image, true) }}">
@@ -220,7 +217,7 @@
                     </div>
                 </form>
             </div>
-            {{-- <div class="mt-4 p-4 bg-white rounded-lg">
+             <div class="mt-4 p-4 bg-white rounded-lg">
                 <h4 class="mb-3">{{ __('Quick Links') }}</h4>
                 <ul class="user-action-list pb-2">
                     <li>
@@ -273,8 +270,8 @@
                     </li>
 
                 </ul>
-            </div> --}}
-        </div>
+            </div> 
+        </div> --}}
     </div>
     @php
         $reference = $user
@@ -283,7 +280,7 @@
             ->get();
     @endphp
 
-    <div class="row mt-4">
+    {{-- <div class="row mt-4">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
@@ -343,7 +340,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <div class="modal fade" tabindex="-1" role="dialog" id="mail">
@@ -404,7 +401,6 @@
             </form>
         </div>
     </div>
-
 @endsection
 
 @push('external-style')
