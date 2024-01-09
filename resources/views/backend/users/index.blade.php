@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-header site-card-header justify-content-between align-items-center">
                     <div class="card-header-left">
-                        <form action="" method="get">
+                        <form action="" method="get" class="row">
                             <div class="input-group flex-wrap user-search-area">
                                 <input type="text" class="form-control form-control-sm"
                                     placeholder="username or email or phone" name="search">
@@ -24,66 +24,93 @@
                             </div>
                         </form>
                     </div>
-                    {{-- <div  class="card-header-right">
+                    <div class="card-header-right">
+                        <form action="{{ route('admin.user.assign-admin') }}" method="post">
+                            @csrf
+                            <div class="row d-flex ga-4">
+                                {{-- <div class="form-group ">
+                                    <select name="admin" class="form-control">
+                                        <option value="-">Select Admin</option>
+                                        @foreach (@$admins as $key => $admin)
+                                            <option value="{{ $key }}">
+                                                {{ $admin }}</option>
+                                        @endforeach
+                                    </select> --}}
+                            </div>
+                            <input type="text" id="checkedUsers" class="form-control d-none" name="checkedUsers">
+                            <div class="">
+                                <button class="btn btn-sm btn-primary">{{ __('Submit') }}</button>
+                            </div>
+                    </div>
+
+                    </form>
+                </div>
+
+
+                {{-- <div  class="card-header-right">
                             <button class="btn btn-sm btn-primary sendMail"><i class="las la-mail-bulk mr-2"></i>{{ __('Bulk Mail') }}</button>
                         </div> --}}
-                </div>
-
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table student-data-table m-t-20">
-                            <thead>
-                                <tr>
-                                    <th>{{ __('Sl') }}</th>
-                                    <th>{{ __('Username') }}</th>
-                                    {{-- <th>{{ __('Acc. No') }}</th> --}}
-                                    <th>{{ __('Phone') }}</th>
-                                    <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Reg. Date') }}</th>
-                                    <th>{{ __('Status') }}</th>
-                                    <th>{{ __('Action') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($users as $key => $user)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->username }}</td>
-                                        {{-- <td>{{ $user->id }}</td> --}}
-                                        <td>{{ $user->phone }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->created_at }}</td>
-                                        <td>
-                                            @if ($user->status)
-                                                <span class='badge badge-success'>{{ __('Active') }}</span>
-                                            @else
-                                                <span class='badge badge-danger'>{{ __('Inactive') }}</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('admin.user.details', $user) }}"
-                                                class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i></a>
-                                            <a href="{{ route('admin.user.edit', $user) }}"
-                                                class="btn btn-outline-primary btn-sm"><i class="fa fa-pen"></i></a>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td class="text-center" colspan="100%">{{ __('No Data Found') }}</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                @if ($users->hasPages())
-                    <div class="card-footer">
-                        {{ $users->links() }}
-                    </div>
-                @endif
             </div>
+
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table student-data-table m-t-20">
+                        <thead>
+                            <tr>
+
+                                <th>{{ __('Sl') }}</th>
+                                <th>{{ __('Username') }}</th>
+                                {{-- <th>{{ __('Acc. No') }}</th> --}}
+                                <th>{{ __('Phone') }}</th>
+                                <th>{{ __('Email') }}</th>
+                                <th>{{ __('Reg. Date') }}</th>
+                                <th>{{ __('Status') }}</th>
+                                <th>{{ __('Action') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($users as $key => $user)
+                                <tr onclick="rowSelected({{ $user->id }})" id="user_{{ $user->id }}">
+                                    {{-- <td><input type="checkbox" name="user" id="usercheck_{{ $user->id }}"
+                                                class="d-none form-input user_check">
+                                        </td> --}}
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $user->username }}</td>
+                                    {{-- <td>{{ $user->id }}</td> --}}
+                                    <td>{{ $user->phone }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->created_at }}</td>
+                                    <td>
+                                        @if ($user->status)
+                                            <span class='badge badge-success'>{{ __('Active') }}</span>
+                                        @else
+                                            <span class='badge badge-danger'>{{ __('Inactive') }}</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.user.details', $user) }}"
+                                            class="btn btn-sm btn-primary">View</a>
+                                        <a href="" class="btn btn-info btn-sm">Uplaod Kyc</a>
+                                        <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td class="text-center" colspan="100%">{{ __('No Data Found') }}</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            @if ($users->hasPages())
+                <div class="card-footer">
+                    {{ $users->links() }}
+                </div>
+            @endif
         </div>
+    </div>
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="mail">
@@ -119,6 +146,14 @@
     </div>
 @endsection
 
+@push('style')
+    <style>
+        .bg-blue {
+            background-color: rgb(84, 126, 165);
+        }
+    </style>
+@endpush
+
 @push('script')
     <script>
         $(function() {
@@ -129,5 +164,26 @@
                 modal.modal('show');
             })
         })
+
+        var user_id = '';
+        var usersChecked = [];
+        var isChecked = false;
+
+        function rowSelected(id) {
+            // alert('#user_' + id);
+            user_id = id;
+            isChecked = !isChecked;
+            $('#usercheck_' + id).prop("checked", isChecked);
+            $('.user_check').removeClass('d-none');
+            $('#user_' + id).toggleClass('bg-blue');
+
+            usersChecked.push(id);
+            // $('#usercheck_' + id).dbclick(function() {
+            //     $('#user_' + id).removeClass('bg-gray');
+            //     usersChecked.pop(id);
+            // });
+
+            $('#checkedUsers').val(usersChecked.join(', '));
+        }
     </script>
 @endpush

@@ -163,9 +163,10 @@
 
 
                             </ul>
+                            <a href="<?php echo e(route('admin.user.edit', $user)); ?>" class="btn btn-primary mt-2">Update User</a>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="bankdetails">
-                            <h3>USER DETAILS</h3>
+                            <h3>BANK DETAILS</h3>
                             <ul class="list-group col-md-6">
 
                                 <li class="list-group-item d-flex justify-content-between">

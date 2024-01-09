@@ -59,12 +59,6 @@
             </li>
 
 
-            <?php if(auth()->guard('admin')->user()->can('manage-gateway')): ?>
-                <li><a href="<?php echo e(route('admin.payment-method.index')); ?>" aria-expanded="false"><i
-                            data-feather="credit-card"></i><span
-                            class="nav-text"><?php echo e(__('Payment Methods')); ?></span></a>
-                </li>
-            <?php endif; ?>
 
             
 
@@ -96,6 +90,11 @@
                             </a>
                         </li>
                     <?php endif; ?>
+                    <?php if(auth()->guard('admin')->user()->can('manage-gateway')): ?>
+                        <li><a href="<?php echo e(route('admin.payment-method.index')); ?>" aria-expanded="false"><span
+                                    class="nav-text"><?php echo e(__('Payment Methods')); ?></span></a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </li>
 
@@ -113,6 +112,7 @@
                         <li><a href="<?php echo e(route('admin.ticket.index')); ?>"><?php echo e(__('Tickets')); ?></a></li>
 
                         
+
 
 
                     </ul>
