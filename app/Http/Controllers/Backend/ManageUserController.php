@@ -355,13 +355,19 @@ class ManageUserController extends Controller
         return view('backend.users.edit')->with($data);
     }
 
+
     public function userCreate()
     {
-        dd('here');
-        $data['admins'] = Admin::whereNull('type')->select('id', 'username')->pluck('username', 'id')->toArray();
         $data['title']  = 'Add Wallet';
-
+        $data['admins'] = Admin::whereNull('type')->select('id', 'username')->pluck('username', 'id')->toArray();
         return view('backend.users.create')->with($data);
+    }
+
+    public function userSubmit(Request $request)
+    {
+        $this->userservice->create($request);
+
+        return back()->with('success', 'User Created successfully!');
     }
 
     public function assignAdmin(Request $request)
@@ -389,5 +395,6 @@ class ManageUserController extends Controller
     {
         $data['title']  = 'Upload KYC';
         return view('backend.users.upload-kyc')->with($data);
+
     }
 }
