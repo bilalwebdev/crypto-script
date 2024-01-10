@@ -38,6 +38,7 @@ class ManageUserController extends Controller
 
     public function index(Request $request)
     {
+
         $data['title'] = 'Wallets/Leads';
 
         $admin  = Admin::find(session()->get('user_id'));
@@ -72,6 +73,8 @@ class ManageUserController extends Controller
 
         $data['users'] = $users->with('payment')->latest()->paginate(Helper::pagination());
         //  dd($data);
+        $data['admins'] = Admin::whereNull('type')->select('id', 'username')->pluck('username', 'id')->toArray();
+
 
         return view('backend.users.index')->with($data);
     }
@@ -365,5 +368,33 @@ class ManageUserController extends Controller
         $this->userservice->create($request);
 
         return back()->with('success', 'User Created successfully!');
+    }
+
+    public function assignAdmin(Request $request)
+    {
+        $users = explode(",", $request->checkedUsers);
+
+        foreach ($users as $user) {
+            $adminUser = AdminUser::where('admin_id', $request->admin)
+                ->where('user_id', $user)
+                ->first();
+
+            if ($adminUser) {
+                continue;
+            } else {
+                AdminUser::create([
+                    'admin_id' => $request->admin,
+                    'user_id' => $user
+                ]);
+            }
+        }
+        return back()->with('success', 'Admin Assigned successfully!');
+    }
+
+    public function adminKycUpload()
+    {
+        $data['title']  = 'Upload KYC';
+        return view('backend.users.upload-kyc')->with($data);
+
     }
 }

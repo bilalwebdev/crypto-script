@@ -234,7 +234,7 @@
                     </div>
                 </form>
             </div>
-            {{-- <div class="mt-4 p-4 bg-white rounded-lg">
+             <div class="mt-4 p-4 bg-white rounded-lg">
                 <h4 class="mb-3">{{ __('Quick Links') }}</h4>
                 <ul class="user-action-list pb-2">
                     <li>

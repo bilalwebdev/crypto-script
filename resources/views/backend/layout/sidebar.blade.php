@@ -126,12 +126,6 @@
             </li>
 
 
-            @if (auth()->guard('admin')->user()->can('manage-gateway'))
-                <li><a href="{{ route('admin.payment-method.index') }}" aria-expanded="false"><i
-                            data-feather="credit-card"></i><span
-                            class="nav-text">{{ __('Payment Methods') }}</span></a>
-                </li>
-            @endif
 
             {{-- @if (auth()->guard('admin')->user()->can('manage-setting') ||
     auth()->guard('admin')->user()->can('manage-email') ||
@@ -235,6 +229,11 @@
                             </a>
                         </li>
                     @endif
+                    @if (auth()->guard('admin')->user()->can('manage-gateway'))
+                        <li><a href="{{ route('admin.payment-method.index') }}" aria-expanded="false"><span
+                                    class="nav-text">{{ __('Payment Methods') }}</span></a>
+                        </li>
+                    @endif
                 </ul>
             </li>
 
@@ -269,6 +268,7 @@
 
                         <li><a href="{{ route('admin.ticket.status', 'closed') }}">{{ __('Closed Ticket') }}</a>
                         </li> --}}
+
 
 
                     </ul>

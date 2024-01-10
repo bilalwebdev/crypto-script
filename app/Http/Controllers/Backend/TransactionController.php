@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    //
+    
     protected $mt5service;
     public function __construct(MT5Service $mt5service)
     {
@@ -32,6 +32,7 @@ class TransactionController extends Controller
 
     public function storeTrans(Request $request)
     {
+        
 
         // dd($request->transac_type);
         if ($request->transac_type == 'dep') {
@@ -50,9 +51,6 @@ class TransactionController extends Controller
             // $general = Configuration::first();
 
             // $gateway = Gateway::find($deposit->gateway_id);
-
-
-
 
             $deposit->user->balance = $deposit->user->balance + $deposit->amount;
 

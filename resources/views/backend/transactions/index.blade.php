@@ -62,9 +62,10 @@
                                                 <td>
                                                     <select name="transac_type" class="form-control form-control-sm"
                                                         id="transac_type" required>
-                                                        <option value=""></option>
-                                                        <option value="with">Winthdraw</option>
+
                                                         <option value="dep">Deposit</option>
+                                                        <option value="with">Winthdraw</option>
+
                                                     </select>
                                                 </td>
                                                 <td>
