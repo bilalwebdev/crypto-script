@@ -2,7 +2,7 @@
 
 
 @section('element')
-    <div class="row">
+    <div class="row ">
         <div class="col-md-12">
             {{-- <div class="card mb-4">
                 <div class="card-body">
@@ -11,25 +11,33 @@
             </div> --}}
             <div class="card">
                 <div class="card-header site-card-header justify-content-between align-items-center">
-                    <div class="card-header-left">
-                        <form action="" method="get" class="row">
-                            <div class="input-group flex-wrap user-search-area">
-                                <input type="text" class="form-control form-control-sm"
-                                    placeholder="username or email or phone" name="search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary btn-sm" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
+                    <div class="card-header-left ">
+                        <div class="row gap-2">
+                            <form action="" method="get">
+                                <div class="input-group flex-wrap user-search-area">
+                                    <input type="text" class="form-control form-control-sm"
+                                        placeholder="username or email or phone" name="search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary btn-sm" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
+                            </form>
+                            <div class="m-1">
+                                <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-sm"><i
+                                        class="fas fa-plus"></i> Add Wallet</a>
                             </div>
-                        </form>
+                        </div>
+
                     </div>
                     <div class="card-header-right">
-                        <form action="{{ route('admin.user.assign-admin') }}" method="post">
+                        <form action="" method="post">
                             @csrf
-                            <div class="row d-flex" style="gap:5px">
-                                <div class="form-group" style="height: 20px">
-                                    <select name="admin" class="form-control" style="height: 34px">
+                            <div class="row d-flex" style="gap: 5px">
+                                <div class="form-group ">
+                                    <select name="admin" class="form-control" style="height:35px">
+
                                         <option value="-">Select Admin</option>
                                         @foreach (@$admins as $key => $admin)
                                             <option value="{{ $key }}">
@@ -90,7 +98,7 @@
                                         <td>
                                             <a href="{{ route('admin.user.details', $user) }}"
                                                 class="btn btn-sm btn-primary">View</a>
-                                            <a href="{{ route('admin.admin-upload-kyc', $user) }}"
+                                            <a href="{{ url('user/upload-kyc/' . $user->id) }}"
                                                 class="btn btn-info btn-sm">Uplaod Kyc</a>
                                             <a href="" class="btn btn-danger btn-sm">Delete</a>
                                         </td>

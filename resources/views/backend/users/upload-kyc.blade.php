@@ -10,8 +10,7 @@
 
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('admin.admin-kyc-store') }}" id=""
-                        enctype="multipart/form-data">
+                    <form method="POST" action="{{ url('admin/user/upload-kyc-submit') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="col-12">
                             <div class="col-6">

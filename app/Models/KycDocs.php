@@ -10,4 +10,12 @@ class KycDocs extends Model
     use HasFactory;
 
     protected $table = "kyc_docs";
+
+
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
