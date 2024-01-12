@@ -110,19 +110,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('mail/{user}', [ManageUserController::class, 'sendUserMail'])->name('mail');
         Route::get('{status}', [ManageUserController::class, 'userStatusWiseFilter'])->name('filter');
         Route::get('interest/log', [ManageUserController::class, 'interestLog'])->name('interestlog');
-
         Route::post('bulk/mail', [ManageUserController::class, 'bulkMail'])->name('bulk');
-
         Route::get('doc/{user}', [ManageUserController::class, 'kycDoc'])->name('doc');
-
         Route::get('kyc/request', [ManageUserController::class, 'kycAll'])->name('kyc.req');
         Route::get('kyc/request/{id}', [ManageUserController::class, 'kycDetails'])->name('kyc.details');
         Route::post('/kyc-approve', [ManageUserController::class, 'kycStatus'])->name('kyc.approve');
-
-        Route::get('login/user/{id}', [ManageUserController::class, 'loginAsUser'])->name('login');
         Route::post('delete-acc/{login}', [ManageUserController::class, 'accDel'])->name('acc-del');
-
         Route::get('/edit/{user}', [ManageUserController::class, 'userEdit'])->name('edit');
+        
     });
 
     Route::get('user/create', [ManageUserController::class, 'userCreate'])->name('user.create');
@@ -274,6 +269,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/transac', [TransactionController::class, 'trans'])->name('transac');
         Route::post('/transac/store', [TransactionController::class, 'storeTrans'])->name('transac.store');
+        Route::get('/transac/confirm', [TransactionController::class, 'confirmTrans'])->name('transac.confirm');
+        Route::post('/transac/final', [TransactionController::class, 'finalTrans'])->name('transac.final');
     });
 
     Route::middleware('permission:manage-withdraw,admin')->group(function () {

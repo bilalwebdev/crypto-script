@@ -92,8 +92,8 @@
                             <a href="{{ route('user.dashboard') }}" class="btn sp_theme_btn btn-sm">{{ __('Dashboard') }}
                                 <i class="las la-long-arrow-alt-right ms-2"></i></a>
                         @else
-                            <a href="{{ route('user.login') }}" class="me-3 text-p">{{ __('Sign In') }}</a>
-                            <a href="{{ route('user.register') }}" class="btn sp_theme_btn btn-sm">{{ __('Sign up') }} <i
+                            <a href="{{ url('/login') }}" class="me-3 text-p">{{ __('Sign In') }}</a>
+                            <a href="{{ url('/register') }}" class="btn sp_theme_btn btn-sm">{{ __('Sign up') }} <i
                                     class="las la-long-arrow-alt-right ms-2"></i></a>
                         @endauth
 
