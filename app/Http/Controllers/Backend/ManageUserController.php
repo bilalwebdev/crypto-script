@@ -394,7 +394,8 @@ class ManageUserController extends Controller
     public function adminKycUpload(Request $request)
     {
 
-        if ($request->hasFile('file_type')) {
+        if ($request->hasFile('file')) {
+
 
 
             $filename = Helper::saveImage($request->file, Helper::filePath('kyc', true));
@@ -402,7 +403,7 @@ class ManageUserController extends Controller
             KycDocs::create([
                 'user_id' => $request->user_id,
                 'file' => $filename,
-                'type' => $request->doc_type,
+                'type' => $request->file_type,
 
             ]);
 
@@ -414,7 +415,4 @@ class ManageUserController extends Controller
             return view('backend.users.upload-kyc')->with($data);
         }
     }
-
-
-   
 }

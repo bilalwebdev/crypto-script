@@ -9,7 +9,6 @@
                     <h6 class="mb-0 ">Deposit Funds</h6>
                 </div>
                 <div class="card-body">
-
                     <form action="create/deposit" method="post">
                         @csrf
                         <div class="form-group mb-3">
@@ -39,7 +38,6 @@
                             </select>
 
                         </div>
-
                         <div class="form-group mb-3">
                             <label for="">AMOUNT</label>
                             <input type="number" min="" class="form-control" name="amount" id="amount" required

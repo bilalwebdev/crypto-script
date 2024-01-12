@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="row gy-4">
-
         <div class="col-md-12">
             <div class="sp_site_card">
                 <div class="card-header d-flex justify-content-between">
@@ -17,7 +16,6 @@
                         </div>
                     @endif
                 </div>
-
                 <div class="card-body">
                     <form action="" method="post" enctype="multipart/form-data">
                         @csrf
@@ -55,25 +53,10 @@
                             <div class="form-group">
                                 <button class="btn sp_theme_btn mt-4" type="submit">{{ __('KYC Verification') }}</button>
                             </div>
-
-
-
-
                         </div>
-
-
-
                     </form>
-
-
-
                 </div>
-
             </div>
-
-
-
-
         </div>
     </div>
 @endsection

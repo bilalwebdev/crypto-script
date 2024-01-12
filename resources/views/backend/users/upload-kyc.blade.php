@@ -15,7 +15,7 @@
                         <div class="col-12">
                             <div class="col-6">
                                 <label for="">Select Document Type</label>
-                                <select name="doc_type" id="" class="form-control" required>
+                                <select name="file_type" id="" class="form-control" required>
                                     <option value=""></option>
                                     <option value="proof_id">Identity Proof</option>
                                     <option value="proof_address">Address Proof</option>

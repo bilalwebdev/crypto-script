@@ -98,7 +98,7 @@
                                         <td>
                                             <a href="{{ route('admin.user.details', $user) }}"
                                                 class="btn btn-sm btn-primary">View</a>
-                                            <a href="{{ url('user/upload-kyc/' . $user->id) }}"
+                                            <a href="{{ url('admin/user/upload-kyc/' . $user->id) }}"
                                                 class="btn btn-info btn-sm">Uplaod Kyc</a>
                                             <a href="" class="btn btn-danger btn-sm">Delete</a>
                                         </td>

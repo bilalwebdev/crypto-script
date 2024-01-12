@@ -270,26 +270,26 @@
         </div> --}}
     </div>
 
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-xxl-9">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">{{ __('Payment Chart') }}</h4>
+                    <h4 class="card-title">{{ __('Live Accounts') }}</h4>
                 </div>
                 <div class="card-body">
-                    <div id="profit-chart"></div>
+                    <div id="acc-chart"></div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 d-xxl-block d-none">
+        {{--     <div class="col-lg-3 d-xxl-block d-none">
             <div class="card">
                 <div class="card-body">
                     <h4>{{ __('Users Status') }}</h4>
                     <div id="chart2" class="d-flex justify-content-center"></div>
                 </div>
             </div>
-        </div>
-    </div> --}}
+        </div> --}}
+    </div>
 
     {{-- <div class="row">
         <div class="col-xxl-9 col-lg-8">
@@ -428,13 +428,12 @@
         </div>
     </div> --}}
 
-      <div class="row">
+    <div class="row">
         <div class="col-xxl-9 col-lg-8">
             <div class="card">
                 <div class="card-header justify-content-between">
                     <h4 class="card-title">{{ __('Latest Registerations') }}</h4>
-                    <a href="{{ route('admin.user.index') }}"
-                        class="site-color fw-500">{{ __('View All') }}</a>
+                    <a href="{{ route('admin.user.index') }}" class="site-color fw-500">{{ __('View All') }}</a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -478,7 +477,7 @@
 
     </div>
 
-     {{--<div class="row">
+    {{-- <div class="row">
         <div class="col-xxl-6">
             <div class="card">
                 <div class="card-header justify-content-between">
@@ -871,6 +870,23 @@
 
 
         var chart = new ApexCharts(document.querySelector("#profit-chart"), payment);
+        chart.render();
+
+
+
+        var account = {
+            series: [{
+                name: 'Live Accounts',
+                data: @json($totalAccounts)
+            }],
+            xaxis: {
+                categories: @json($months),
+            },
+
+        };
+
+
+        var chart = new ApexCharts(document.querySelector("#acc-chart"), account);
         chart.render();
     </script>
 @endpush

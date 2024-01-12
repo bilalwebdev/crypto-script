@@ -69,17 +69,28 @@
         
     </div>
 
-    
+    <div class="row">
+        <div class="col-xxl-9">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"><?php echo e(__('Live Accounts')); ?></h4>
+                </div>
+                <div class="card-body">
+                    <div id="acc-chart"></div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 
     
 
-      <div class="row">
+    <div class="row">
         <div class="col-xxl-9 col-lg-8">
             <div class="card">
                 <div class="card-header justify-content-between">
                     <h4 class="card-title"><?php echo e(__('Latest Registerations')); ?></h4>
-                    <a href="<?php echo e(route('admin.user.index')); ?>"
-                        class="site-color fw-500"><?php echo e(__('View All')); ?></a>
+                    <a href="<?php echo e(route('admin.user.index')); ?>" class="site-color fw-500"><?php echo e(__('View All')); ?></a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -115,7 +126,7 @@
 
     </div>
 
-     
+    
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('script'); ?>
@@ -390,6 +401,23 @@
 
 
         var chart = new ApexCharts(document.querySelector("#profit-chart"), payment);
+        chart.render();
+
+
+
+        var account = {
+            series: [{
+                name: 'Live Accounts',
+                data: <?php echo json_encode($totalAccounts, 15, 512) ?>
+            }],
+            xaxis: {
+                categories: <?php echo json_encode($months, 15, 512) ?>,
+            },
+
+        };
+
+
+        var chart = new ApexCharts(document.querySelector("#acc-chart"), account);
         chart.render();
     </script>
 <?php $__env->stopPush(); ?>

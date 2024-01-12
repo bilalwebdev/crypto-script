@@ -243,12 +243,7 @@
                             {{ __('Send Email') }}
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('admin.user.login', $user->id) }}" target="_blank" class="user-action-btn">
-                            <i class="fas fa-user-alt mr-2"></i>
-                            {{ __('Login As User') }}
-                        </a>
-                    </li>
+                  
                     <li>
                         <a href="{{ route('admin.commision', $user) }}" class="user-action-btn">
                             <i class="fas fa-percentage mr-2"></i>

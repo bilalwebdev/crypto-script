@@ -256,6 +256,7 @@
                     <ul aria-expanded="false">
 
                         <li><a href="{{ route('admin.ticket.index') }}">{{ __('Tickets') }}</a></li>
+                        <li><a href="{{ route('admin.kyc-doc.index') }}">{{ __('Kyc Docs') }}</a></li>
 
                         {{-- <li><a href="{{ route('admin.ticket.status', 'pending') }}">{{ __('Pending Ticket') }}
                                 @if (Config::sidebarData()['pendingTicket'] > 0)

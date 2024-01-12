@@ -138,7 +138,29 @@ class DashboardController extends Controller
 
 
 
-        $data['totalAccounts'] = Account::count();
+
+        $totalAccount = array();
+
+        $accounts = Account::select(DB::raw('MONTHNAME(created_at) month'))
+            ->groupby('month')
+            ->get();;
+
+        $i = 0;
+        foreach ($accounts as $acc) {
+
+            $index = array_search($acc->month, $months);
+
+            dd($index);
+
+            $totalRecords = Account::whereMonth('created_at', '=', $month)
+                ->get();
+
+            $totalAccount[$index] = $totalRecords;
+        }
+
+        $data['totalAccounts'] = $totalAccount;
+
+        dd($data['totalAccounts']);
         $data['latestUsers'] = User::take(5)->latest()->get();
 
         return view('backend.dashboard')->with($data);
