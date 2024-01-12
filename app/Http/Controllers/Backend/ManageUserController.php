@@ -414,4 +414,7 @@ class ManageUserController extends Controller
             return view('backend.users.upload-kyc')->with($data);
         }
     }
+
+
+   
 }

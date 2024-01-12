@@ -9,7 +9,8 @@
 
     <title>{{ Config::config()->appname }}</title>
 
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ Config::fetchImage('icon', Config::config()->favicon, true) }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="{{ Config::fetchImage('icon', Config::config()->favicon, true) }}">
 
     <link href="{{ Config::cssLib('backend', 'all.min.css') }}" rel="stylesheet">
 
@@ -29,6 +30,7 @@
     <link href="{{ Config::cssLib('backend', 'summernote-bs4.min.css') }}" rel="stylesheet">
 
     <link href="{{ Config::cssLib('backend', 'ui.css') }}" rel="stylesheet">
+    <link href="{{ Config::cssLib('backend', 'lightbox.css') }}" rel="stylesheet">
 
     @if (Config::config()->alert === 'izi')
         <link href="{{ Config::cssLib('backend', 'izitoast.min.css') }}" rel="stylesheet">
@@ -45,6 +47,7 @@
     @stack('style')
 
 </head>
+
 <body>
 
     <div id="main-wrapper">
@@ -92,6 +95,7 @@
     <script src="{{ Config::jsLib('backend', 'apex-chart.min.js') }}"></script>
 
     <script src="{{ Config::jsLib('backend', 'iconpicker.js') }}"></script>
+    <script src="{{ Config::jsLib('backend', 'lightbox.js') }}"></script>
 
     @if (Config::config()->alert === 'izi')
         <script src="{{ Config::jsLib('backend', 'izitoast.min.js') }}"></script>
@@ -111,7 +115,7 @@
     <script>
         $(function() {
             'use strict'
-            
+
             $('.summernote').summernote({
                 height: 250,
             });

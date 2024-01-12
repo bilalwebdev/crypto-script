@@ -161,8 +161,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('destroy/{id}', [TicketController::class, 'destroy'])->name('destroy');
     });
 
-    Route::get('kyc-docs', [ManageKycController::class, 'index'])->name('kyc-docs.index');
+    // kyc-docs
 
+    Route::middleware('permission:manage-ticket,admin')->prefix('kyc-docs')->name('kyc-doc.')->group(function () {
+        Route::get('/approve/{id}', [ManageKycController::class, 'approve'])->name('approve');
+        Route::get('/reject/{id}', [ManageKycController::class, 'reject'])->name('reject');
+        Route::get('/delete/{id}', [ManageKycController::class, 'delete'])->name('delete');
+        Route::get('/', [ManageKycController::class, 'index'])->name('index');
+    });
 
 
     // Email Manager
@@ -374,6 +380,8 @@ Route::prefix('users')->name('user.')->group(function () {
 });
 
 Route::post('/assign-admin', [ManageUserController::class, 'assignAdmin'])->name('user.assign-admin');
+
+
 
 
 

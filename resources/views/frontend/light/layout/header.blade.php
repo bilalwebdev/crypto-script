@@ -10,8 +10,9 @@
                 <div class="col-lg-10 header-top-left">
                     <div class="tradingview-widget-container">
                         <div class="tradingview-widget-container__widget"></div>
-                        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/" rel="noopener"
-                                target="_blank"><span class="blue-text">Markets today</span></a> by TradingView</div>
+                        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/"
+                                rel="noopener" target="_blank"><span class="blue-text">Markets today</span></a> by
+                            TradingView</div>
                         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
                             {
                                 "symbols": [{
@@ -51,8 +52,7 @@
                         <select class="custom-select-form selectric ms-3 rounded changeLang nav-link scrollto"
                             aria-label="Default select example">
                             @foreach (Config::languages() as $language)
-                                <option value="{{ $language->code }}"
-                                    {{ Config::languageSelection($language->code) }}>
+                                <option value="{{ $language->code }}" {{ Config::languageSelection($language->code) }}>
                                     {{ __(ucwords($language->name)) }}
                                 </option>
                             @endforeach
@@ -92,8 +92,8 @@
                             <a href="{{ route('user.dashboard') }}" class="btn sp_theme_btn btn-sm">{{ __('Dashboard') }}
                                 <i class="las la-long-arrow-alt-right ms-2"></i></a>
                         @else
-                            <a href="{{ route('user.login') }}" class="me-3 text-p">{{ __('Sign In') }}</a>
-                            <a href="{{ route('user.register') }}" class="btn sp_theme_btn btn-sm">{{ __('Sign up') }} <i
+                            <a href="{{ url('/login') }}" class="me-3 text-p">{{ __('Sign In') }}</a>
+                            <a href="{{ url('/register') }}" class="btn sp_theme_btn btn-sm">{{ __('Sign up') }} <i
                                     class="las la-long-arrow-alt-right ms-2"></i></a>
                         @endauth
 
