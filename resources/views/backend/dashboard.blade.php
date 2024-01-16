@@ -877,14 +877,26 @@
 
         var account = {
             chart: {
-                height: 380,
+                height: 300,
                 type: 'line',
-                zoom: {
-                    enabled: false
+                dropShadow: {
+                    enabled: true,
+                    opacity: 0.2,
+                    blur: 10,
+                    left: -7,
+                    top: 22
                 },
                 toolbar: {
                     show: false
-                }
+                },
+            },
+
+            plotpayment: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '40%',
+                    endingShape: 'rounded'
+                },
             },
             series: [{
                 name: 'Live Accounts',
@@ -893,11 +905,18 @@
             xaxis: {
                 categories: @json($months),
             },
+            yaxis: {
+                labels: {
+                    formatter: function(value) {
+                        // Customize the y-axis label formatting here
+                        // Example: Display labels without points
+                        return Math.floor(value);
+                    }
+                }
+            },
+
 
         };
-
-        console.log(account);
-
 
         var chart = new ApexCharts(document.querySelector("#acc-chart"), account);
         chart.render();

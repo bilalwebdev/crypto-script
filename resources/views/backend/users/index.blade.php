@@ -72,6 +72,7 @@
                                     <th>{{ __('Phone') }}</th>
                                     <th>{{ __('Email') }}</th>
                                     <th>{{ __('Reg. Date') }}</th>
+                                    <th>{{ __('Country') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Action') }}</th>
                                 </tr>
@@ -88,6 +89,7 @@
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->created_at }}</td>
+                                        <td>{{ $user->address->country }}</td>
                                         <td>
                                             @if ($user->status)
                                                 <span class='badge badge-success'>{{ __('Active') }}</span>
@@ -97,10 +99,16 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.user.details', $user) }}"
-                                                class="btn btn-sm btn-primary">View</a>
+                                                class="btn btn-sm btn-primary">
+                                                <i class="las la-eye"></i>
+                                                View</a>
                                             <a href="{{ url('admin/user/upload-kyc/' . $user->id) }}"
-                                                class="btn btn-info btn-sm">Uplaod Kyc</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                                class="btn btn-info btn-sm">
+                                                <i class="las la-file-alt"></i>
+                                                Uplaod Kyc</a>
+                                            <a href="" class="btn btn-danger btn-sm">
+                                                <i class="las la-trash"></i>
+                                                Delete</a>
                                         </td>
                                     </tr>
                                 @empty

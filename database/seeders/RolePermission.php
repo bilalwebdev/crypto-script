@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use DB;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RolePermission extends Seeder
@@ -16,6 +17,7 @@ class RolePermission extends Seeder
      */
     public function run()
     {
+
         $permission = [
             ['name' => 'manage-admin', 'guard_name' => 'admin'],
             ['name' => 'manage-role', 'guard_name' => 'admin'],
@@ -35,12 +37,14 @@ class RolePermission extends Seeder
             ['name' => 'manage-logs', 'guard_name' => 'admin'],
             ['name' => 'manage-frontend', 'guard_name' => 'admin'],
             ['name' => 'manage-subscriber', 'guard_name' => 'admin'],
+            ['name' => 'manage-payment-method', 'guard_name' => 'admin'],
             ['name' => 'manage-report', 'guard_name' => 'admin'],
+            ['name' => 'manage-transact', 'guard_name' => 'admin'],
         ];
 
         DB::table('permissions')->insert($permission);
 
-        $adminRole = Role::create(['name' => 'Admin','guard_name' => 'admin']);
+        $adminRole = Role::create(['name' => 'Admin', 'guard_name' => 'admin']);
 
         $adminRole->givePermissionTo([
             'manage-admin',
@@ -62,6 +66,8 @@ class RolePermission extends Seeder
             'manage-frontend',
             'manage-subscriber',
             'manage-report',
+            'manage-payment-method',
+            'manage-transact'
         ]);
         $admin = Admin::first();
 

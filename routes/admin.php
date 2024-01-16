@@ -76,22 +76,22 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('language/ajax', [LanguageController::class, 'languageAjax'])->name('cms-builder');
 
 
-    Route::middleware('permission:signal,admin')->group(function () {
-        Route::resource('currency-pair', SignalCurrencyPairController::class);
-        Route::post('currency-pair/changeStatus/{id}', [SignalCurrencyPairController::class, 'changeStatus'])->name('currency-pair.changestatus');
+    // Route::middleware('permission:signal,admin')->group(function () {
+    //     Route::resource('currency-pair', SignalCurrencyPairController::class);
+    //     Route::post('currency-pair/changeStatus/{id}', [SignalCurrencyPairController::class, 'changeStatus'])->name('currency-pair.changestatus');
 
 
-        Route::resource('markets', MarketController::class);
-        Route::post('markets/changeStatus/{id}', [MarketController::class, 'changeStatus'])->name('markets.changestatus');
+    //     Route::resource('markets', MarketController::class);
+    //     Route::post('markets/changeStatus/{id}', [MarketController::class, 'changeStatus'])->name('markets.changestatus');
 
 
-        Route::resource('frames', SignalTimeFrameController::class);
-        Route::post('frames/changeStatus/{id}', [SignalTimeFrameController::class, 'changeStatus'])->name('frames.changestatus');
+    //     Route::resource('frames', SignalTimeFrameController::class);
+    //     Route::post('frames/changeStatus/{id}', [SignalTimeFrameController::class, 'changeStatus'])->name('frames.changestatus');
 
 
-        Route::resource('signals', SignalController::class);
-        Route::post('signals/send/{id}', [SignalController::class, 'sent'])->name('signals.sent');
-    });
+    //     Route::resource('signals', SignalController::class);
+    //     Route::post('signals/send/{id}', [SignalController::class, 'sent'])->name('signals.sent');
+    // });
 
     // Role Permission
 
@@ -101,10 +101,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('admins/changeStatus/{id}', [AdminController::class, 'changeStatus'])->name('changestatus')->middleware('permission:manage-admin,admin');
 
     // Manage User
-    Route::prefix('users')->name('user.')->group(function () {
-
-        Route::get('/', [ManageUserController::class, 'index'])->name('index');
-        Route::get('details/{user}', [ManageUserController::class, 'userDetails'])->name('details');
+    Route::middleware('permission:manage-user,admin')->prefix('users')->name('user.')->group(function () {
         Route::post('update/{user}', [ManageUserController::class, 'userUpdate'])->name('update');
         Route::post('balance/{user}', [ManageUserController::class, 'userBalanceUpdate'])->name('balance.update');
         Route::post('mail/{user}', [ManageUserController::class, 'sendUserMail'])->name('mail');
@@ -119,9 +116,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/edit/{user}', [ManageUserController::class, 'userEdit'])->name('edit');
     });
 
-    Route::post('user/assign-admin', [ManageUserController::class, 'assignAdmin'])->name('user.assign-admin');
-    Route::get('user/create', [ManageUserController::class, 'userCreate'])->name('user.create');
-    Route::post('user/submit', [ManageUserController::class, 'userSubmit'])->name('user.submit');
+    Route::get('/users', [ManageUserController::class, 'index'])->name('user.index');
+    Route::get('/users/details/{user}', [ManageUserController::class, 'userDetails'])->name('user.details');
+
+    Route::post('user/assign-admin', [ManageUserController::class, 'assignAdmin'])->name('user.assign-admin')->middleware('permission:manage-user,admin');;
+    Route::get('user/create', [ManageUserController::class, 'userCreate'])->name('user.create')->middleware('permission:manage-user,admin');;
+    Route::post('user/submit', [ManageUserController::class, 'userSubmit'])->name('user.submit')->middleware('permission:manage-user,admin');;
+
 
 
     Route::get('user/upload-kyc/{user}', [ManageUserController::class, 'adminKycUpload'])->name('user.upload-kyc');
@@ -131,8 +132,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     //payment method
 
-    Route::middleware('permission:manage-gateway,admin')->group(function () {
-
+    Route::middleware('permission:manage-payment-method,admin')->group(function () {
         Route::resource('payment-method', PaymentMethodController::class);
         Route::post('payment-method/changeStatus/{id}', [PaymentMethodController::class, 'changeStatus'])->name('payment-method.changestatus');
     });
@@ -141,12 +141,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
     // General Settings
-    Route::middleware('permission:manage-setting,admin')->prefix('general')->name('general.')->group(function () {
+    // Route::middleware('permission:manage-setting,admin')->prefix('general')->name('general.')->group(function () {
 
-        Route::get('index', [ConfigurationController::class, 'index'])->name('index');
+    //     Route::get('index', [ConfigurationController::class, 'index'])->name('index');
 
-        Route::post('setting', [ConfigurationController::class, 'ConfigurationUpdate'])->name('basic');
-    });
+    //     Route::post('setting', [ConfigurationController::class, 'ConfigurationUpdate'])->name('basic');
+    // });
 
     // End General Settings
 
@@ -154,12 +154,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // support Ticket
 
     Route::middleware('permission:manage-ticket,admin')->prefix('ticket')->name('ticket.')->group(function () {
-        Route::get('/', [TicketController::class, 'index'])->name('index');
         Route::get('/{id}', [TicketController::class, 'show'])->name('show');
         Route::post('ticket/reply/{id}', [TicketController::class, 'reply'])->name('reply');
         Route::get('filter/{status}', [TicketController::class, 'filterByStatus'])->name('status');
         Route::delete('destroy/{id}', [TicketController::class, 'destroy'])->name('destroy');
     });
+
+    Route::get('/ticket', [TicketController::class, 'index'])->name('ticket.index');
 
     // kyc-docs
 
@@ -167,26 +168,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/approve/{id}', [ManageKycController::class, 'approve'])->name('approve');
         Route::get('/reject/{id}', [ManageKycController::class, 'reject'])->name('reject');
         Route::get('/delete/{id}', [ManageKycController::class, 'delete'])->name('delete');
-        Route::get('/', [ManageKycController::class, 'index'])->name('index');
     });
+
+    Route::get('/kyc-docs', [ManageKycController::class, 'index'])->name('kyc-doc.index');
 
 
     // Email Manager
-    Route::middleware('permission:manage-email,admin')->prefix('email')->name('email.')->group(function () {
+    // Route::middleware('permission:manage-email,admin')->prefix('email')->name('email.')->group(function () {
 
-        Route::get('config', [EmailTemplateController::class, 'emailConfig'])->name('config');
-        Route::post('config', [EmailTemplateController::class, 'emailConfigUpdate']);
-        Route::get('templates', [EmailTemplateController::class, 'emailTemplates'])->name('templates');
-        Route::get('templates/{template}', [EmailTemplateController::class, 'emailTemplatesEdit'])->name('templates.edit');
-        Route::post('templates/{template}', [EmailTemplateController::class, 'emailTemplatesUpdate']);
-    });
+    //     Route::get('config', [EmailTemplateController::class, 'emailConfig'])->name('config');
+    //     Route::post('config', [EmailTemplateController::class, 'emailConfigUpdate']);
+    //     Route::get('templates', [EmailTemplateController::class, 'emailTemplates'])->name('templates');
+    //     Route::get('templates/{template}', [EmailTemplateController::class, 'emailTemplatesEdit'])->name('templates.edit');
+    //     Route::post('templates/{template}', [EmailTemplateController::class, 'emailTemplatesUpdate']);
+    // });
 
 
-    Route::middleware('permission:manage-referral,admin')->prefix('refferal')->name('refferal.')->group(function () {
-        Route::get('/', [ReferralController::class, 'index'])->name('index');
-        Route::post('invest', [ReferralController::class, 'investStore'])->name('invest');
-        Route::post('status/{id?}', [ReferralController::class, 'refferalStatusChange'])->name('refferalstatus');
-    });
+    // Route::middleware('permission:manage-referral,admin')->prefix('refferal')->name('refferal.')->group(function () {
+    //     Route::get('/', [ReferralController::class, 'index'])->name('index');
+    //     Route::post('invest', [ReferralController::class, 'investStore'])->name('invest');
+    //     Route::post('status/{id?}', [ReferralController::class, 'refferalStatusChange'])->name('refferalstatus');
+    // });
 
 
     // Route::middleware('permission:manage-gateway,admin')->prefix('gateway')->name('payment.')->group(function () {
@@ -203,80 +205,81 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // });
 
 
-    Route::middleware('permission:manage-language,admin')->prefix('language')->name('language.')->group(function () {
-        Route::get('/', [LanguageController::class, 'index'])->name('index');
-        Route::post('/', [LanguageController::class, 'store']);
-        Route::post('edit/{id}', [LanguageController::class, 'update'])->name('edit');
-        Route::post('delete/{id}', [LanguageController::class, 'delete'])->name('delete');
+    // Route::middleware('permission:manage-language,admin')->prefix('language')->name('language.')->group(function () {
+    //     Route::get('/', [LanguageController::class, 'index'])->name('index');
+    //     Route::post('/', [LanguageController::class, 'store']);
+    //     Route::post('edit/{id}', [LanguageController::class, 'update'])->name('edit');
+    //     Route::post('delete/{id}', [LanguageController::class, 'delete'])->name('delete');
 
 
-        Route::get('translator/{lang}', [LanguageController::class, 'transalate'])->name('translator');
-        Route::post('translator/{lang}', [LanguageController::class, 'transalateUpate']);
+    //     Route::get('translator/{lang}', [LanguageController::class, 'transalate'])->name('translator');
+    //     Route::post('translator/{lang}', [LanguageController::class, 'transalateUpate']);
 
-        Route::post('translator/ajax/update/{lang}', [LanguageController::class, 'ajaxUpdate'])->name('ajax');
-        Route::post('translator/delete/{lang}', [LanguageController::class, 'deleteKey'])->name('key.delete');
-    });
-
-
-    Route::middleware('permission:manage-withdraw,admin')->prefix('withdraw')->name('withdraw.')->group(function () {
-
-        Route::get('method', [ManageWithdrawController::class, 'index'])->name('index');
-        Route::get('method/search', [ManageWithdrawController::class, 'index'])->name('search');
-        Route::post('method', [ManageWithdrawController::class, 'withdrawMethodCreate']);
-        Route::post('edit/{id}', [ManageWithdrawController::class, 'withdrawMethodUpdate'])->name('update');
-        Route::post('delete/{id}', [ManageWithdrawController::class, 'withdrawMethodDelete'])->name('delete');
-
-        Route::get('withdraw-log/{id}', [ManageWithdrawController::class, 'withdrawLog'])->name('log');
-        Route::get('{status?}', [ManageWithdrawController::class, 'filterWithdraw'])->name('filter');
-        Route::post('accept/{withdraw}', [ManageWithdrawController::class, 'withdrawAccept'])->name('accept');
-        Route::post('reject/{withdraw}', [ManageWithdrawController::class, 'withdrawReject'])->name('reject');
-    });
-
-    Route::middleware('permission:payments,admin')->prefix('payments')->name('payments.')->group(function () {
-        Route::get('/{type}', [PaymentController::class, 'payment'])->name('index');
-        Route::get('details/{id}', [PaymentController::class, 'details'])->name('details');
-
-        Route::post('accept/{trx}', [PaymentController::class, 'accept'])->name('accept');
-        Route::post('reject/{trx}', [PaymentController::class, 'reject'])->name('reject');
-    });
-
-    Route::middleware('permission:manage-theme,admin')->group(function () {
-        Route::get('manage-theme', [ConfigurationController::class, 'manageTheme'])->name('manage.theme');
-        Route::post('manage-theme/{name}', [ConfigurationController::class, 'themeUpdate'])->name('manage.theme.update');
-        Route::post('change/theme/color/{theme}', [ConfigurationController::class, 'themeColor'])->name('manage.theme.color');
-    });
-
-    Route::middleware('permission:manage-frontend,admin')->group(function () {
-        Route::get('pages', [PagesController::class, 'index'])->name('frontend.pages');
-        Route::get('pages/create', [PagesController::class, 'pageCreate'])->name('frontend.pages.create');
-        Route::post('pages/create', [PagesController::class, 'pageInsert']);
-        Route::get('pages/edit/{id}', [PagesController::class, 'pageEdit'])->name('frontend.pages.edit');
-        Route::post('pages/edit/{id}', [PagesController::class, 'pageUpdate']);
-        Route::get('pages/search', [PagesController::class, 'index'])->name('frontend.search');
-        Route::post('pages/delete/{id}', [PagesController::class, 'pageDelete'])->name('frontend.pages.delete');
-
-        Route::get('manage/section/{name}', [ManageSectionController::class, 'section'])->name('frontend.section.manage');
-        Route::post('manage/section/{name}', [ManageSectionController::class, 'sectionContentUpdate']);
-        Route::get('manage/element/{name}', [ManageSectionController::class, 'sectionElement'])->name('frontend.element');
-        Route::get('manage/element/{name}/search', [ManageSectionController::class, 'section'])->name('frontend.element.search');
-        Route::post('manage/element/{name}', [ManageSectionController::class, 'sectionElementCreate']);
-        Route::get('edit/{name}/element/{element}', [ManageSectionController::class, 'editElement'])->name('frontend.element.edit');
-        Route::post('edit/{name}/element/{element}', [ManageSectionController::class, 'updateElement']);
-        Route::post('delete/{name}/element/{element}', [ManageSectionController::class, 'deleteElement'])->name('frontend.element.delete');
+    //     Route::post('translator/ajax/update/{lang}', [LanguageController::class, 'ajaxUpdate'])->name('ajax');
+    //     Route::post('translator/delete/{lang}', [LanguageController::class, 'deleteKey'])->name('key.delete');
+    // });
 
 
-        Route::get('frontend/translate/{name}/{element}', [ManageSectionController::class, 'translate'])->name('frontend.translate');
-        Route::post('frontend/translate/{name}/{element}', [ManageSectionController::class, 'translateUpdate']);
-    });
+    // Route::middleware('permission:manage-withdraw,admin')->prefix('withdraw')->name('withdraw.')->group(function () {
+
+    //     Route::get('method', [ManageWithdrawController::class, 'index'])->name('index');
+    //     Route::get('method/search', [ManageWithdrawController::class, 'index'])->name('search');
+    //     Route::post('method', [ManageWithdrawController::class, 'withdrawMethodCreate']);
+    //     Route::post('edit/{id}', [ManageWithdrawController::class, 'withdrawMethodUpdate'])->name('update');
+    //     Route::post('delete/{id}', [ManageWithdrawController::class, 'withdrawMethodDelete'])->name('delete');
+
+    //     Route::get('withdraw-log/{id}', [ManageWithdrawController::class, 'withdrawLog'])->name('log');
+    //     Route::get('{status?}', [ManageWithdrawController::class, 'filterWithdraw'])->name('filter');
+    //     Route::post('accept/{withdraw}', [ManageWithdrawController::class, 'withdrawAccept'])->name('accept');
+    //     Route::post('reject/{withdraw}', [ManageWithdrawController::class, 'withdrawReject'])->name('reject');
+    // });
+
+    // Route::middleware('permission:payments,admin')->prefix('payments')->name('payments.')->group(function () {
+    //     Route::get('/{type}', [PaymentController::class, 'payment'])->name('index');
+    //     Route::get('details/{id}', [PaymentController::class, 'details'])->name('details');
+
+    //     Route::post('accept/{trx}', [PaymentController::class, 'accept'])->name('accept');
+    //     Route::post('reject/{trx}', [PaymentController::class, 'reject'])->name('reject');
+    // });
+
+    // Route::middleware('permission:manage-theme,admin')->group(function () {
+    //     Route::get('manage-theme', [ConfigurationController::class, 'manageTheme'])->name('manage.theme');
+    //     Route::post('manage-theme/{name}', [ConfigurationController::class, 'themeUpdate'])->name('manage.theme.update');
+    //     Route::post('change/theme/color/{theme}', [ConfigurationController::class, 'themeColor'])->name('manage.theme.color');
+    // });
+
+    // Route::middleware('permission:manage-frontend,admin')->group(function () {
+    //     Route::get('pages', [PagesController::class, 'index'])->name('frontend.pages');
+    //     Route::get('pages/create', [PagesController::class, 'pageCreate'])->name('frontend.pages.create');
+    //     Route::post('pages/create', [PagesController::class, 'pageInsert']);
+    //     Route::get('pages/edit/{id}', [PagesController::class, 'pageEdit'])->name('frontend.pages.edit');
+    //     Route::post('pages/edit/{id}', [PagesController::class, 'pageUpdate']);
+    //     Route::get('pages/search', [PagesController::class, 'index'])->name('frontend.search');
+    //     Route::post('pages/delete/{id}', [PagesController::class, 'pageDelete'])->name('frontend.pages.delete');
+
+    //     Route::get('manage/section/{name}', [ManageSectionController::class, 'section'])->name('frontend.section.manage');
+    //     Route::post('manage/section/{name}', [ManageSectionController::class, 'sectionContentUpdate']);
+    //     Route::get('manage/element/{name}', [ManageSectionController::class, 'sectionElement'])->name('frontend.element');
+    //     Route::get('manage/element/{name}/search', [ManageSectionController::class, 'section'])->name('frontend.element.search');
+    //     Route::post('manage/element/{name}', [ManageSectionController::class, 'sectionElementCreate']);
+    //     Route::get('edit/{name}/element/{element}', [ManageSectionController::class, 'editElement'])->name('frontend.element.edit');
+    //     Route::post('edit/{name}/element/{element}', [ManageSectionController::class, 'updateElement']);
+    //     Route::post('delete/{name}/element/{element}', [ManageSectionController::class, 'deleteElement'])->name('frontend.element.delete');
+
+
+    //     Route::get('frontend/translate/{name}/{element}', [ManageSectionController::class, 'translate'])->name('frontend.translate');
+    //     Route::post('frontend/translate/{name}/{element}', [ManageSectionController::class, 'translateUpdate']);
+    // });
 
     Route::middleware('permission:manage-deposit,admin')->group(function () {
-
-        Route::get('deposits', [ManageDepositController::class, 'index'])->name('deposits');
         Route::get('deposit/{id}/details', [ManageDepositController::class, 'details'])->name('deposit.details');
         Route::post('deposit/{id}/accept', [ManageDepositController::class, 'accept'])->name('deposit.accept');
         Route::post('deposit/{id}/reject', [ManageDepositController::class, 'reject'])->name('deposit.reject');
     });
-    Route::middleware('permission:manage-deposit,admin')->group(function () {
+
+    Route::get('deposits', [ManageDepositController::class, 'index'])->name('deposits');
+
+    Route::middleware('permission:manage-transact,admin')->group(function () {
 
         Route::get('/transac', [TransactionController::class, 'trans'])->name('transac');
         Route::post('/transac/store', [TransactionController::class, 'storeTrans'])->name('transac.store');
@@ -285,11 +288,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::middleware('permission:manage-withdraw,admin')->group(function () {
-        Route::get('withdraws', [ManageWithdrawController::class, 'index'])->name('withdraws');
+   
         Route::get('withdraw/{id}/details', [ManageWithdrawController::class, 'details'])->name('withdraw.details');
         Route::post('withdraw/{id}/accept', [ManageWithdrawController::class, 'accept'])->name('withdraw.accept');
         Route::post('withdraw/{id}/reject', [ManageWithdrawController::class, 'reject'])->name('withdraw.reject');
     });
+
+    Route::get('withdraws', [ManageWithdrawController::class, 'index'])->name('withdraws');
 
     Route::middleware('permission:manage-deposit,admin')->group(function () {
         Route::get('deposit/log/{user?}', [LogController::class, 'depositLog'])->name('deposit.log');
@@ -300,14 +305,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
 
-    Route::middleware('permission:manage-logs,admin')->group(function () {
-        Route::get('transaction-log/{user?}', [LogController::class, 'transaction'])->name('transaction');
-        Route::get('payment-report/{user?}', [LogController::class, 'paymentReport'])->name('payment.report');
-        Route::get('withdarw-report/{user?}', [LogController::class, 'withdarawReport'])->name('withdraw.report');
-        Route::get('transfer/log', [LogController::class, 'transferLog'])->name('transfer.report');
-        Route::get('commision/{user?}', [LogController::class, 'Commision'])->name('commision');
-        Route::get('trade-log/{user?}', [LogController::class, 'tradeLog'])->name('trade');
-    });
+    // Route::middleware('permission:manage-logs,admin')->group(function () {
+    //     Route::get('transaction-log/{user?}', [LogController::class, 'transaction'])->name('transaction');
+    //     Route::get('payment-report/{user?}', [LogController::class, 'paymentReport'])->name('payment.report');
+    //     Route::get('withdarw-report/{user?}', [LogController::class, 'withdarawReport'])->name('withdraw.report');
+    //     Route::get('transfer/log', [LogController::class, 'transferLog'])->name('transfer.report');
+    //     Route::get('commision/{user?}', [LogController::class, 'Commision'])->name('commision');
+    //     Route::get('trade-log/{user?}', [LogController::class, 'tradeLog'])->name('trade');
+    // });
 
 
     Route::get('changeLang', [LanguageController::class, 'changeLang'])->name('changeLang');
@@ -315,13 +320,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/mark-as-read', [AdminController::class, 'markNotification'])->name('markNotification');
     Route::post('/mark-as-read/{id}', [AdminController::class, 'SignlemarkNotification'])->name('markNotification.single');
 
-    Route::get('subscribers', [AdminController::class, 'subscribers'])->name('subscribers');
+    // Route::get('subscribers', [AdminController::class, 'subscribers'])->name('subscribers');
 
-    Route::post('subscribers/{email}', [AdminController::class, 'singleMail'])->name('subscribers.single');
+    // Route::post('subscribers/{email}', [AdminController::class, 'singleMail'])->name('subscribers.single');
 
-    Route::post('bulk/mail', [AdminController::class, 'bulkMail'])->name('subscribers.bulk');
+    // Route::post('bulk/mail', [AdminController::class, 'bulkMail'])->name('subscribers.bulk');
 
-    Route::get('maintanace-mode', [DashboardController::class, 'maintanance'])->name('maintanace');
+    // Route::get('maintanace-mode', [DashboardController::class, 'maintanance'])->name('maintanace');
 
     Route::get('cacheclear', [ConfigurationController::class, 'cacheClear'])->name('general.cacheclear');
 });
