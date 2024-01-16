@@ -32,10 +32,10 @@
                         <div class="widget-icon light-icon-1">
                             <i class="las la-users"></i>
                         </div>
-                        <div class="widget-content">
+                        {{-- <div class="widget-content">
                             <div class="widget-caption text-dark">{{ __('Total Accounts') }}</div>
                             <h3 class="mb-0 mt-1 widget-title text-dark">{{ $totalAccounts }}</h3>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 {{-- <div class="col-lg-4 col-sm-6">
@@ -626,96 +626,97 @@
 
         // User Statistics
 
-        var user = {
+        // var user = {
 
-            series: [{{ $activeUser }}, {{ $pendingUser }}, {{ $emailUser }}],
-            labels: ['Active', 'Deactive', 'Email Verified'],
-            chart: {
-                type: 'donut',
-                width: 345,
-                height: 393
-            },
-            colors: ['#622bd7', '#e2a03f', '#e7515a', '#e2a03f'],
-            dataLabels: {
-                enabled: false
-            },
-            legend: {
-                position: 'bottom',
-                horizontalAlign: 'center',
-                fontSize: '14px',
-                labels: {
-                    colors: '#777'
-                },
-                markers: {
-                    width: 10,
-                    height: 10,
-                    offsetX: -5,
-                    offsetY: 0
-                },
-                itemMargin: {
-                    horizontal: 10,
-                    vertical: 30
-                }
-            },
-            plotOptions: {
-                pie: {
-                    donut: {
-                        size: '75%',
-                        background: 'transparent',
-                        labels: {
-                            show: true,
-                            name: {
-                                show: true,
-                                fontSize: '29px',
-                                fontFamily: 'Nunito, sans-serif',
-                                color: '#ffffff',
-                                offsetY: -10
-                            },
-                            value: {
-                                show: true,
-                                fontSize: '26px',
-                                fontFamily: 'Nunito, sans-serif',
-                                color: '#bfc9d4',
-                                offsetY: 16,
-                                formatter: function(val) {
-                                    return val
-                                }
-                            },
-                            total: {
-                                show: true,
-                                showAlways: true,
-                                label: 'Total',
-                                color: '#777777',
-                                fontSize: '30px',
-                                formatter: function(w) {
-                                    return "{{ $totalUser }}"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            stroke: {
-                show: true,
-                width: 15,
-                colors: '#ffffff'
-            },
-            responsive: [{
-                breakpoint: 1400,
-                options: {
-                    chart: {
-                        width: 300,
-                        height: 315
-                    }
-                }
-            }]
-        };
+        //     series: [{{ $activeUser }}, {{ $pendingUser }}, {{ $emailUser }}],
+        //     labels: ['Active', 'Deactive', 'Email Verified'],
+        //     chart: {
+        //         type: 'donut',
+        //         width: 345,
+        //         height: 393
+        //     },
+        //     colors: ['#622bd7', '#e2a03f', '#e7515a', '#e2a03f'],
+        //     dataLabels: {
+        //         enabled: false
+        //     },
+        //     legend: {
+        //         position: 'bottom',
+        //         horizontalAlign: 'center',
+        //         fontSize: '14px',
+        //         labels: {
+        //             colors: '#777'
+        //         },
+        //         markers: {
+        //             width: 10,
+        //             height: 10,
+        //             offsetX: -5,
+        //             offsetY: 0
+        //         },
+        //         itemMargin: {
+        //             horizontal: 10,
+        //             vertical: 30
+        //         }
+        //     },
+        //     plotOptions: {
+        //         pie: {
+        //             donut: {
+        //                 size: '75%',
+        //                 background: 'transparent',
+        //                 labels: {
+        //                     show: true,
+        //                     name: {
+        //                         show: true,
+        //                         fontSize: '29px',
+        //                         fontFamily: 'Nunito, sans-serif',
+        //                         color: '#ffffff',
+        //                         offsetY: -10
+        //                     },
+        //                     value: {
+        //                         show: true,
+        //                         fontSize: '26px',
+        //                         fontFamily: 'Nunito, sans-serif',
+        //                         color: '#bfc9d4',
+        //                         offsetY: 16,
+        //                         formatter: function(val) {
+        //                             return val
+        //                         }
+        //                     },
+        //                     total: {
+        //                         show: true,
+        //                         showAlways: true,
+        //                         label: 'Total',
+        //                         color: '#777777',
+        //                         fontSize: '30px',
+        //                         formatter: function(w) {
+        //                             return "{{ $totalUser }}"
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     },
+        //     stroke: {
+        //         show: true,
+        //         width: 15,
+        //         colors: '#ffffff'
+        //     },
+        //     responsive: [{
+        //         breakpoint: 1400,
+        //         options: {
+        //             chart: {
+        //                 width: 300,
+        //                 height: 315
+        //             }
+        //         }
+        //     }]
+        // };
 
-        var chart2 = new ApexCharts(document.querySelector("#chart2"), user);
-        chart2.render();
+        // var chart2 = new ApexCharts(document.querySelector("#chart2"), user);
+        // chart2.render();
 
-        var chart5 = new ApexCharts(document.querySelector("#chart5"), user);
-        chart5.render();
+        // var chart5 = new ApexCharts(document.querySelector("#chart5"), user);
+        // chart5.render();
+
 
 
 
@@ -869,12 +870,22 @@
         };
 
 
-        var chart = new ApexCharts(document.querySelector("#profit-chart"), payment);
-        chart.render();
+        // var chart = new ApexCharts(document.querySelector("#profit-chart"), payment);
+        // chart.render();
 
 
 
         var account = {
+            chart: {
+                height: 380,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                },
+                toolbar: {
+                    show: false
+                }
+            },
             series: [{
                 name: 'Live Accounts',
                 data: @json($totalAccounts)
@@ -884,6 +895,8 @@
             },
 
         };
+
+        console.log(account);
 
 
         var chart = new ApexCharts(document.querySelector("#acc-chart"), account);

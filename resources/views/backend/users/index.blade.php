@@ -32,7 +32,7 @@
 
                     </div>
                     <div class="card-header-right">
-                        <form action="" method="post">
+                        <form action="{{ url('admin/user/assign-admin') }}" method="post">
                             @csrf
                             <div class="row d-flex" style="gap: 5px">
                                 <div class="form-group ">

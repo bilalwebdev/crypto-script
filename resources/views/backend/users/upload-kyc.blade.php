@@ -10,7 +10,7 @@
 
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ url('admin/user/upload-kyc-submit') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ url('admin/user/kyc-submit') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="col-12">
                             <div class="col-6">

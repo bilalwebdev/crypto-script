@@ -25,7 +25,6 @@ use Image;
 use DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -187,9 +186,6 @@ class Helper
             }
         }
     }
-
-
-
     public static function pagination()
     {
         return self::config()->pagination;
@@ -279,7 +275,10 @@ class Helper
 
     public static function saveImage($image, $directory, $removeFile = '')
     {
+     
         $path = self::makeDir($directory);
+
+
 
         if (!empty($removeFile)) {
             self::removeFile($directory . '/' . $removeFile);
@@ -290,7 +289,9 @@ class Helper
         if ($image->getClientOriginalExtension() == 'gif') {
             copy($image->getRealPath(), $directory . '/' . $filename);
         } else {
+               
             $image = Image::make($image);
+
             $image->save($directory . '/' . $filename);
         }
 

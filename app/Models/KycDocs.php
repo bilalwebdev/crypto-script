@@ -11,6 +11,8 @@ class KycDocs extends Model
 
     protected $table = "kyc_docs";
 
+    protected $fillable = ['type', 'file', 'user_id'];
+
 
 
 

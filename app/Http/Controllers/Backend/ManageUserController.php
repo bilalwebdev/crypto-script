@@ -393,26 +393,30 @@ class ManageUserController extends Controller
 
     public function adminKycUpload(Request $request)
     {
+        
 
-        if ($request->hasFile('file')) {
+        $data['title']  = 'Upload KYC';
+        $data['user_id']  = $request->user;
+        return view('backend.users.upload-kyc')->with($data);
+        
+    }
+
+    public function adminKycStore(Request $request){
 
 
 
-            $filename = Helper::saveImage($request->file, Helper::filePath('kyc', true));
-            // $user->image = $filename
-            KycDocs::create([
-                'user_id' => $request->user_id,
-                'file' => $filename,
-                'type' => $request->file_type,
-
-            ]);
-
-            return redirect()->back()->with('success', 'File Uploaded');
-        } else {
-
-            $data['title']  = 'Upload KYC';
-            $data['user_id']  = $request->user;
-            return view('backend.users.upload-kyc')->with($data);
+        if($request->hasFile('file')){
+        $file = $request->file('file');
+           $filename = Helper::saveImage($file, Helper::filePath('kyc', true));
         }
+            // $user->image = $filename
+        KycDocs::create([
+            'user_id' => $request->user_id,
+            'file' => $filename,
+            'type' => $request->file_type,
+
+        ]);
+
+        return redirect()->back()->with('success', 'File Uploaded');
     }
 }

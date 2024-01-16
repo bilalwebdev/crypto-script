@@ -119,12 +119,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/edit/{user}', [ManageUserController::class, 'userEdit'])->name('edit');
     });
 
+    Route::post('user/assign-admin', [ManageUserController::class, 'assignAdmin'])->name('user.assign-admin');
     Route::get('user/create', [ManageUserController::class, 'userCreate'])->name('user.create');
     Route::post('user/submit', [ManageUserController::class, 'userSubmit'])->name('user.submit');
 
 
     Route::get('user/upload-kyc/{user}', [ManageUserController::class, 'adminKycUpload'])->name('user.upload-kyc');
-    Route::post('user/upload-kyc-submit', [ManageUserController::class, 'adminKycUpload']);
+    Route::post('/user/kyc-submit', [ManageUserController::class, 'adminKycStore'])->name('user.submit-kyc');
 
     // End User
 

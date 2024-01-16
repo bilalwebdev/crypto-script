@@ -62,3 +62,35 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+
+
+
+
+
+
+
+
+CRM roles
+
+Super admin - all functions enabled
+
+Outsource manager - all functions enabled but only for the clients assigned by super admin
+
+Retention manager - read only access for his assigned clients
+
+Sales manager - same read only access only
+
+And for retention and sales manager roles only wallets option should be visible in the CRM
+
+And only there assigned clients should be visible
+
+Admin should have all access even after assigning the clients to outsource or retention manager
+
+Whatever client I assign to outsource manager he should be able to assign it to the retention user under him
+
+Small correction whatever clients I assign to retention manager it should be accessible by outsource manager
+
+Outsource manager will have full access to the lead or clients account and retention user will have only read only access

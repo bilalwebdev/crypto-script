@@ -56,7 +56,7 @@ class DashboardController extends Controller
         $data['plan_expired_user'] = Payment::where('status', 1)->pluck('user_id')->unique()->count();
 
         $months = array();
-
+        $totalAccount = array();
         $totalAmount = array();
         $withdrawTotalAmount = array();
         $depositsTotalAmount = array();
@@ -76,16 +76,17 @@ class DashboardController extends Controller
             ->get();
 
 
-        for ($i = 11; $i >= 0; $i--) {
+        for ($i = 12; $i >= 1; $i--) {
 
             $month = Carbon::today()->startOfMonth()->subMonth($i);
 
             array_push($months, $month->monthName);
-
             array_push($totalAmount, 0);
+            array_push($totalAccount, 0);
             array_push($withdrawTotalAmount, 0);
             array_push($depositsTotalAmount, 0);
         }
+
 
         foreach ($payments as $payment) {
             if (in_array($payment->month, $months)) {
@@ -114,6 +115,7 @@ class DashboardController extends Controller
         }
 
 
+      
 
         $data['months'] = $months;
         $data['totalAmount'] = $totalAmount;
@@ -136,31 +138,25 @@ class DashboardController extends Controller
         $data['deposits'] = Deposit::where('status', 1)->latest()->with('user')->limit(4)->get();
         $data['withdraws'] = Withdraw::where('status', 1)->latest()->with('user', 'withdrawMethod')->limit(4)->get();
 
-
-
-
-        $totalAccount = array();
-
         $accounts = Account::select(DB::raw('MONTHNAME(created_at) month'))
             ->groupby('month')
             ->get();;
 
-        $i = 0;
+      
         foreach ($accounts as $acc) {
 
             $index = array_search($acc->month, $months);
 
-            dd($index);
-
             $totalRecords = Account::whereMonth('created_at', '=', $month)
-                ->get();
+                ->count();
 
-            $totalAccount[$index] = $totalRecords;
+            if($index == true){
+                $totalAccount[$index] = (string)$totalRecords;
+            }
+
         }
 
         $data['totalAccounts'] = $totalAccount;
-
-        dd($data['totalAccounts']);
         $data['latestUsers'] = User::take(5)->latest()->get();
 
         return view('backend.dashboard')->with($data);
