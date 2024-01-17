@@ -16,7 +16,9 @@ class RoleController extends Controller
 
         $data['permissions'] = Permission::with('roles')->latest()->get();
 
-        $data['roles'] = Role::when($request->role, function($item) use($request){$item->where('name', $request->role);})->where('name', '!=', 'admin')->latest()->with('permissions','users')->paginate(Helper::pagination());
+        $data['roles'] = Role::when($request->role, function ($item) use ($request) {
+            $item->where('name', $request->role);
+        })->where('name', '!=', 'admin')->latest()->with('permissions', 'users')->paginate(Helper::pagination());
 
         return view('backend.role.index')->with($data);
     }
@@ -25,7 +27,7 @@ class RoleController extends Controller
     {
         $request->validate([
             'role' => 'required|max:100|unique:roles,name',
-            'permission' => 'required|array'
+            // 'permission' => 'required|array'
         ]);
 
 
@@ -45,7 +47,7 @@ class RoleController extends Controller
 
         $request->validate([
             'role' => 'required|max:100|unique:roles,name,' . $role->id,
-            'permission' => 'required|array'
+            // 'permission' => 'required|array'
         ]);
 
 

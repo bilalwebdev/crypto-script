@@ -78,15 +78,14 @@
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="activity"></i><span
                         class="nav-text">{{ __('Transactions') }}</span></a>
                 <ul aria-expanded="false">
-                    @if (auth()->guard('admin')->user()->can('manage-deposit'))
-                        <li><a class="" href="{{ route('admin.transac') }}"
-                                aria-expanded="false">{{ __('Deposit/Withdrawal into account') }}</a>
-                        </li>
-                    @endif
-                    @if (auth()->guard('admin')->user()->can('manage-deposit'))
-                        <li><a class="" href="{{ route('admin.deposits') }}"
-                                aria-expanded="false">{{ __('Deposits') }}</a>
-                            {{-- <ul aria-expanded="false">
+
+                    <li><a class="" href="{{ route('admin.transac') }}"
+                            aria-expanded="false">{{ __('Deposit/Withdrawal into account') }}</a>
+                    </li>
+
+                    <li><a class="" href="{{ route('admin.deposits') }}"
+                            aria-expanded="false">{{ __('Deposits') }}</a>
+                        {{-- <ul aria-expanded="false">
                         {{-- <li><a href="{{ route('admin.withdraw.index') }}">{{ __('Withdraw Methods') }}</a></li>
                         <li><a href="{{ route('admin.withdraw.filter') }}">{{ __('All Withdraw') }}</a></li>
                         <li><a href="{{ route('admin.withdraw.filter', 'pending') }}">{{ __('Pending Withdraw') }}
@@ -98,18 +97,17 @@
                                 href="{{ route('admin.withdraw.filter', 'rejected') }}">{{ __('Rejected Withdraw') }}</a>
                         </li>
                     </ul> --}}
-                        </li>
-                    @endif
-                    @if (auth()->guard('admin')->user()->can('manage-withdraw'))
-                        <li><a class="" href="{{ route('admin.withdraws') }}"
-                                aria-expanded="false">{{ __('Withdraws') }}</a>
-                            {{-- <ul aria-expanded="false">
+                    </li>
+
+                    <li><a class="" href="{{ route('admin.withdraws') }}"
+                            aria-expanded="false">{{ __('Withdraws') }}</a>
+                        {{-- <ul aria-expanded="false">
 
                         <li><a href="{{ route('admin.deposit', 'online') }}">{{ __('Online Deposit') }}</a></li>
                         <li><a href="{{ route('admin.deposit', 'offline') }}">{{ __('Offline Deposit') }}</a></li>
                     </ul> --}}
-                        </li>
-                    @endif
+                    </li>
+
 
                 </ul>
 

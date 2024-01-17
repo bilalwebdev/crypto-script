@@ -24,8 +24,8 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="m-1">
-                                <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-sm"><i
+                            <div class="ml-1">
+                                <a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-md"><i
                                         class="fas fa-plus"></i> Add Wallet</a>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                             <a href="{{ url('admin/user/upload-kyc/' . $user->id) }}"
                                                 class="btn btn-info btn-sm">
                                                 <i class="las la-file-alt"></i>
-                                                Uplaod Kyc</a>
+                                                Uplaod KYC</a>
                                             <a href="" class="btn btn-danger btn-sm">
                                                 <i class="las la-trash"></i>
                                                 Delete</a>

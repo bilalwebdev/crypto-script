@@ -30,25 +30,25 @@
 
 
 
-        {{-- <li class="{{ Config::singleMenu('user.signal.all') }}"><a href="{{ route('user.signal.all') }}"><i
+        <li class="{{ Config::singleMenu('user.signal.all') }}"><a href="{{ route('user.signal.all') }}"><i
                     class="fas fa-chart-bar"></i> {{ __('All Signal') }}</a></li>
 
         <li><a href="{{ route('user.trade') }}" class="{{ Config::singleMenu('user.trade') }}"><i
                     class="fas fa-chart-line"></i></i>
-                {{ __('Trade') }}</a></li> --}}
+                {{ __('Trade') }}</a></li>
 
-        {{-- <li class="{{ Config::singleMenu('user.plans') }}"><a href="{{ route('user.plans') }}"><i
+        <li class="{{ Config::singleMenu('user.plans') }}"><a href="{{ route('user.plans') }}"><i
                     class="fas fa-clipboard-list"></i>{{ __('Plans') }}</a></li>
 
-        --}}
+       
 
         
 
-        {{-- <li class="{{ Config::singleMenu('user.transfer_money') }}"><a href="{{ route('user.transfer_money') }}"><i
-                    class="fas fa-exchange-alt"></i> {{ __('Transfer Money') }}</a></li> --}}
+        <li class="{{ Config::singleMenu('user.transfer_money') }}"><a href="{{ route('user.transfer_money') }}"><i
+                    class="fas fa-exchange-alt"></i> {{ __('Transfer Money') }}</a></li>
 
 
-        {{-- <li
+        <li
             class="has_submenu {{ in_array(url()->current(), [route('user.deposit.log'), route('user.withdraw.all'), route('user.invest.log'), route('user.transaction.log'), route('user.transfer_money.log'), route('user.receive_money.log'), route('user.commision'), route('user.subscription')]) ? 'open' : '' }}">
             <a href="#0"><i class="fas fa-chart-bar"></i> {{ __('Report') }}</a>
             <ul class="submenu">
@@ -84,7 +84,7 @@
                     <a href="{{ route('user.subscription') }}">{{ __('Subscription Log') }}</a>
                 </li>
             </ul>
-        </li> --}}
+        </li>
 
         <li class="{{ Config::singleMenu('user.refferalLog') }}"><a href="{{ route('user.refferalLog') }}"><i
                     class="fas fa-user-cog"></i> {{ __('Refferal Log') }}</a></li>

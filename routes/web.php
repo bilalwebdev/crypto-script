@@ -236,11 +236,3 @@ Route::get('links/{id}/{slug}', [FrontendController::class, 'linksDetails'])->na
 Route::post('subscribe', [FrontendController::class, 'subscribe'])->name('subscribe');
 
 Route::post('contact', [FrontendController::class, 'contactSend'])->name('contact');
-
-Route::get(
-    '/add',
-    function () {
-        exit(' ttt');
-        // return view('welcome');
-    }
-)->name('add');

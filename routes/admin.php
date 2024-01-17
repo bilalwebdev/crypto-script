@@ -119,14 +119,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/users', [ManageUserController::class, 'index'])->name('user.index');
     Route::get('/users/details/{user}', [ManageUserController::class, 'userDetails'])->name('user.details');
 
-    Route::post('user/assign-admin', [ManageUserController::class, 'assignAdmin'])->name('user.assign-admin')->middleware('permission:manage-user,admin');;
-    Route::get('user/create', [ManageUserController::class, 'userCreate'])->name('user.create')->middleware('permission:manage-user,admin');;
-    Route::post('user/submit', [ManageUserController::class, 'userSubmit'])->name('user.submit')->middleware('permission:manage-user,admin');;
+    Route::post('user/assign-admin', [ManageUserController::class, 'assignAdmin'])->name('user.assign-admin')->middleware('permission:manage-user,admin');
+    Route::get('user/create', [ManageUserController::class, 'userCreate'])->name('user.create')->middleware('permission:manage-user,admin');
+    Route::post('user/submit', [ManageUserController::class, 'userSubmit'])->name('user.submit')->middleware('permission:manage-user,admin');
 
 
 
-    Route::get('user/upload-kyc/{user}', [ManageUserController::class, 'adminKycUpload'])->name('user.upload-kyc');
-    Route::post('/user/kyc-submit', [ManageUserController::class, 'adminKycStore'])->name('user.submit-kyc');
+    Route::get('user/upload-kyc/{user}', [ManageUserController::class, 'adminKycUpload'])->name('user.upload-kyc')->middleware('permission:manage-user,admin');
+    Route::post('/user/kyc-submit', [ManageUserController::class, 'adminKycStore'])->name('user.submit-kyc')->middleware('permission:manage-user,admin');
 
     // End User
 
@@ -184,11 +184,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // });
 
 
-    // Route::middleware('permission:manage-referral,admin')->prefix('refferal')->name('refferal.')->group(function () {
-    //     Route::get('/', [ReferralController::class, 'index'])->name('index');
-    //     Route::post('invest', [ReferralController::class, 'investStore'])->name('invest');
-    //     Route::post('status/{id?}', [ReferralController::class, 'refferalStatusChange'])->name('refferalstatus');
-    // });
+    Route::middleware('permission:manage-referral,admin')->prefix('refferal')->name('refferal.')->group(function () {
+        Route::get('/', [ReferralController::class, 'index'])->name('index');
+        Route::post('invest', [ReferralController::class, 'investStore'])->name('invest');
+        Route::post('status/{id?}', [ReferralController::class, 'refferalStatusChange'])->name('refferalstatus');
+    });
 
 
     // Route::middleware('permission:manage-gateway,admin')->prefix('gateway')->name('payment.')->group(function () {
@@ -288,7 +288,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::middleware('permission:manage-withdraw,admin')->group(function () {
-   
+
         Route::get('withdraw/{id}/details', [ManageWithdrawController::class, 'details'])->name('withdraw.details');
         Route::post('withdraw/{id}/accept', [ManageWithdrawController::class, 'accept'])->name('withdraw.accept');
         Route::post('withdraw/{id}/reject', [ManageWithdrawController::class, 'reject'])->name('withdraw.reject');
@@ -305,14 +305,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
 
-    // Route::middleware('permission:manage-logs,admin')->group(function () {
-    //     Route::get('transaction-log/{user?}', [LogController::class, 'transaction'])->name('transaction');
-    //     Route::get('payment-report/{user?}', [LogController::class, 'paymentReport'])->name('payment.report');
-    //     Route::get('withdarw-report/{user?}', [LogController::class, 'withdarawReport'])->name('withdraw.report');
-    //     Route::get('transfer/log', [LogController::class, 'transferLog'])->name('transfer.report');
-    //     Route::get('commision/{user?}', [LogController::class, 'Commision'])->name('commision');
-    //     Route::get('trade-log/{user?}', [LogController::class, 'tradeLog'])->name('trade');
-    // });
+    Route::middleware('permission:manage-logs,admin')->group(function () {
+        Route::get('transaction-log/{user?}', [LogController::class, 'transaction'])->name('transaction');
+        Route::get('payment-report/{user?}', [LogController::class, 'paymentReport'])->name('payment.report');
+        Route::get('withdarw-report/{user?}', [LogController::class, 'withdarawReport'])->name('withdraw.report');
+        Route::get('transfer/log', [LogController::class, 'transferLog'])->name('transfer.report');
+        Route::get('commision/{user?}', [LogController::class, 'Commision'])->name('commision');
+        Route::get('trade-log/{user?}', [LogController::class, 'tradeLog'])->name('trade');
+    });
 
 
     Route::get('changeLang', [LanguageController::class, 'changeLang'])->name('changeLang');
