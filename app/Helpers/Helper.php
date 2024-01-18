@@ -29,6 +29,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use Throwable;
+
 class Helper
 {
 
@@ -275,7 +276,7 @@ class Helper
 
     public static function saveImage($image, $directory, $removeFile = '')
     {
-     
+
         $path = self::makeDir($directory);
 
 
@@ -289,7 +290,7 @@ class Helper
         if ($image->getClientOriginalExtension() == 'gif') {
             copy($image->getRealPath(), $directory . '/' . $filename);
         } else {
-               
+
             $image = Image::make($image);
 
             $image->save($directory . '/' . $filename);
@@ -493,6 +494,8 @@ class Helper
 
         $level = Referral::where('status', 1)->where('type', $refferal_type)->first();
 
+        dd($refferal_type);
+
         $counter = $level ? count($level->level) : 0;
 
         $general = Configuration::first();
@@ -506,6 +509,7 @@ class Helper
                 } else {
                     $commission = ($level->commission[$i] * $amount) / 100;
                 }
+
 
 
                 $to->balance = $to->balance + $commission;

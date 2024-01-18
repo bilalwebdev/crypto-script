@@ -2,6 +2,53 @@
 @section('content')
 
     <div class="dashboard-body-part">
+        <div class="sp_site_card row" style="padding: 14px">
+            <div class="col-lg-6">
+                <h6 class="mb-2">{{ __('Your Referral Link:-    ') }}</h6>
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="form-control copy-text" placeholder="Referral link"
+                            value="{{ route('user.register', auth()->user()->username) }}" readonly>
+                        <button type="button" class="text-white sp_bg_base btn copy">{{ __('Copy') }}</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-lg-2">
+                <div id="copied_msg" class="alert alert-success mt-4 d-none">Copied!</div>
+            </div>
+
+        </div>
+        <div class="sp_site_card mt-4" style="padding: 18px; font-size:18px;">
+            <div class="row">
+                <div class="col-md-4">
+                    <strong>
+                        IB Account no: 3360
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    <strong>
+                        Total clients in the network: 2
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    <strong>
+
+                        Total Team Volume : $ 0
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    <strong>
+                        Total earned commission: 0 + -
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    <strong>
+                        Available for withdrawal : $ 0
+                    </strong>
+                </div>
+            </div>
+        </div>
 
         <div class="row mt-4">
             <div class="col-md-12">
@@ -37,7 +84,8 @@
                                                                 @foreach ($ref->refferals as $ref2)
                                                                     <li class="single-child">
                                                                         <p>
-                                                                            <img src="{{ Config::getFile('user', $ref2->image, true) }}">
+                                                                            <img
+                                                                                src="{{ Config::getFile('user', $ref2->image, true) }}">
                                                                             <span
                                                                                 class="mb-0">{{ $ref2->username }}</span>
                                                                         </p>
@@ -164,4 +212,21 @@
             display: none;
         }
     </style>
+@endpush
+
+@push('script')
+    <script>
+        var copyButton = document.querySelector('.copy');
+        var copiedMsg = document.querySelector('#copied_msg');
+        var copyInput = document.querySelector('.copy-text');
+        copyButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            var text = copyInput.select();
+            document.execCommand('copy');
+            copiedMsg.classList.remove('d-none');
+        });
+        copyInput.addEventListener('click', function() {
+            this.select();
+        });
+    </script>
 @endpush

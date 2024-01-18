@@ -129,7 +129,7 @@ class ManageWithdrawController extends Controller
 
         $deposit = Withdraw::where('id', $request->id)->firstOrFail();
 
-        // $general = Configuration::first();
+        //   $general = Configuration::first();
 
         // $gateway = Gateway::find($deposit->gateway_id);
 

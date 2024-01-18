@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Helpers\Helper\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\CommisionSetting;
 use App\Models\Deposit;
 use App\Models\MoneyTransfer;
 use App\Models\Payment;
@@ -37,7 +38,7 @@ class LogController extends Controller
             return view('backend.logs.trade_ajax', compact('trades'));
         }
 
-        $data['trades'] = $trades->orderBy('id','desc')->with('user')->paginate(Helper::pagination());
+        $data['trades'] = $trades->orderBy('id', 'desc')->with('user')->paginate(Helper::pagination());
 
         return view('backend.logs.trade_log')->with($data);
     }
@@ -238,5 +239,42 @@ class LogController extends Controller
                 $query->whereBetween('created_at', [$startdate, $enddate]);
             }
         })->latest()->get();
+    }
+
+
+    public function commisionSetting()
+    {
+
+        $data['title'] = 'Commision Setting';
+
+        return view('backend.commision-setting', $data);
+    }
+
+    public function commisionSave(Request $request)
+    {
+
+        $data['title'] = 'Commision Setting';
+
+        $request->validate([
+            'commision_percent' => 'required',
+            'acc_type' => 'required'
+        ]);
+
+
+        $comm = CommisionSetting::first();
+        if ($comm) {
+            CommisionSetting::create([
+                'commision_percent' => $request->commision_percent,
+                'acc_type' => $request->acc_type
+            ]);
+        } else {
+            $comm->update([
+                'commision_percent' => $request->commision_percent,
+                'acc_type' => $request->acc_type
+            ]);
+        }
+
+
+        return redirect()->back()->with('success', 'Commision setting saved!');
     }
 }

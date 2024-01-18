@@ -138,8 +138,6 @@ Route::name('user.')->group(function () {
 
             Route::get('trade', [CryptoTradeController::class, 'index'])->name('trade');
             Route::post('trade', [CryptoTradeController::class, 'openTrade']);
-
-
             Route::get('trades', [CryptoTradeController::class, 'trades'])->name('trades');
 
             Route::get('trade-close', [CryptoTradeController::class, 'tradeClose'])->name('tradeClose');

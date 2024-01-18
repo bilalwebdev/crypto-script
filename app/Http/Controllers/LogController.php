@@ -123,6 +123,6 @@ class LogController extends Controller
 
         $data['title'] = 'Refferal Log';
 
-        return view(Helper::theme(). 'user.refferal')->with($data);
+        return view(Helper::theme() . 'user.refferal')->with($data);
     }
 }

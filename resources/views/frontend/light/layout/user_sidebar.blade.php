@@ -14,11 +14,11 @@
 
         <li class="{{ Config::singleMenu('user.deposit') }}"><a href="{{ route('user.deposit') }}"><i
                     class="fas fa-credit-card"></i>{{ __('Deposit') }}</a></li>
-        
+
         <li class="{{ Config::singleMenu('user.withdraw') }}"><a href="{{ route('user.withdraw') }}"><i
                     class="fas fa-hand-holding-usd"></i> {{ __('Withdraw') }}</a></li>
-        
-        
+
+
         <li class="{{ Config::singleMenu('user.history') }}"><a href="{{ route('user.history') }}"><i
                     class="fas fa-history"></i> {{ __('Transactions History') }}</a></li>
 
@@ -29,7 +29,7 @@
 
 
 
-
+        {{-- 
         <li class="{{ Config::singleMenu('user.signal.all') }}"><a href="{{ route('user.signal.all') }}"><i
                     class="fas fa-chart-bar"></i> {{ __('All Signal') }}</a></li>
 
@@ -45,9 +45,9 @@
         
 
         <li class="{{ Config::singleMenu('user.transfer_money') }}"><a href="{{ route('user.transfer_money') }}"><i
-                    class="fas fa-exchange-alt"></i> {{ __('Transfer Money') }}</a></li>
+                    class="fas fa-exchange-alt"></i> {{ __('Transfer Money') }}</a></li> --}}
 
-
+        {{-- 
         <li
             class="has_submenu {{ in_array(url()->current(), [route('user.deposit.log'), route('user.withdraw.all'), route('user.invest.log'), route('user.transaction.log'), route('user.transfer_money.log'), route('user.receive_money.log'), route('user.commision'), route('user.subscription')]) ? 'open' : '' }}">
             <a href="#0"><i class="fas fa-chart-bar"></i> {{ __('Report') }}</a>
@@ -84,7 +84,7 @@
                     <a href="{{ route('user.subscription') }}">{{ __('Subscription Log') }}</a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
 
         <li class="{{ Config::singleMenu('user.refferalLog') }}"><a href="{{ route('user.refferalLog') }}"><i
                     class="fas fa-user-cog"></i> {{ __('Refferal Log') }}</a></li>
@@ -92,11 +92,12 @@
         <li class="{{ Config::singleMenu('user.ticket.index') }}"><a href="{{ route('user.ticket.index') }}"><i
                     class="fas fa-ticket-alt"></i> {{ __('Support Ticket') }}</a></li>
 
-        <li class="{{ Config::singleMenu('user.user-payment-method.index') }}"><a href="{{ route('user.user-payment-method.index') }}"><i
-                        class="fas fa-exchange-alt"></i> {{ __('Payment Methods') }}</a></li>
+        <li class="{{ Config::singleMenu('user.user-payment-method.index') }}"><a
+                href="{{ route('user.user-payment-method.index') }}"><i class="fas fa-exchange-alt"></i>
+                {{ __('Payment Methods') }}</a></li>
 
         <li class="{{ Config::singleMenu('user.profile') }}"><a href="{{ route('user.profile') }}"><i
-                        class="fas fa-user-cog"></i> {{ __('Profile Settings') }}</a></li>
+                    class="fas fa-user-cog"></i> {{ __('Profile Settings') }}</a></li>
 
         <li class="{{ Config::singleMenu('user.logout') }}"><a href="{{ route('user.logout') }}"><i
                     class="fas fa-sign-out-alt"></i> {{ __('Logout') }}</a></li>
@@ -115,13 +116,12 @@
         </li>
 
         <li>
-            <a href="{{ route('user.history') }}"
-                class="{{ Config::activeMenu(route('user.history')) }}">
+            <a href="{{ route('user.history') }}" class="{{ Config::activeMenu(route('user.history')) }}">
                 <i class="fas fa-history"></i>
                 <span>{{ __('History') }}</span>
             </a>
         </li>
-        
+
         <li>
             <a href="{{ route('user.dashboard') }}" class="{{ Config::activeMenu(route('user.dashboard')) }}">
                 <i class="fas fa-home"></i>
@@ -144,4 +144,3 @@
         </li>
     </ul>
 </div>
-

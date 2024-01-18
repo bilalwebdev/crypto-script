@@ -35,7 +35,7 @@ class MT5Service
 
     public function getToken()
     {
-        // $token = Cache::get('mt5_token');
+       // $token = Cache::get('mt5_token');
 
         $token = 'abcX2123nb6po!7';
 

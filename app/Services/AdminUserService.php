@@ -43,7 +43,7 @@ class AdminUserService
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->address = $data;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
         $user->status = $request->status == 'on' ? 1 : 0;
         $user->is_email_verified = $request->email_status == 'on' ? 1 : 0;
         $user->is_sms_verified = $request->sms_status == 'on' ? 1 : 0;
@@ -72,7 +72,7 @@ class AdminUserService
         User::create([
             'username' => $request->username,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
             'address' => $data,
             'phone' => $request->phone
         ]);

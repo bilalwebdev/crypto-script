@@ -39,11 +39,11 @@
                 </li>
             @endif --}}
 
-            {{-- @if (auth()->guard('admin')->user()->can('manage-referral'))
-                <li><a href="{{ route('admin.refferal.index') }}" aria-expanded="false"><i
-                            data-feather="link"></i><span class="nav-text">{{ __('Manage Affiliates') }}</span></a>
+            @if (auth()->guard('admin')->user()->can('manage-referral'))
+                <li><a href="{{ route('admin.refferal.index') }}" aria-expanded="false"><i data-feather="link"></i><span
+                            class="nav-text">{{ __('Manage Affiliates') }}</span></a>
                 </li>
-            @endif --}}
+            @endif
 
 
 
@@ -120,6 +120,19 @@
                     <li><a href="{{ route('admin.user.index') }}"><span
                                 class="nav-text">{{ __('Wallets/Leads') }}</span></a>
                     </li>
+                </ul>
+            </li>
+
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="settings"></i><span
+                        class="nav-text">{{ __('Extra Modules') }}</span></a>
+                <ul aria-expanded="false">
+                    <li>
+                        <a href="{{ route('admin.commision-setting') }}" aria-expanded="false">
+
+                            <span class="nav-text">{{ __('Commision Settings') }}</span>
+                        </a>
+                    </li>
+
                 </ul>
             </li>
 
@@ -237,15 +250,15 @@
 
 
 
-            {{-- <li class="nav-label">{{ __('Others') }}</li> --}}
-            {{-- @if (auth()->guard('admin')->user()->can('manage-logs'))
+            <li class="nav-label">{{ __('Others') }}</li>
+            @if (auth()->guard('admin')->user()->can('manage-logs'))
                 <li>
                     <a href="{{ route('admin.transaction') }}" aria-expanded="false">
                         <i data-feather="file-text"></i>
                         <span class="nav-text">{{ __('Manage Logs') }}</span>
                     </a>
                 </li>
-            @endif --}}
+            @endif
 
 
             @if (auth()->guard('admin')->user()->can('manage-ticket'))
