@@ -242,10 +242,19 @@ class LogController extends Controller
     }
 
 
-    public function commisionSetting()
+    public function commisionSetting(Request $request)
     {
 
+
+
         $data['title'] = 'Commision Setting';
+
+        $data['com_settings'] = CommisionSetting::latest()->get();
+
+        if ($request->id) {
+
+            $data['commision'] = CommisionSetting::find($request->id);
+        }
 
         return view('backend.commision-setting', $data);
     }
@@ -253,28 +262,37 @@ class LogController extends Controller
     public function commisionSave(Request $request)
     {
 
-        $data['title'] = 'Commision Setting';
-
         $request->validate([
-            'commision_percent' => 'required',
+            'commision_rate' => 'required',
             'acc_type' => 'required'
         ]);
 
+        $commCheck = CommisionSetting::where('account_type', $request->acc_type)->first();
 
-        $comm = CommisionSetting::first();
-        if ($comm) {
-            CommisionSetting::create([
-                'commision_percent' => $request->commision_percent,
-                'acc_type' => $request->acc_type
+        if ($commCheck) {
+            $commCheck->update([
+                'commision_rate' => $request->commision_rate,
             ]);
-        } else {
-            $comm->update([
-                'commision_percent' => $request->commision_percent,
-                'acc_type' => $request->acc_type
-            ]);
+            return redirect('/admin/commision-setting')->with('success', 'Commision setting saved!');
         }
+        CommisionSetting::create([
+            'commision_rate' => $request->commision_rate,
+            'account_type' => $request->acc_type
+        ]);
 
 
         return redirect()->back()->with('success', 'Commision setting saved!');
+    }
+
+
+    public function commisionCalulate()
+    {
+        $calculator = new Helper();
+
+        // Calculate commission for a standard account with trading volume of 100 lots
+        $commissionStandard = $calculator->calculateCommission(100, 'standard', false, false);
+
+        // Calculate commission for a premium account with trading volume of 50 lots, being a Sub IB
+        $commissionPremiumSubIB = $calculator->calculateCommission(50, 'premium', false, true);
     }
 }

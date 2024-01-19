@@ -25,6 +25,7 @@ use Image;
 use DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -626,5 +627,40 @@ class Helper
         }
 
         return $jsonArray[$key];
+    }
+
+
+    const STANDARD_RATE = 8.0; // $ per lot
+    const PREMIUM_VIP_RATE = 4.5; // $ per lot
+    const DIRECT_IB_COMMISSION = 0.6; // 60%
+    const SUB_IB_COMMISSION = 0.4; // 40%
+
+    public function calculateCommission($tradingVolume, $accountType, $isDirectIB, $isSubIB)
+    {
+        $commissionRate = $this->getCommissionRate($accountType);
+
+        $commission = $tradingVolume * $commissionRate;
+
+        if ($isDirectIB) {
+            $commission *= self::DIRECT_IB_COMMISSION;
+        } elseif ($isSubIB) {
+            $commission *= self::SUB_IB_COMMISSION;
+        }
+
+        return $commission;
+    }
+
+    private function getCommissionRate($accountType)
+    {
+        switch ($accountType) {
+            case 'standard':
+                return self::STANDARD_RATE;
+            case 'premium':
+            case 'vip':
+                return self::PREMIUM_VIP_RATE;
+                // Add more cases if there are other account types
+            default:
+                throw new InvalidArgumentException('Invalid account type');
+        }
     }
 }

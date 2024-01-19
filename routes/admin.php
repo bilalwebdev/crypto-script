@@ -311,7 +311,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('withdarw-report/{user?}', [LogController::class, 'withdarawReport'])->name('withdraw.report');
         Route::get('transfer/log', [LogController::class, 'transferLog'])->name('transfer.report');
         Route::get('commision/{user?}', [LogController::class, 'Commision'])->name('commision');
-        Route::get('commision-setting', [LogController::class, 'commisionSetting'])->name('commision-setting');
+        Route::get('commision-setting/{id?}', [LogController::class, 'commisionSetting'])->name('commision-setting');
         Route::post('commision-save', [LogController::class, 'commisionSave'])->name('commision-save');
         Route::get('trade-log/{user?}', [LogController::class, 'tradeLog'])->name('trade');
     });
