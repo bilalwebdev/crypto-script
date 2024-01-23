@@ -37,7 +37,7 @@ class MT5Service
     {
        // $token = Cache::get('mt5_token');
 
-        $token = 'abcX2123nb6po!7';
+       $token = 'abcX2123nb6po!7';
 
         if (!$token) {
             $token = $this->connectToMT5();

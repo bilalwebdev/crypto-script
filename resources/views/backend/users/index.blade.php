@@ -1,6 +1,5 @@
 @extends('backend.layout.master')
 
-
 @section('element')
     <div class="row ">
         <div class="col-md-12">
@@ -77,6 +76,7 @@
                                     <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 @forelse($users as $key => $user)
                                     <tr onclick="rowSelected({{ $user->id }})" id="user_{{ $user->id }}">
@@ -89,7 +89,9 @@
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->created_at }}</td>
-                                        <td>{{ $user->address->country }}</td>
+
+                                        <td>{{ $user->address?->country }}</td>
+
                                         <td>
                                             @if ($user->status)
                                                 <span class='badge badge-success'>{{ __('Active') }}</span>
@@ -111,6 +113,7 @@
                                                 Delete</a>
                                         </td>
                                     </tr>
+
                                 @empty
                                     <tr>
                                         <td class="text-center" colspan="100%">{{ __('No Data Found') }}</td>

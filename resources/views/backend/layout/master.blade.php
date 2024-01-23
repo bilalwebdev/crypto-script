@@ -43,6 +43,7 @@
     @stack('external-style')
 
     <link href="{{ Config::cssLib('backend', 'main.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.10/css/dataTables.bootstrap4.min.css">
 
     @stack('style')
 
@@ -108,6 +109,9 @@
     @stack('external-script')
 
     <script src="{{ Config::jsLib('backend', 'custom.js') }}"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
 
     @stack('script')
     @include('backend.layout.alert')

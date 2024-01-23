@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <strong>
-                        IB Account no: 3360
+                        IB Account no: {{ auth()->user()->ib_no }}
                     </strong>
                 </div>
                 <div class="col-md-4">
@@ -62,22 +62,28 @@
                                 <li class="single-child root-child">
                                     <p>
                                         <img src="{{ Config::getFile('user', auth()->user()->image, true) }}">
-                                        <span class="mb-0">{{ auth()->user()->username }}</span>
+                                        <span class="mb-0">{{ auth()->user()->username }} - (IB Acc. No -
+                                            {{ auth()->user()->ib_no }})</span>
+
                                     </p>
                                     <ul class="sub-child-list step-2">
                                         @foreach ($reference as $user)
                                             <li class="single-child">
                                                 <p>
                                                     <img src="{{ Config::getFile('user', $user->image, true) }}">
-                                                    <span class="mb-0">{{ $user->username }}</span>
+                                                    <span class="mb-0">{{ $user->username }} - (IB Acc. No -
+                                                        {{ $user->ib_no }})</span>
+
                                                 </p>
 
                                                 <ul class="sub-child-list step-3">
                                                     @foreach ($user->refferals as $ref)
                                                         <li class="single-child">
                                                             <p>
-                                                                <img src="{{ Config::getFile('user', $ref->image, true) }}">
-                                                                <span class="mb-0">{{ $ref->username }}</span>
+                                                                <img
+                                                                    src="{{ Config::getFile('user', $ref->image, true) }}">
+                                                                <span class="mb-0">{{ $ref->username }} - (IB Acc. No -
+                                                                    {{ $ref->ib_no }})</span>
                                                             </p>
 
                                                             <ul class="sub-child-list step-4">
@@ -86,8 +92,10 @@
                                                                         <p>
                                                                             <img
                                                                                 src="{{ Config::getFile('user', $ref2->image, true) }}">
-                                                                            <span
-                                                                                class="mb-0">{{ $ref2->username }}</span>
+                                                                            <span class="mb-0">{{ $ref2->username }} -
+                                                                                (IB Acc. No -
+                                                                                {{ $ref2->ib_no }})
+                                                                            </span>
                                                                         </p>
                                                                     </li>
                                                                 @endforeach

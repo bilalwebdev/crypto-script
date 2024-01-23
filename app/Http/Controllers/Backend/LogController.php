@@ -248,38 +248,36 @@ class LogController extends Controller
 
 
         $data['title'] = 'Commision Setting';
+        
+        $data['commision'] = CommisionSetting::first();
+       
 
-        $data['com_settings'] = CommisionSetting::latest()->get();
-
-        if ($request->id) {
-
-            $data['commision'] = CommisionSetting::find($request->id);
-        }
-
-        return view('backend.commision-setting', $data);
+        return view('backend.extra-modules.commision-setting', $data);
     }
 
     public function commisionSave(Request $request)
     {
 
-        $request->validate([
-            'commision_rate' => 'required',
-            'acc_type' => 'required'
-        ]);
+        $data = CommisionSetting::first();
 
-        $commCheck = CommisionSetting::where('account_type', $request->acc_type)->first();
-
-        if ($commCheck) {
-            $commCheck->update([
-                'commision_rate' => $request->commision_rate,
+        if($data){
+            $data->update([
+                'level_1_rate' => $request->level_1_rate,
+                'level_2_rate' => $request->level_2_rate,
+                'level_3_rate' => $request->level_3_rate,
+                'level_4_rate' => $request->level_4_rate,
+                'level_5_rate' => $request->level_5_rate,
             ]);
-            return redirect('/admin/commision-setting')->with('success', 'Commision setting saved!');
+        }else{
+            CommisionSetting::create([
+                'level_1_rate' => $request->level_1_rate,
+                'level_2_rate' => $request->level_2_rate,
+                'level_3_rate' => $request->level_3_rate,
+                'level_4_rate' => $request->level_4_rate,
+                'level_5_rate' => $request->level_5_rate,
+            ]);
+    
         }
-        CommisionSetting::create([
-            'commision_rate' => $request->commision_rate,
-            'account_type' => $request->acc_type
-        ]);
-
 
         return redirect()->back()->with('success', 'Commision setting saved!');
     }
@@ -294,5 +292,23 @@ class LogController extends Controller
 
         // Calculate commission for a premium account with trading volume of 50 lots, being a Sub IB
         $commissionPremiumSubIB = $calculator->calculateCommission(50, 'premium', false, true);
+    }
+
+
+    public function upline(){
+
+        $data['title'] = 'MLM Upline';
+        $data['users'] = User::where('is_kyc_verified','=',1)->get();
+       // dd($data);
+        return view('backend.extra-modules.upline', $data);
+    }
+
+    public function uplineCheck($id){
+        $data['title'] = 'Upline Detail';
+        // dd($data);
+
+        $data['user'] = User::find($id);
+       
+         return view('backend.extra-modules.check-upline', $data);
     }
 }

@@ -39,6 +39,7 @@ class ManageUserController extends Controller
     public function index(Request $request)
     {
 
+        
         $data['title'] = 'Wallets/Leads';
 
         $admin  = Admin::find(session()->get('user_id'));
@@ -48,6 +49,7 @@ class ManageUserController extends Controller
 
         if ($admin->type == 'super') {
             $users = User::query();
+            
         } else {
             $users = User::leftJoin('admin_users', 'users.id', '=', 'admin_users.user_id')
                 ->where('admin_users.admin_id', '=', session()->get('user_id'))
@@ -63,17 +65,22 @@ class ManageUserController extends Controller
             });
         }
 
+        
+
         if ($request->user_status) {
             $status = $request->user_status === 'user_active' ? 1 : 0;
             $users->where('status', $status);
         }
 
-
+      
 
 
         $data['users'] = $users->with('payment')->latest()->paginate(Helper::pagination());
+       
         //  dd($data);
         $data['admins'] = Admin::whereNull('type')->select('id', 'username')->pluck('username', 'id')->toArray();
+
+      
 
 
         return view('backend.users.index')->with($data);
