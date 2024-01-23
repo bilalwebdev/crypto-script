@@ -15,82 +15,105 @@ class JobController extends Controller
         $commision = CommisionSetting::first();
 
         $allUsers = User::where('status', 1)
-            ->where('is_kyc_verified', 1)
+            // ->where('is_kyc_verified', 1)
             ->get();
+
 
         foreach ($allUsers as $user) {
 
-            $reffers =  $user->refferals;
 
-            $finalAmount = $user->commision;
+            $userLts = self::checkLots($user->id);
 
-            if (isset($reffers)) {
+            if ($userLts) {
 
-                $sponsor = $user->refferedBy;
+                $lv1User =  $user->refferedBy;
 
+                if (isset($lv1User)) {
 
-                foreach ($reffers as $key => $ref) {
+                    $lvl1Lots = self::checkLots($user->id);
 
-                    $commissionLevel = $key + 1; // Adjust this based on your user model structure
+                    if (isset($lvl1Lots)) {
+                        $commissionRate = $commision->level_1_rate;
+                        $finalAmount1 = $lv1User->commision + ($commissionRate * $lvl1Lots);
+                        self::updateCommision($user->id, $finalAmount1);
+                    }
+                }
 
-                    $userAllDeposits = Deposit::where('user_id', $ref->id)->sum('amount');
+                $lv2User = $lv1User?->refferedBy;
 
-                    $userLots = intval($userAllDeposits / 1000);
+                if (isset($lv2User)) {
+                    $lvl2Lots = self::checkLots($lv1User->id);
+                    if (isset($lvl2Lots)) {
+                        $commissionRate = $commision->level_2_rate;
+                        $finalAmount2 = $lv2User->commision + ($commissionRate * $lvl2Lots);
 
-
-                    if (isset($userLots)) {
-
-
-
-                        if ($commissionLevel == 1) {
-                            $commissionRate = $commision->level_1_rate;
-
-                            $finalAmount = $finalAmount + ($commissionRate * $userLots);
-                        }
-
-
-                        if ($commissionLevel == 2) {
-                            $commissionRate = $commision->level_2_rate;
-
-                            $finalAmount = $finalAmount + ($commissionRate * $userLots);
-                        }
-
-
-                        if ($commissionLevel == 3) {
-                            $commissionRate = $commision->level_3_rate;
-
-                            $finalAmount = $finalAmount + ($commissionRate * $userLots);
-                        }
-
-                        if ($commissionLevel == 4) {
-                            $commissionRate = $commision->level_4_rate;
-
-                            $finalAmount = $finalAmount + ($commissionRate * $userLots);
-                        }
-
-                        if ($commissionLevel == 5) {
-                            $commissionRate = $commision->level_5_rate;
-
-                            $finalAmount = $finalAmount + ($commissionRate * $userLots);
-                        }
+                        self::updateCommision($lv2User->id, $finalAmount2);
                     }
                 }
 
 
-                $user->update([
-                    'commision' => $finalAmount,
-                ]);
+                $lv3User = $lv2User?->refferedBy;
+
+                if (isset($lv3User)) {
+
+                    $lvl3Lots = self::checkLots($lv2User->id);
+
+                    if (isset($lvl3Lots)) {
+
+                        $commissionRate = $commision->level_3_rate;
+                        $finalAmount3 = $lv3User->commision + ($commissionRate * $lvl3Lots);
+
+                        self::updateCommision($lv3User->id, $finalAmount3);
+                    }
+                }
+
+
+                $lv4User = $lv3User?->refferedBy;
+                if (isset($lv4User)) {
+                    $lvl4Lots = self::checkLots($lv3User->id);
+
+                    if (isset($lvl2Lots)) {
+
+                        $commissionRate = $commision->level_4_rate;
+                        $finalAmount4 = $lv4User->commision + ($commissionRate * $lvl4Lots);
+
+                        self::updateCommision($lv4User->id, $finalAmount4);
+                    }
+                }
+
+                if (isset($lv4User)) {
+                    $lv5User = $lv4User?->refferedBy;
+                    $lvl5Lots = self::checkLots($lv4User->id);
+
+                    if (isset($lvl5Lots)) {
+
+                        $commissionRate = $commision->level_5_rate;
+                        $finalAmount5 = $lv5User->commision + ($commissionRate * $lvl5Lots);
+
+                        self::updateCommision($lv5User->id, $finalAmount5);
+                    }
+                }
             }
         }
+        return 'commision done';
+    }
+    public function updateCommision($user_id, $amount)
+    {
+
+        $user = User::find($user_id);
+
+        $user->update([
+            'commision' => $amount,
+        ]);
     }
 
-    // public function updateCommision($user_id, $amount)
-    // {
+    public function checkLots($user_id)
+    {
+        $userAllDeposits = Deposit::where('user_id', $user_id)->sum('amount');
 
-    //     $user = User::find($user_id);
+        $userLots = intval($userAllDeposits / 1000);
 
-    //     $user->update([
-    //         'commision' => $amount,
-    //     ]);
-    // }
+
+        return $userLots;
+    }
 }
