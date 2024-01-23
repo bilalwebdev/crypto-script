@@ -312,6 +312,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('transfer/log', [LogController::class, 'transferLog'])->name('transfer.report');
         Route::get('commision/{user?}', [LogController::class, 'Commision'])->name('commision');
         Route::get('commision-setting/{id?}', [LogController::class, 'commisionSetting'])->name('commision-setting');
+        Route::get('/upline', [LogController::class, 'upline'])->name('upline');
+        Route::get('/upline/check/{id}', [LogController::class, 'uplineCheck'])->name('upline.check');
         Route::post('commision-save', [LogController::class, 'commisionSave'])->name('commision-save');
         Route::get('trade-log/{user?}', [LogController::class, 'tradeLog'])->name('trade');
     });

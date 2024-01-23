@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Helpers\Helper\Helper;
+use App\Models\Account;
 use App\Models\Configuration;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -31,14 +32,22 @@ class UserRegistration
         event(new Registered($user = $this->create($request, $signupBonus, $referid)));
 
 
+        $acc = Account::create([
+            'user_id' => $user->id,
+            'login' => $user->ib_no,
+            'account_type' => 5,
+            'currency' => 'usd',
+        ]);
 
-
+        dd($acc);
 
         Auth::login($user);
 
         if ($request->reffered_by) {
 
-            Helper::referMoney($user->id, $referUser, 'interest', 0);
+            // Helper::referMoney($user->id, $referUser, 'interest', 0);
+
+            
         }
 
 
@@ -48,22 +57,17 @@ class UserRegistration
 
     public function create($request, $signupBonus, $referid)
     {
-
+    
         // write here register MT5 account
-
-        return User::create([
+     return  User::create([
             'balance' => $signupBonus,
             'username' => $request->username,
             'email' => $request->email,
             'phone' => $request->phone,
-            'status' => 1,
+            'ib_no' => User::generateFourDigitId(),
             'password' => bcrypt($request->password),
+            'status' => 1,
             'ref_id' => $referid ?? ''
         ]);
-
-       
-
-
-
     }
 }

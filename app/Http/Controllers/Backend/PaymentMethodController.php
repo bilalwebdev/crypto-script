@@ -26,15 +26,22 @@ class PaymentMethodController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
+
+     
+        $request->validate([
             'name' => 'required|max:255|unique:payment_methods,name',
             'wallet_address' => 'required',
             'min_amount' => 'required',
-            'user_id' => Auth::id(),
-            'status' => 'required|in:0,1'
         ]);
 
-        PaymentMethod::create($data);
+
+        PaymentMethod::create([
+            'name' => $request->name,
+            'wallet_address' => $request->wallet_address,
+            'min_amount' => $request->min_amount,
+            'user_id' => session()->get('user_id'),
+            'status' => $request->status
+        ]);
 
         return redirect()->back()->with('success', 'Payment method created successfully');
     }
@@ -48,11 +55,16 @@ class PaymentMethodController extends Controller
             'name' => 'required|max:255|unique:payment_methods,name,' . $method->id,
             'wallet_address' => 'required',
             'min_amount' => 'required',
-            'user_id' => Auth::id(),
-            'status' => 'required|in:0,1'
+           
         ]);
 
-        $method->update($data);
+        $method->update([
+            'name' => $request->name,
+            'wallet_address' => $request->wallet_address,
+            'min_amount' => $request->min_amount,
+            'user_id' => session()->get('user_id'),
+            'status' => $request->status
+        ]);
 
         return redirect()->back()->with('success', 'Payment method updated successfully');
     }

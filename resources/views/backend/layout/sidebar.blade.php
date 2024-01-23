@@ -126,10 +126,11 @@
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i data-feather="settings"></i><span
                         class="nav-text">{{ __('Extra Modules') }}</span></a>
                 <ul aria-expanded="false">
-                    <li>
-                        <a href="{{ route('admin.commision-setting') }}" aria-expanded="false">
 
-                            <span class="nav-text">{{ __('Commision Settings') }}</span>
+                    <li>
+                        <a href="{{ route('admin.upline') }}" aria-expanded="false">
+
+                            <span class="nav-text">{{ __('upline') }}</span>
                         </a>
                     </li>
 
@@ -245,6 +246,12 @@
                                     class="nav-text">{{ __('Payment Methods') }}</span></a>
                         </li>
                     @endif
+                    <li>
+                        <a href="{{ route('admin.commision-setting') }}" aria-expanded="false">
+
+                            <span class="nav-text">{{ __('Commision Settings') }}</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 

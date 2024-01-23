@@ -147,7 +147,7 @@
                                 <li class="list-group-item d-flex justify-content-between">
 
                                     <span>{{ __('Country') }}</span>
-                                    <span>{{ $user->address->country }}</span>
+                                    <span>{{ $user->address?->country }}</span>
 
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between">
@@ -270,7 +270,7 @@
                                                     <td> <span>
                                                             {{ $manual->payment->name }}
                                                         </span></td>
-                                                    <td> <span>
+                                                    <td onclick="openModal({{ $manual->id }})"> <span>
                                                             {{ $manual->login }}
                                                         </span></td>
                                                     <td> <span>
@@ -438,6 +438,94 @@
             </form>
         </div>
     </div>
+    <div class="modal fade" id="trade_history" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:700px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"><strong>Trading History</strong></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div><strong>OPEN TRADES</strong></div>
+                    <br>
+                    <table class="table  table-striped datatable" id="table-1">
+                        <thead>
+                            <tr>
+                                <td align="left">Order no</td>
+                                <td>Order type</td>
+                                <td>Volume</td>
+                                <td>Symbol</td>
+
+
+                                <td>S/L</td>
+                                <td>T/P</td>
+                                <td>Date</td>
+
+                                <td>Swap</td>
+                                <td>Profit</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr align="right">
+                                <td colspan="12"><b>
+                                    </b></td>
+                            </tr>
+                        </tbody>
+                    </table><br>
+                    <div><strong>History TRADES</strong></div>
+                    <table id="example" class="table  table-striped datatable" style="width:100%">
+
+                        <thead>
+                            <tr style="background-color:white">
+                                <td style="float:right">Order</td>
+                                <td>Type</td>
+                                <td style="float:right">Lots</td>
+                                <td>Symbol</td>
+                                <td>Open Time</td>
+                                <td>Price</td>
+                                <td>S/L</td>
+                                <td>T/P</td>
+                                <td>Close Time</td>
+                                <td style="float:right">Swap</td>
+                                <td>Profit</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="right">294948</td>
+                                <td>Balance</td>
+                                <td align="right"></td>
+                                <td></td>
+                                <td>04 Dec 2023 19:51:37</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td align="right"></td>
+                                <td align="right">100</td>
+                            </tr>
+                            <tr>
+                                <td align="right">294973</td>
+                                <td>Balance</td>
+                                <td align="right"></td>
+                                <td></td>
+                                <td>04 Dec 2023 23:38:30</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td align="right"></td>
+                                <td align="right">11</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <style>
         a:hover,
         a:focus {
@@ -547,6 +635,14 @@
                 modal.find('form').attr('action', $(this).data('url'));
                 modal.modal('show');
             })
+
+            function openModal(id) {
+                alert(id);
+                const modal = $('#trade_history');
+
+                modal.find('form').attr('action', $(this).data('url'));
+                modal.modal('show');
+            }
         </script>
     @endpush
 @endsection

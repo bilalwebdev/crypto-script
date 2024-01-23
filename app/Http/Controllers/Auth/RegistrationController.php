@@ -29,6 +29,9 @@ class RegistrationController extends Controller
 
         $isSuccess = $this->register->register($request);
 
+     
+
+
         if($isSuccess['type'] === 'error'){
             return redirect()->back()->with('error', $isSuccess['message']);
         }

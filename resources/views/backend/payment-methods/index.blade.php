@@ -204,9 +204,9 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger"> <i class="fa fa-trash"></i>
+                        <button type="submit" class="btn btn-sm btn-danger"> <i class="fa fa-trash"></i>
                             {{ __('Delete') }}</button>
-                        <button type="button" class="btn btn-secondary"
+                        <button type="button" class="btn btn-sm btn-secondary"
                             data-dismiss="modal">{{ __('Close') }}</button>
                     </div>
                 </div>

@@ -12,7 +12,18 @@ class User extends Authenticatable
 
     protected $casts = [
         'address' => 'object',
-        'kyc_information' => 'array'
+        'kyc_information' => 'array',
+    ];
+
+    protected $fillable = [ 
+        'balance',
+        'username',
+        'email',
+        'phone',
+        'ib_no',
+        'password',
+        'status',
+        'ref_id',
     ];
 
 
@@ -109,5 +120,11 @@ class User extends Authenticatable
     public function payment()
     {
         return $this->belongsTo(UserPaymentMethod::class, 'user_id');
+    }
+
+
+    public static function generateFourDigitId()
+    {
+        return str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
     }
 }
