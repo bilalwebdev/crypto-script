@@ -583,8 +583,6 @@ class Helper
             $html .= $nonDropdownsBuilder;
         }
 
-
-
         foreach ($dropdowns as $drop) {
             $route = route('pages', $drop->slug);
             $dropdownsBuilder .= "<li><a class='dropdown-item' href='" . $route . "'>" . __($drop->name) . "</a></li>";

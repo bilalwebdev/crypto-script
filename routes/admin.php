@@ -35,8 +35,7 @@ use App\Http\Controllers\Backend\{
     TransactionController,
     ManageKycController,
 };
-
-
+use App\Http\Controllers\JobController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -333,4 +332,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Route::get('maintanace-mode', [DashboardController::class, 'maintanance'])->name('maintanace');
 
     Route::get('cacheclear', [ConfigurationController::class, 'cacheClear'])->name('general.cacheclear');
+
+
+
+    Route::get('commision-calculate', [JobController::class, 'commisionCalculate']);
 });

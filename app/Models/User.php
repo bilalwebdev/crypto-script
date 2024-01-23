@@ -73,10 +73,10 @@ class User extends Authenticatable
         return $this->belongsTo(User::class, 'ref_id');
     }
 
-    public function reffer()
-    {
-        return $this->hasMany(User::class, 'ref_id');
-    }
+    // public function reffer()
+    // {
+    //     return $this->hasMany(User::class, 'ref_id');
+    // }
 
     public function interest()
     {
