@@ -12,6 +12,8 @@ class JobController extends Controller
 
     public function commisionCalculate()
     {
+        $sponsors = [];
+
         $commision = CommisionSetting::first();
 
         $allUsers = User::where('status', 1)
@@ -21,76 +23,28 @@ class JobController extends Controller
 
         foreach ($allUsers as $user) {
 
+            $lv1User =  $user->refferedBy;
 
-            $userLts = self::checkLots($user->id);
+            if (isset($lv1User)) {
 
-            if ($userLts) {
 
-                $lv1User =  $user->refferedBy;
 
-                if (isset($lv1User)) {
-
-                    $lvl1Lots = self::checkLots($user->id);
-
-                    if (isset($lvl1Lots)) {
-                        $commissionRate = $commision->level_1_rate;
-                        $finalAmount1 = $lv1User->commision + ($commissionRate * $lvl1Lots);
-                        self::updateCommision($user->id, $finalAmount1);
-                    }
-                }
-
+                // dd($lv1User);
+                $this->processCommissionLevel($lv1User, $user, $commision, 1);
                 $lv2User = $lv1User?->refferedBy;
-
                 if (isset($lv2User)) {
-                    $lvl2Lots = self::checkLots($lv1User->id);
-                    if (isset($lvl2Lots)) {
-                        $commissionRate = $commision->level_2_rate;
-                        $finalAmount2 = $lv2User->commision + ($commissionRate * $lvl2Lots);
-
-                        self::updateCommision($lv2User->id, $finalAmount2);
-                    }
-                }
-
-
-                $lv3User = $lv2User?->refferedBy;
-
-                if (isset($lv3User)) {
-
-                    $lvl3Lots = self::checkLots($lv2User->id);
-
-                    if (isset($lvl3Lots)) {
-
-                        $commissionRate = $commision->level_3_rate;
-                        $finalAmount3 = $lv3User->commision + ($commissionRate * $lvl3Lots);
-
-                        self::updateCommision($lv3User->id, $finalAmount3);
-                    }
-                }
-
-
-                $lv4User = $lv3User?->refferedBy;
-                if (isset($lv4User)) {
-                    $lvl4Lots = self::checkLots($lv3User->id);
-
-                    if (isset($lvl2Lots)) {
-
-                        $commissionRate = $commision->level_4_rate;
-                        $finalAmount4 = $lv4User->commision + ($commissionRate * $lvl4Lots);
-
-                        self::updateCommision($lv4User->id, $finalAmount4);
-                    }
-                }
-
-                if (isset($lv4User)) {
-                    $lv5User = $lv4User?->refferedBy;
-                    $lvl5Lots = self::checkLots($lv4User->id);
-
-                    if (isset($lvl5Lots)) {
-
-                        $commissionRate = $commision->level_5_rate;
-                        $finalAmount5 = $lv5User->commision + ($commissionRate * $lvl5Lots);
-
-                        self::updateCommision($lv5User->id, $finalAmount5);
+                    $this->processCommissionLevel($lv2User, $user, $commision, 2);
+                    $lv3User = $lv2User?->refferedBy;
+                    if (isset($lv3User)) {
+                        $this->processCommissionLevel($lv3User, $user, $commision, 3);
+                        $lv4User = $lv3User?->refferedBy;
+                        if (isset($lv4User)) {
+                            $this->processCommissionLevel($lv4User, $user, $commision, 4);
+                            $lv5User = $lv4User?->refferedBy;
+                        }
+                        if (isset($lv5User)) {
+                            $this->processCommissionLevel($lv5User, $user, $commision, 5);
+                        }
                     }
                 }
             }
@@ -115,5 +69,18 @@ class JobController extends Controller
 
 
         return $userLots;
+    }
+    private function processCommissionLevel($referrer, $currrentUser,  $commission, $level)
+    {
+        if ($referrer && ($lots = $this->checkLots($currrentUser->id)) !== null) {
+
+            $commissionRateKey = "level_{$level}_rate";
+
+            $commissionRate = $commission->$commissionRateKey;
+
+            $finalAmount = $referrer->commision + ($commissionRate * $lots);
+
+            $this->updateCommision($referrer->id, $finalAmount);
+        }
     }
 }

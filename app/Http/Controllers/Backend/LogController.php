@@ -248,9 +248,9 @@ class LogController extends Controller
 
 
         $data['title'] = 'Commision Setting';
-        
+
         $data['commision'] = CommisionSetting::first();
-       
+
 
         return view('backend.extra-modules.commision-setting', $data);
     }
@@ -260,7 +260,7 @@ class LogController extends Controller
 
         $data = CommisionSetting::first();
 
-        if($data){
+        if ($data) {
             $data->update([
                 'level_1_rate' => $request->level_1_rate,
                 'level_2_rate' => $request->level_2_rate,
@@ -268,7 +268,7 @@ class LogController extends Controller
                 'level_4_rate' => $request->level_4_rate,
                 'level_5_rate' => $request->level_5_rate,
             ]);
-        }else{
+        } else {
             CommisionSetting::create([
                 'level_1_rate' => $request->level_1_rate,
                 'level_2_rate' => $request->level_2_rate,
@@ -276,7 +276,6 @@ class LogController extends Controller
                 'level_4_rate' => $request->level_4_rate,
                 'level_5_rate' => $request->level_5_rate,
             ]);
-    
         }
 
         return redirect()->back()->with('success', 'Commision setting saved!');
@@ -295,20 +294,34 @@ class LogController extends Controller
     }
 
 
-    public function upline(){
+    public function upline()
+    {
 
         $data['title'] = 'MLM Upline';
-        $data['users'] = User::where('is_kyc_verified','=',1)->get();
-       // dd($data);
+        $data['users'] = User::where('is_kyc_verified', '=', 1)->get();
+        // dd($data);
         return view('backend.extra-modules.upline', $data);
     }
 
-    public function uplineCheck($id){
+    public function uplineCheck($id)
+    {
         $data['title'] = 'Upline Detail';
         // dd($data);
 
-        $data['user'] = User::find($id);
-       
-         return view('backend.extra-modules.check-upline', $data);
+        $user = User::find($id);
+        $uplineUsers = $this->getUplineUsers($user);
+
+        return view('backend.extra-modules.check-upline', compact('user' . 'uplineUsers'));
+    }
+
+
+    private function getUplineUsers($user, $uplineUsers = [])
+    {
+        if ($user->refferedBy) {
+            $uplineUsers[] = $user->refferedBy;
+            return $this->getUplineUsers($user->refferedBy, $uplineUsers);
+        }
+
+        return $uplineUsers;
     }
 }
